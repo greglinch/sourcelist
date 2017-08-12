@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
 from django.db import models
-from sources.choices import PERSON_CHOICES, PREFIX_CHOICES
+from django.contrib.auth.models import User
+from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES
+
 
 class BasicInfo(models.Model):
     """ abstract base class used across models """
     created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-    systemupdated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name="Updated in system", help_text="This is when the item was updated in the system.") 
+    updated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name="Updated in system", help_text="This is when the item was updated in the system.")
 
     class Meta:
         abstract = True
@@ -92,6 +94,18 @@ class Person(BasicInfo):
         verbose_name_plural = "People"
 
 
+class Rating(BasicInfo):
+    """ a Journalist can rate a Source each time """
+    rating = models.TextField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
+
+    class Meta:
+        ordering = ['updated']
+
+
 # class Journalist(Person):
 #     """ people who use the Sources """
 
@@ -101,7 +115,7 @@ class Person(BasicInfo):
 
 # class Source(Person):
 #     """ sources for Journalists """
-    
+
 
 #     def __unicode__(self):
 #         return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
