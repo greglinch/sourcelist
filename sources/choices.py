@@ -17,6 +17,7 @@ RATING_CHOICES = (
 	('6', 'Within 6 hours'),
 	('12', 'Within 12 hours'),
 	('24', 'Within 24 hours'),
-	('Y', 'Greater than 24 hours'),
-	('N', 'No response')
+	('100', 'Greater than 24 hours'),
+	('1000', 'No response')
 )
+
