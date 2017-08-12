@@ -1,4 +1,4 @@
 db.sqlite3
 *.pyc
-settings_private
+settings_private.py*
 sources/migrations/*
