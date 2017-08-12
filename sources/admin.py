@@ -21,6 +21,16 @@ class PersonAdmin(admin.ModelAdmin):
     readonly_fields = ['rating']
     # exclude  = ['']
 
+    ## THIS ALSO NEEDS TO SUPPORT if email is user's email
+    # def get_queryset(self, request):
+    # """ only show people added by the current user """
+    #     qs = super(DocumentAdmin, self).get_queryset(request)
+    #     if request.user.is_superuser:
+    #         return qs
+    #     else:
+    #         return qs.filter(user=request.user)
+    #         # return qs.filter(newsroom=request.user.documentcloudcredentials.newsroom)
+
 
 class LocationAdmin(admin.ModelAdmin):
     fields = ['city', 'state', 'country', 'timezone']
