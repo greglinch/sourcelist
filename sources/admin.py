@@ -21,7 +21,9 @@ class PersonAdmin(admin.ModelAdmin):
     readonly_fields = ['rating']
     # exclude  = ['']
 
-    ## THIS ALSO NEEDS TO SUPPORT if email is user's email
+    ## THIS ALSO NEEDS TO SUPPORT 
+        # if user.email is Person's email
+        # if person is approved
     # def get_queryset(self, request):
     # """ only show people added by the current user """
     #     qs = super(DocumentAdmin, self).get_queryset(request)
