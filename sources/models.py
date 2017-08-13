@@ -43,7 +43,8 @@ class Organization(BasicInfo):
 
 class Person(BasicInfo):
     """ class to be inherited by Sources and Journalists """
-    approved = models.BooleanField(default=False)
+    approved_by_user = models.BooleanField(default=False)
+    approved_by_admin = models.BooleanField(default=False)
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True)
     email_address = models.EmailField(max_length=254)
