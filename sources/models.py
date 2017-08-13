@@ -67,6 +67,8 @@ class Person(BasicInfo):
     # underrepresented = models.BooleanField(default=False, verbose_name="Do you identify as a member of an underrepresented group?")
     website = models.URLField(max_length=255, null=True, blank=True)
     # woman = models.BooleanField(default=False, verbose_name="Do you identify as a woman?")
+    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
 
     def first_last_name(self):
         if self.middle_name:
@@ -101,7 +103,8 @@ class Rating(BasicInfo):
     """ a Journalist can rate a Source each time """
     # notes = models.TextField(null=True, blank=True, help_text='Optional')
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
-    user = models.ForeignKey(User)
+    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
 
     def __unicode__(self):
         return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
