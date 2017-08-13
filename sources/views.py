@@ -1,5 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.template.context import RequestContext
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the sources index.")
+    context = {
+        'request': request,
+        'user': request.user
+    }
+    return render(request, 'index.html', context)
