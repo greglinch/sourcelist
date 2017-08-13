@@ -59,7 +59,7 @@ class Person(BasicInfo):
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, help_text='Ideally a cell phone')
     phone_number_secondary = models.CharField(max_length=15, null=True, blank=True)
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
-    rating = models.PositiveIntegerField(null=True, blank=True)
+    rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False)
     state = models.CharField(max_length=255, null=True, blank=True)

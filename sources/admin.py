@@ -29,7 +29,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'underrepresented', 'website'] # 'location', 
     filter_horizontal = ['expertise', 'organization', 'language']
-    readonly_fields = ['rating']
+    readonly_fields = ['rating_avg']
     # exclude  = ['']
 
     ## THIS ALSO NEEDS TO SUPPORT 
