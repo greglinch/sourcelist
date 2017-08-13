@@ -35,7 +35,7 @@ class Organization(BasicInfo):
     """ for Sources and Journalists """
     name = models.CharField(max_length=255, null=True, blank=True)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    website = models.URLField(max_length=200, null=True, blank=True)
+    # website = models.URLField(max_length=200, null=True, blank=True)
 
     def __unicode__(self):
         return '%s' % (self.name)
