@@ -1,4 +1,7 @@
 db.sqlite3
 *.pyc
-settings_private.py*
+*.pyo
+.DS_Store
+settings_private*
 sources/migrations/*
+static/
