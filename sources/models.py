@@ -143,14 +143,14 @@ class Rating(BasicInfo):
 #     def __unicode__(self):
 #         return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
 
-# class Source(Person):
-#     """ sources for Journalists """
+class Source(Person):
+    """ sources for Journalists """
 
-#     class Meta:
-#         proxy = True
+    class Meta:
+        proxy = True
 
-#     def __unicode__(self):
-#         return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
+    def __unicode__(self):
+        return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
 
 
 
