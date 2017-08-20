@@ -15,6 +15,8 @@ def email_user(email_address, status):
     status = person.status
     status_type = status.split('_')[0]
     
+    message = ''
+
     if status_type == 'added':
         subject_title = 'You have been added as a source by '
         if status == 'added_by_self':
@@ -24,8 +26,6 @@ def email_user(email_address, status):
         elif status == 'added_by_admin':
             subject_title += 'an admin'
 
-        subject = '[{}] {}'.format(PROJECT_NAME, subject_title)
-        message = ''
         html_message = 'To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br><br> {confirm_url} <br><br> \
             {person_info} <br><br> \
             If the information if incorrect, please edit your entry: <br><br> {person_url} <br><br>View the database:<br><br> {site_url}\
@@ -36,6 +36,11 @@ def email_user(email_address, status):
                 person_url=person_url,
                 site_url=SITE_URL
             )
+    # elif status_type == 'approved':
+    #     subject_title = 'You have been approved as a source!'
+    #     html_message = 'Congratulations! Your entry has been approved and now be viewed or updated by you here: {}'.format(person_url)
+
+    subject = '[{}] {}'.format(PROJECT_NAME, subject_title)
     sender = EMAIL_SENDER
     recipients = [email_address]
     # reply_email = sender
