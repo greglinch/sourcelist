@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES
 
 
@@ -101,16 +104,18 @@ class Person(BasicInfo):
         verbose_name_plural = "People"
 
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
 def send_user_added_email(sender, instance, **kwargs):
     ## trigger mgmt cmd to notify user they've been created and by whom
-    from django.core.management import call_command
-
     email_address = instance.email_address
-    call_command('email_user_added', email_address, status)
+    status = instance.status
+
+    status = instance.status
+    status_type = status.split('_')[0]
+
+    if instance.role == 'source' and status_type == 'added':
+        call_command('set_related_user', email_address)
+        call_command('email_user_added', email_address, status)
 
 
 class Rating(BasicInfo):
