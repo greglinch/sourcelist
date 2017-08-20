@@ -4,7 +4,7 @@ from sources.models import Person
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
 
-def email_add_user(email_address, status):
+def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
     person_url = SITE_URL + '/admin/sources/person/{}/change/'.format(person_id) ## use url reverse instead?
@@ -12,25 +12,30 @@ def email_add_user(email_address, status):
 
     confirm_url = 'confirm url here' ## UPDATE
 
-    subject_title = 'You have been added as a source by '
-    if status == 'added_by_self':
-        subject_title += 'yourself'
-    elif status == 'added_by_other':
-        subject_title += 'someone else'
-    elif status == 'added_by_admin':
-        subject_title += 'an admin'
+    status = person.status
+    status_type = status.split('_')[0]
+    
+    if status_type == 'added':
+        subject_title = 'You have been added as a source by '
+        if status == 'added_by_self':
+            subject_title += 'yourself'
+        elif status == 'added_by_other':
+            subject_title += 'someone else'
+        elif status == 'added_by_admin':
+            subject_title += 'an admin'
 
-    subject = '[{}] {}'.format(PROJECT_NAME, subject_title)
-    message = format_html('To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br> {confirm_url} <br> \
-        {person_info} <br> \
-        If the information if incorrect, please edit your entry: <br> {person_url} <br>View the database:<br> {site_url}\
-        '.format(
-            project_name=PROJECT_NAME,
-            confirm_url=confirm_url,
-            person_info=person_info,
-            person_url=person_url,
-            site_url=SITE_URL
-        ))
+        subject = '[{}] {}'.format(PROJECT_NAME, subject_title)
+        message = ''
+        html_message = 'To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br><br> {confirm_url} <br><br> \
+            {person_info} <br><br> \
+            If the information if incorrect, please edit your entry: <br><br> {person_url} <br><br>View the database:<br><br> {site_url}\
+            '.format(
+                project_name=PROJECT_NAME,
+                confirm_url=confirm_url,
+                person_info=person_info,
+                person_url=person_url,
+                site_url=SITE_URL
+            )
     sender = EMAIL_SENDER
     recipients = [email_address]
     # reply_email = sender
@@ -41,6 +46,7 @@ def email_add_user(email_address, status):
         sender,
         recipients,
         # reply_to=[reply_email],
+        html_message=html_message,
         fail_silently=False,
     )
 
@@ -73,5 +79,5 @@ class Command(BaseCommand):
         status = options['status']
 
         ## call the function
-        email_add_user(email_address, status)
+        email_user(email_address, status)
 
