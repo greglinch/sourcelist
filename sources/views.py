@@ -20,6 +20,8 @@ def submit(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # form.cleaned_data
+            person = form.save(commit=False)
+            person.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/thanks/')
 
