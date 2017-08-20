@@ -1,0 +1,27 @@
+<!-- <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" /> -->
+<style>
+
+	input,
+	label {
+		display: block;
+	}
+
+	form {
+		/*width: 500px;*/
+		margin: 0 auto;
+	}
+	
+	.helptext {
+		font-size: 60%;
+	}
+
+/*	:required {
+		font-weight: bold;
+	}*/
+
+</style>
+<form action="thank-you" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
