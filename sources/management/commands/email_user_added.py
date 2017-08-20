@@ -1,24 +1,36 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 from sources.models import Person
-from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER
+from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
 
 def email_add_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
-    person_url = '/admin/sources/person/{}/change/'.format(person_id)
+    person_url = SITE_URL + '/admin/sources/person/{}/change/'.format(person_id) ## use url reverse instead?
+    person_info = 'this is where the info will go' ## UPDATE
+
+    confirm_url = 'confirm url here' ## UPDATE
 
     subject_title = 'You have been added as a source by '
-    if status = 'submitted_by_self':
+    if status == 'added_by_self':
         subject_title += 'yourself'
-    elif status = 'submitted_by_other':
+    elif status == 'added_by_other':
         subject_title += 'someone else'
-    elif status = 'submitted_by_admin':
+    elif status == 'added_by_admin':
         subject_title += 'an admin'
 
     subject = '[{}] {}'.format(PROJECT_NAME, subject_title)
-    message = 'Please confirm your entry: <link for user {}>'.format(person_url)
+    message = format_html('To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br> {confirm_url} <br> \
+        {person_info} <br> \
+        If the information if incorrect, please edit your entry: <br> {person_url} <br>View the database:<br> {site_url}\
+        '.format(
+            project_name=PROJECT_NAME,
+            confirm_url=confirm_url,
+            person_info=person_info,
+            person_url=person_url,
+            site_url=SITE_URL
+        ))
     sender = EMAIL_SENDER
     recipients = [email_address]
     # reply_email = sender
@@ -39,7 +51,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         ## required
         parser.add_argument('email', 
-            help='Specify the user emamil.'
+            help='Specify the user email.'
         )
 
         parser.add_argument('status',
