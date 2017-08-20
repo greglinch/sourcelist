@@ -63,6 +63,7 @@ class Person(BasicInfo):
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False)
     state = models.CharField(max_length=255, null=True, blank=True)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name="Time zone offset") ## lookup based on city/state/county combo?
     # underrepresented = models.BooleanField(default=False, verbose_name="Do you identify as a member of an underrepresented group?")
@@ -98,6 +99,18 @@ class Person(BasicInfo):
 
     class Meta:
         verbose_name_plural = "People"
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
+def send_user_added_email(sender, instance, **kwargs):
+    ## trigger mgmt cmd to notify user they've been created and by whom
+    from django.core.management import call_command
+
+    email_address = instance.email_address
+    call_command('email_user_added', email_address, status)
 
 
 class Rating(BasicInfo):
