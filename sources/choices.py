@@ -21,6 +21,13 @@ RATING_CHOICES = (
     ('1000', 'No response')
 )
 
+STATUS_CHOICES = (
+    ('submitted_by_self', 'Submitted by self'),
+    ('submitted_by_other', 'Submitted by other'),
+    ('approved_by_user', 'Approved by user'),
+    ('approved_by_admin', 'Approved by admin')
+)
+
 COUNTRY_CHOICES = (
     ('Afghanistan','Afghanistan'),
     ('Albania','Albania'),
