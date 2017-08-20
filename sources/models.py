@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, COUNTRY_CHOICES
+from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES
 
 
 class BasicInfo(models.Model):
