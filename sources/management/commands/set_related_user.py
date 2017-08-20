@@ -1,12 +1,12 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
-# from sources.models import Person
+from sources.models import Person
 import random
 
 
-def set_related_user(email_address, person_id):
-    obj = Person.objects.get(id=person_id)
+def set_related_user(email_address): # , person_id
+    obj = Person.objects.get(email_address=email_address) # (id=person_id)
     try:
         user_existing = User.objects.get(email=obj.email_address)
     except:
@@ -34,7 +34,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         ## required
         parser.add_argument('email', 
-            help='Specify the user emamil.'
+            help='Specify the user email.'
         )
 
         ## optional
@@ -51,5 +51,5 @@ class Command(BaseCommand):
         email_address = options['email']
 
         ## call the function
-        email_add_user(email_address)
+        set_related_user(email_address)
 
