@@ -118,10 +118,6 @@ def send_user_added_email(sender, instance, **kwargs):
         if status_type == 'added':
             call_command('set_related_user', email_address)
         call_command('email_user', email_address, status)
-        # elif status == 'approved_by_user':
-        #     call_command()
-        # elif status == 'approved_by_admin':
-        #     call_command()
 
 
 class Rating(BasicInfo):
