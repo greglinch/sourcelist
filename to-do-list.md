@@ -1,23 +1,19 @@
 # To-do's
 
-* add a front-end form for submitting new sources
-	* include dropdown for who submitted (`self`, `other`)
-	* Q: include more info about submitter if `other` (e.g. name and email)
+* IN PROGRESS: add a front-end form for submitting new sources
+	* include dropdown for who submitted (`self`, `submitter`)
+		* not going to do this for now
+	* Q: include more info about submitter if `other`/`submitter` (e.g. name and email)
 	* Q: let a user edit their info on that form instead of admin?
 	* Q: pass updated workflow status to that form via URL and hide that field from displaying?
 	* however that form is populated, make sure it's not just on things other people could guess; e.g. make sure it's... 
 		* a unique string different from system ID
 		* is combined with user email?
 
-* management commands to send emails to 
+* IN PROGRESS: management command triggered `post_save` to send emails to 
 	* user when added by self or another
 		* show the info submitted in the email and include a link to approve or edit
 		* confirm link / edit info (if needed)
-	* user when approved by user
-	* user when approved by admin
-	* NOTE: should they be the same and just have an args and condtl to have differences?
-	* NOTE: post_save?
-https://docs.djangoproject.com/en/1.11/topics/email/
 
 * limit emails sent to user
 	* currently it's every `post_save`
@@ -80,10 +76,12 @@ https://docs.djangoproject.com/en/1.11/topics/email/
 	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 * add views
-	* submission form
+	* IN PROGRESS: submission form
 	* terms of service
 	* about
 	* search page?
+
+* rename app in Google so it matches if people login with oauth
 
 # To-dos on live version
 
@@ -92,6 +90,7 @@ https://docs.djangoproject.com/en/1.11/topics/email/
 # QUESTIONS 
 
 * Q: add a role for `submitter` (e.g. PIO, PR person)
+	* maybe, but not yet
 
 * Q: how to associate new Person if there are multiple Users for that person? 
 
@@ -103,6 +102,17 @@ https://docs.djangoproject.com/en/1.11/topics/email/
 
 * Q: store what emails have been sent to a user?
 	* Emails model? So we can track that?
+
+* Q: add new statuses if a Person has been updated or use existing flow?
+
+* Q: alternative setup
+	* sources/submitters can submit/view their entry only on the front-end
+	* journalists can only view `role='source'` in the admin for a model called `Sources` that mirrors `Person` but only shows certain fields (e.g. not status, etc)
+
+* Q: another alternative setup
+	* same as above, but when you editing + re-submit an entry, it gets a new id and override the old one; options for override
+		* make the other one inactive/unpublish
+		* delete the old one so only the new one exists
 
 # COMPLETED
 
