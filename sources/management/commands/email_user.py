@@ -7,7 +7,7 @@ from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
-    person_url = SITE_URL + '/admin/sources/person/{}/change/'.format(person_id) ## use url reverse instead?
+    person_url = SITE_URL + '/admin/sources/person/{}/change/'.format(person_id)
     person_info = 'this is where the info will go' ## UPDATE
 
     confirm_url = 'confirm url here' ## UPDATE
