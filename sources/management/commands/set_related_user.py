@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
 from sources.models import Person
 import random
 
@@ -26,7 +27,26 @@ def set_related_user(email_address): # , person_id
         user_new.first_name = obj.first_name
         user_new.last_name = obj.last_name
         user_new.save()
-
+        ## add new User to a group
+        # try:
+        # if not user_new.last_login:
+            ## get the group
+        group = Group.objects.get(name__contains='change source')
+        ## add the user to that group
+        group.user_set.add(user_new)
+        ## set the user as staff
+        user_new.is_staff = True
+        user_new.save()
+        # except:
+        #     message = 'unable to associate {} with {}'.format(user_new, group)
+            ## email to admin?
+        ## associate the new User with the new Person
+        # try:
+        obj.related_user = user_new
+        obj.save()
+        # except:
+        #     message = 'unable to associate {} with {}'.format(user_existing, obj)
+            ## email to admin?
 
 class Command(BaseCommand):
     help = 'Set the related user for a Person.'
