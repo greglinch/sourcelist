@@ -114,7 +114,7 @@ def send_user_added_email(sender, instance, **kwargs):
     status_type = status.split('_')[0]
     role = instance.role
 
-    if role == 'source':
+    if role == 'source' and instance.created == instance.updated:
         if status_type == 'added':
             call_command('set_related_user', email_address)
         call_command('email_user', email_address, status)
