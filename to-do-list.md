@@ -1,5 +1,7 @@
 # To-do's
 
+* write error file to abstract error messages for `except` statements
+
 * IN PROGRESS: add a front-end form for submitting new sources
 	* include dropdown for who submitted (`self`, `submitter`)
 		* not going to do this for now
@@ -10,38 +12,23 @@
 		* a unique string different from system ID
 		* is combined with user email?
 
-* IN PROGRESS: management command triggered `post_save` to send emails to 
-	* user when added by self or another
-		* show the info submitted in the email and include a link to approve or edit
-		* confirm link / edit info (if needed)
-
-* limit emails sent to user
-	* currently it's every `post_save`
-
-* add logic to see if current user matches user being added
-	* if not and not superuser, set to added by other
-	* if not and is super, set to added by admin
+* show the info submitted in the email and include a link to approve based on that
 
 * management commands to 
 	* approve user on the part of the user
+		* NOTE: if we can't have approval via email for MVP, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
+		* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
 	* approve user on the part of the admin
 	* NOTE: should they be the same and just have an args and condtl to have differences?
 	* update a `User` based on an update to a `Person`
 
-* fix user not associated until second `save_model` bc they're created on first `save_model`
-	* or could the solution be forcing a save on approve?
-	* BETTER SOLUTION: post_save signal mgmt cmd?
+* add boolean to `User` list display view to indicate that they're tied to a `Person`
+	* also include editable dropdown to add/change the associated `Person`?
 
 * because of `post_save`, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
 	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
 
-* add magiclink login option
-	* option http://www.idiotinside.com/2016/11/13/django-slack-magic-link-passwordless-login/
-	* option https://github.com/fajran/django-loginurl
-
 * add social logins to `/admin` (a la DocPub)
-
-* hide foreign key admins from non-superusers
 
 * hide person objects from everyone unless they 
 	* approved by user
@@ -68,8 +55,6 @@
 	* advantage: filters wouldn't show all choices for country -- just the ones available
 	* NOTE: be sure to save them on self
 
-* should org be m2m field? FK?
-
 * save all the FK'ed fields on person model to flatten the data
 
 * set up auth for Facebook
@@ -85,9 +70,11 @@
 
 # To-dos on live version
 
-* create auth groups for permissions (add/edit sources et al)
+* create auth groups for permissions (mimic local version)
 
 # QUESTIONS 
+
+* Q: show a source the `Person` or `Source` model to edit their info?
 
 * Q: add a role for `submitter` (e.g. PIO, PR person)
 	* maybe, but not yet
@@ -113,6 +100,8 @@
 	* same as above, but when you editing + re-submit an entry, it gets a new id and override the old one; options for override
 		* make the other one inactive/unpublish
 		* delete the old one so only the new one exists
+
+* Q: should org be m2m field? FK?
 
 # COMPLETED
 
@@ -140,3 +129,26 @@
 
 * WONT ADD: add boolean for add form to indicate whether you're adding yourself or someone else
 	* status handles
+
+* give new `User` necessary permissions 
+
+* management command triggered `post_save` to send emails to user when added by self or another with ability to edit
+
+* fix `User` not associated with `Person` until second `save_model` bc they're created on first `save_model`
+	* we need this so the auth token is generated for the related `User`
+	* SOLUTION: it needed a `.save()` call on the association
+
+* hide foreign key admins from non-superusers
+	* SOLUTION: done via only giving `add` perms and not `change` perms
+
+* add magiclink login option
+	* option http://www.idiotinside.com/2016/11/13/django-slack-magic-link-passwordless-login/
+	* option https://github.com/fajran/django-loginurl
+
+* limit emails sent to user
+	* currently it's every `post_save`
+	* SOLUTION: before calling mgmt cmd, check if `instance.created == instance.updated`
+
+* add logic to `save_model` for setting workflow to see if current user matches user being added
+	* if not and not superuser, set to added by other
+	* if not and is super, set to added by admin
