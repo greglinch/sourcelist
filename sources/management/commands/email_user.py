@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from sesame import utils
 from sources.models import Person
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
@@ -7,10 +9,18 @@ from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
-    person_url = SITE_URL + '/admin/sources/person/{}/change/'.format(person_id)
     person_info = 'this is where the info will go' ## UPDATE
 
-    confirm_url = 'confirm url here' ## UPDATE
+    admin_url = '{}/admin/sources/person/{}/change/'.format(SITE_URL,person_id)
+
+    ## django-sesame bits for magic link
+    user = User.objects.get(email=email_address)
+    # login_token = utils.get_query_string(user) ## using their URL
+    login_token = utils.get_parameters(user) ## making your own URL
+    login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token'])
+
+    ## confirmation url (for both user and admin?)
+    confirm_url = login_link ## !! UPDATE !!
 
     status = person.status
     status_type = status.split('_')[0]
@@ -28,12 +38,12 @@ def email_user(email_address, status):
 
         html_message = 'To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br><br> {confirm_url} <br><br> \
             {person_info} <br><br> \
-            If the information if incorrect, please edit your entry: <br><br> {person_url} <br><br>View the database:<br><br> {site_url}\
+            If the information if incorrect, please edit your entry: <br><br> {login_link} <br><br>View the database:<br><br> {site_url}\
             '.format(
                 project_name=PROJECT_NAME,
                 confirm_url=confirm_url,
                 person_info=person_info,
-                person_url=person_url,
+                login_link=login_link,
                 site_url=SITE_URL
             )
     # elif status_type == 'approved':
