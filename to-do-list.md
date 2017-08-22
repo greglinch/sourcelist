@@ -1,6 +1,11 @@
-# To-do's
+# To-dos for live version (TK)
 
-* write error file to abstract error messages for `except` statements
+* create auth groups for permissions (mimic local version)
+
+# To-do for development
+
+* write error module to abstract error messages for `except` statements
+	* send to G, M or both?
 
 * IN PROGRESS: add a front-end form for submitting new sources
 	* include dropdown for who submitted (`self`, `submitter`)
@@ -13,6 +18,7 @@
 		* is combined with user email?
 
 * show the info submitted in the email and include a link to approve based on that
+	* if we can't get a confirm link in the email, scratch this and just show info in the admin
 
 * management commands to 
 	* approve user on the part of the user
@@ -39,7 +45,7 @@
 
 * hide journo M2M fields from sources
 
-* log of who viewed a source
+* log of which journalist has viewed a source
 
 * how to handle ratings? 
 	* added directly on the person or added in their own model and then you choose a user to attach it to?
@@ -67,10 +73,6 @@
 	* search page?
 
 * rename app in Google so it matches if people login with oauth
-
-# To-dos on live version
-
-* create auth groups for permissions (mimic local version)
 
 # QUESTIONS 
 
@@ -102,6 +104,9 @@
 		* delete the old one so only the new one exists
 
 * Q: should org be m2m field? FK?
+
+* Q: contact form for site to track who messages who?
+	* where did we end up on that during earlier discussion?
 
 # COMPLETED
 
