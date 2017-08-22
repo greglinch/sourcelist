@@ -30,6 +30,7 @@ class PersonAdmin(admin.ModelAdmin):
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'underrepresented', 'website'] # 'location',
     filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = ['rating_avg']
+    save_as = True
     # exclude  = ['']
 
     ## THIS ALSO NEEDS TO SUPPORT 
@@ -57,7 +58,7 @@ class PersonAdmin(admin.ModelAdmin):
                 status = 'added_by_self'
             else:
                 status = 'added_by_other'
-        obj.status = status
+        # obj.status = status
 
         ## save
         super(PersonAdmin, self).save_model(request, obj, form, change)
