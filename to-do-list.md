@@ -4,6 +4,9 @@
 
 # To-do for development
 
+* hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
+	* https://stackoverflow.com/questions/2297377/how-do-i-prevent-permission-escalation-in-django-admin-when-granting-user-chang
+
 * write error module to abstract error messages for `except` statements
 	* send to G, M or both?
 
