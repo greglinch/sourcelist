@@ -31,6 +31,7 @@ class PersonAdmin(admin.ModelAdmin):
     filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = ['rating_avg']
     save_as = True
+    save_on_top = True
     # exclude  = ['']
 
     ## THIS ALSO NEEDS TO SUPPORT 
