@@ -75,7 +75,7 @@
 	* about
 	* search page?
 
-* rename app in Google so it matches if people login with oauth
+* rename app in Google API console so it matches if people login with oauth
 
 # QUESTIONS 
 
@@ -110,6 +110,14 @@
 
 * Q: contact form for site to track who messages who?
 	* where did we end up on that during earlier discussion?
+
+# NOTE FOR LATER
+
+https://stackoverflow.com/questions/1110153/what-is-the-most-efficent-way-to-store-a-list-in-the-django-models
+
+https://github.com/fajran/django-loginurl
+
+https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-has-changed
 
 # COMPLETED
 
@@ -150,8 +158,8 @@
 	* SOLUTION: done via only giving `add` perms and not `change` perms
 
 * add magiclink login option
-	* option http://www.idiotinside.com/2016/11/13/django-slack-magic-link-passwordless-login/
-	* option https://github.com/fajran/django-loginurl
+	* option 1 (tried) http://www.idiotinside.com/2016/11/13/django-slack-magic-link-passwordless-login/
+	* option 2 (not tried) https://github.com/fajran/django-loginurl
 
 * limit emails sent to user
 	* currently it's every `post_save`
