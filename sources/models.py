@@ -124,6 +124,7 @@ class Rating(BasicInfo):
     """ a Journalist can rate a Source each time """
     # notes = models.TextField(null=True, blank=True, help_text='Optional')
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
+    ## these are FK to allow for multiples -- not just one
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
 
