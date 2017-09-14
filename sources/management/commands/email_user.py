@@ -9,7 +9,17 @@ from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
-    person_info = 'this is where the info will go' ## UPDATE
+
+    fields = ['prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'language', 'timezone', 'city', 'state', 'country'] # UPDATE: abstract so it's the same as the form they fill out
+    person = Person.objects.filter(email_address=email_address).values(*fields).exclude()[0]
+    person_info = '<table>'
+    spaces = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    ## loop thru and unpack values
+    for key, value in person.items():
+        if value:
+            new_key = key.title().replace('_', ' ')
+            person_info += '<tr><td><b>{}</b>:</td><td>{}</td> <td>{}</td></tr>'.format(new_key, spaces, value)
+    person_info += '</table>'
 
     admin_url = '{}/admin/sources/person/{}/change/'.format(SITE_URL,person_id)
 
@@ -22,7 +32,7 @@ def email_user(email_address, status):
     ## confirmation url (for both user and admin?)
     confirm_url = login_link ## !! UPDATE !!
 
-    status = person.status
+    status = person['status']
     status_type = status.split('_')[0]
     
     message = ''
