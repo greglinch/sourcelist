@@ -4,11 +4,16 @@
 
 # To-do for development
 
+* FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
+
+* include a link in `email_user` to approve 
+	* if we can't get a confirm link in the email, scratch this and just show info in the admin
+
 * hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
 	* https://stackoverflow.com/questions/2297377/how-do-i-prevent-permission-escalation-in-django-admin-when-granting-user-chang
 
 * write error module to abstract error messages for `except` statements
-	* send to G, M or both?
+	* send to G, M or both? or an admin email Google group
 
 * IN PROGRESS: add a front-end form for submitting new sources
 	* include dropdown for who submitted (`self`, `submitter`)
@@ -19,9 +24,6 @@
 	* however that form is populated, make sure it's not just on things other people could guess; e.g. make sure it's... 
 		* a unique string different from system ID
 		* is combined with user email?
-
-* show the info submitted in the email and include a link to approve based on that
-	* if we can't get a confirm link in the email, scratch this and just show info in the admin
 
 * management commands to 
 	* approve user on the part of the user
@@ -77,7 +79,11 @@
 
 * rename app in Google API console so it matches if people login with oauth
 
+* if we do front-end urls, change edit link from admin url to live url
+
 # QUESTIONS 
+
+* Q: Django bakery to make static files?
 
 * Q: show a source the `Person` or `Source` model to edit their info?
 
@@ -168,3 +174,5 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add logic to `save_model` for setting workflow to see if current user matches user being added
 	* if not and not superuser, set to added by other
 	* if not and is super, set to added by admin
+
+* show the info submitted in the email 
