@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from sources.views import index, submit, thankyou
+from sources.views import index, confirm, submit, thankyou
 
 
 urlpatterns = [
@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', auth_views.LoginView.as_view()),
     ## submission form
+    url(r'^confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        confirm, name='confirm'), ## UPDATE?!?!
     url(r'^submit', submit, name='submit'),
     url(r'^thank-you', thankyou, name='thank-you'),
     ## social auth

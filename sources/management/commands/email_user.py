@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from sesame import utils
 from sources.models import Person
+from sources.forms import SubmitForm
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
 
@@ -10,27 +11,37 @@ def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
 
-    fields = ['prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'language', 'timezone', 'city', 'state', 'country'] # UPDATE: abstract so it's the same as the form they fill out
+    fields = SubmitForm.Meta.fields ## abstracted to use same fields as the submission form
     person = Person.objects.filter(email_address=email_address).values(*fields).exclude()[0]
     person_info = '<table>'
-    spaces = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    spaces = '&nbsp;' * 5
     ## loop thru and unpack values
     for key, value in person.items():
         if value:
             new_key = key.title().replace('_', ' ')
-            person_info += '<tr><td><b>{}</b>:</td><td>{}</td> <td>{}</td></tr>'.format(new_key, spaces, value)
+            person_info += '\
+                <tr> \
+                    <td><b>{}</b>:</td> \
+                    <td>{}</td> \
+                    <td>{}</td>\
+                </tr>'.format(
+                    new_key, 
+                    spaces, 
+                    value
+                )
     person_info += '</table>'
 
-    admin_url = '{}/admin/sources/person/{}/change/'.format(SITE_URL,person_id)
+    admin_url = '{}/admin/sources/person/{}/change/'.format(SITE_URL, person_id)
 
     ## django-sesame bits for magic link
     user = User.objects.get(email=email_address)
     # login_token = utils.get_query_string(user) ## using their URL
     login_token = utils.get_parameters(user) ## making your own URL
-    login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token'])
+    login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token']) ## change from admin url to live url?
 
     ## confirmation url (for both user and admin?)
-    confirm_url = login_link ## !! UPDATE !!
+    confirm_token = '<confirm_token_here>' ## UPDATE
+    confirm_url = '{}/confirmation/{}'.format(SITE_URL, confirm_token)
 
     status = person['status']
     status_type = status.split('_')[0]
