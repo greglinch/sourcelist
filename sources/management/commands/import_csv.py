@@ -5,9 +5,12 @@ import random
 
 
 def import_csv():
-    # import code
-    call_command('set_related_user', email_address)
-    call_command('email_user', email_address, status)
+    ## read csv
+
+    ## loops thru the rows
+    for row in csv:
+        call_command('set_related_user', email_address)
+        call_command('email_user', email_address, status)
 
 class Command(BaseCommand):
     help = 'Import sources from a csv file.'
