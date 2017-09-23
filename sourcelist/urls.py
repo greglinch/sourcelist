@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^thank-you', thankyou, name='thank-you'),
     ## social auth
     url(r'^$', index, name='index'),
+    url(r'^index$', index, name='index'),
     # url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('social_django.urls', namespace='social')),
     url('', include('django.contrib.auth.urls', namespace='auth')),
