@@ -1,12 +1,26 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
- <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>{% block title %}Source List{% endblock %}</title>
- </head>
- <body>
-   {% block main %}{% endblock %}
- </body>
-</html>
+    <head>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <!-- Bootstrap core -->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+       <!-- Bootstrap theme (UPDATE: change to CDN) -->
+       <link rel="stylesheet" type="text/css" href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css">
+
+       <title>{% block title %}Source List{% endblock %}</title>
+
+    </head>
+    <body>
+        <div class="container">
+            {% include 'navbar.html' %}
+        </div>
+        <div class="container">
+            {% block main %}{% endblock %}
+        </div>
+    </body>
+    </html>
