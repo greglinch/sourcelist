@@ -9,6 +9,8 @@
 * UPDATE: Bootstrap design
 	* change theme to CDN
 
+* move css to external file under static
+
 * FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
 
 * IN PROGRESS: include a link in `email_user` to approve 
@@ -21,9 +23,8 @@
 	* send to G, M or both? or an admin email Google group
 
 * UPDATE: front-end form
-	* include dropdown for who submitted (`self`, `submitter`)
-		* not going to do this for now
-	* Q: include more info about submitter if `other`/`submitter` (e.g. name and email)
+	* Q: include checkbox for "not this person?"
+		* and then `$().show()` optional addtl fields for the submitter's name and email?
 	* Q: let a user edit their info on that form instead of admin?
 	* Q: pass updated workflow status to that form via URL and hide that field from displaying?
 	* however that form is populated, make sure it's not just on things other people could guess; e.g. make sure it's... 
