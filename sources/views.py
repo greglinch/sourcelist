@@ -1,7 +1,7 @@
-from django.http import HttpResponse
+from django.core.management import call_command
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render # , redirect
 from django.template.context import RequestContext
-from django.http import HttpResponseRedirect
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_confirmation_token
@@ -51,12 +51,15 @@ def submit(request):
         form = SubmitForm(request.POST)
         ## check whether it's valid:
         if form.is_valid():
-            ## process the data in form.cleaned_data if needed
-            # form.cleaned_data
-            # person = form.save(commit=False)
-            # person.save()
+            ## extract the necessary values for sending emails
+            status = form.cleaned_data['status'].split('_')[0]
+            email_address = form.cleaned_data['email_address']
+            ## save the form data
             form.save()
-            # redirect to a new URL:
+            ## set the related user and email the source
+            call_command('set_related_user', email_address)
+            call_command('email_user', email_address, status)
+            # redirect to thank you page:
             return HttpResponseRedirect('/thank-you/')
     # if a GET (or any other method) we'll create a blank form
     else:
