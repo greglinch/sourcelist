@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block main %}
- <div>
- <h1>Welcome to Source List!</h1>
-
  <p>
    <ul>
    {% if user and not user.is_anonymous %}
@@ -32,5 +29,4 @@
    {% endif %}
    </ul>
  </p>
- </div>
 {% endblock %}
