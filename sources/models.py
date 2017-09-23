@@ -92,10 +92,10 @@ class Person(BasicInfo):
     # id_as_underrepresented.short_description = "Underrepresented?"
     # id_as_underrepresented.boolean = True
 
-    def save(self, *args, **kwargs):
-        ## avg of all ratings
-        # self.rating_avg = # Aggregate Avg of all ratings for this user
-        return super(Person, self).save(*args, **kwargs) 
+    # def save(self, *args, **kwargs):
+    #     ## avg of all ratings
+    #     # self.rating_avg = # Aggregate Avg of all ratings for this user
+    #     return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):
         return '{} {}'.format(self.first_name, self.last_name)
