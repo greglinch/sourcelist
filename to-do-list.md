@@ -2,11 +2,16 @@
 
 * create auth groups for permissions (mimic local version)
 
+* add Google Analytics
+
 # To-do for development
+
+* UPDATE: Bootstrap design
+	* change theme to CDN
 
 * FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
 
-* include a link in `email_user` to approve 
+* IN PROGRESS: include a link in `email_user` to approve 
 	* if we can't get a confirm link in the email, scratch this and just show info in the admin
 
 * hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
@@ -15,7 +20,7 @@
 * write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
 
-* IN PROGRESS: add a front-end form for submitting new sources
+* UPDATE: front-end form
 	* include dropdown for who submitted (`self`, `submitter`)
 		* not going to do this for now
 	* Q: include more info about submitter if `other`/`submitter` (e.g. name and email)
@@ -82,6 +87,8 @@
 * if we do front-end urls, change edit link from admin url to live url
 
 # QUESTIONS 
+
+* sync IDs across User and Person?
 
 * Q: Django bakery to make static files?
 
@@ -176,3 +183,7 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* if not and is super, set to added by admin
 
 * show the info submitted in the email 
+
+* add Bootsrap
+
+* add a front-end form for submitting new sources
