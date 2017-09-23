@@ -40,8 +40,9 @@
     <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
 </div>
 <div class="">
-    <form action="thank-you" method="POST">
+    <form action="" method="POST">
         {% csrf_token %}
+        <!-- {{ form.errors }} -->
         {{ form }}
         <input class="btn btn-primary" type="submit" value="Submit" />
     </form>

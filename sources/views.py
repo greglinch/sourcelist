@@ -57,7 +57,7 @@ def submit(request):
             # person.save()
             form.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/thank-you/')
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SubmitForm()
