@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <!-- {{ form.errors }} -->
+        {{ form }}
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock %}
