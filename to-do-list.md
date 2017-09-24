@@ -25,25 +25,25 @@
 * UPDATE: front-end form
 	* Q: include checkbox for "not this person?"
 		* and then `$().show()` optional addtl fields for the submitter's name and email?
+		* https://stackoverflow.com/questions/13550515/django-add-extra-field-to-a-modelform-generated-from-a-model
 	* Q: let a user edit their info on that form instead of admin?
 	* Q: pass updated workflow status to that form via URL and hide that field from displaying?
 	* however that form is populated, make sure it's not just on things other people could guess; e.g. make sure it's... 
 		* a unique string different from system ID
 		* is combined with user email?
 
-* management commands to 
-	* approve user on the part of the user
-		* NOTE: if we can't have approval via email for MVP, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
-		* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
-	* approve user on the part of the admin
-	* NOTE: should they be the same and just have an args and condtl to have differences?
-	* update a `User` based on an update to a `Person`
+* approve user on the part of the user and admin via email
+	* NOTE: if we can't have approval via email yet, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
+	* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
+
+* update a `User` based on an update to a `Person`
 
 * add boolean to `User` list display view to indicate that they're tied to a `Person`
 	* also include editable dropdown to add/change the associated `Person`?
 
 * because of `post_save`, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
 	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
+	* both in admin and on front-end forms
 
 * add social logins to `/admin` (a la DocPub)
 
@@ -59,11 +59,10 @@
 * log of which journalist has viewed a source
 
 * how to handle ratings? 
+	* require Journalist profile?
 	* added directly on the person or added in their own model and then you choose a user to attach it to?
 	* ManyToManyField? (only show ones added by that user)
 	* use a mgmt cmd to calculate?
-
-* write import script (mgmt cmd) for csv of existing sources
 
 * how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
 	* model inheritance? 
@@ -78,9 +77,7 @@
 	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 * add views
-	* IN PROGRESS: submission form
-	* terms of service
-	* about
+	* terms of service (part of about?)
 	* search page?
 
 * rename app in Google API console so it matches if people login with oauth
@@ -188,3 +185,9 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add Bootsrap
 
 * add a front-end form for submitting new sources
+
+* write import script (mgmt cmd) for csv of existing sources
+
+* add views
+	* submission form
+	* about
