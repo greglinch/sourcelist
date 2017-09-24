@@ -34,17 +34,17 @@ class PersonAdmin(admin.ModelAdmin):
     save_on_top = True
     # exclude  = ['']
 
-    ## THIS ALSO NEEDS TO SUPPORT 
-        # if user.email is Person's email
-        # if person is approved
-    # def get_queryset(self, request):
-    # """ only show people added by the current user """
-    #     qs = super(DocumentAdmin, self).get_queryset(request)
-    #     if request.user.is_superuser:
-    #         return qs
-    #     else:
-    #         return qs.filter(user=request.user)
-    #         # return qs.filter(newsroom=request.user.documentcloudcredentials.newsroom)
+    ## THIS NEEDS TO SUPPORT
+        # DONE if user.email is Person's email
+        # ??? if person is approved (did I mean status-wise?)
+    def get_queryset(self, request):
+        """ only show the current user if not admin """
+        qs = super(PersonAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(email_address=request.user.email)
+            # return qs.filter(newsroom=request.user.documentcloudcredentials.newsroom)
 
     def save_model(self, request, obj, form, change):
         ## associate the Person being created with the User who created them
