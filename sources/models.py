@@ -69,6 +69,7 @@ class Person(BasicInfo):
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name="Time zone offset") ## lookup based on city/state/county combo?
+    type_of_scientist = models.CharField(max_length=255, null=True, blank=True)
     # underrepresented = models.BooleanField(default=False, verbose_name="Do you identify as a member of an underrepresented group?")
     website = models.URLField(max_length=255, null=True, blank=True)
     # woman = models.BooleanField(default=False, verbose_name="Do you identify as a woman?")
