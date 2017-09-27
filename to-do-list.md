@@ -6,7 +6,12 @@
 
 # To-do for development
 
-* ADD: type of scientist to all necessary places (admin, submission form, email sent to source, etc.)
+* Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
+	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
+	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
+
+* front-end search should be additive, not start over
+	e.g. if already one or more params, just append to query string
 
 * UPDATE: Bootstrap design
 	* change theme to CDN
@@ -14,6 +19,8 @@
 * move css to external file under static
 
 * FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
+
+* handle status being set by submission form (checkbox?)
 
 * IN PROGRESS: include a link in `email_user` to approve 
 	* if we can't get a confirm link in the email, scratch this and just show info in the admin
@@ -203,3 +210,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * update a `User` based on an update to a `Person`
 	* code is written, but doesn't update
+
+* add type of scientist to all necessary places (admin, submission form, email sent to source, etc.)
+
