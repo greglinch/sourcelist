@@ -23,11 +23,11 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    # fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
-    list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    # fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'type_of_scientist', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
+    list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_scientist', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'underrepresented', 'website'] # 'location',
+    search_fields = ['city', 'country', 'email_address', 'expertise__name', 'first_name', 'language__name', 'last_name', 'notes', 'organization__name', 'state', 'title', 'type_of_scientist', 'website'] # 'location', 'underrepresented',
     filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = ['rating_avg']
     save_as = True
