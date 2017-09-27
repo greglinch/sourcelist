@@ -47,12 +47,11 @@ class PersonAdmin(admin.ModelAdmin):
             # return qs.filter(newsroom=request.user.documentcloudcredentials.newsroom)
 
     def save_model(self, request, obj, form, change):
-        ## associate the Person being created with the User who created them
-        current_user = request.user
-        obj.created_by = current_user
-
-        ## set the status
         if not obj.created:
+            ## associate the Person being created with the User who created them
+            current_user = request.user
+            obj.created_by = current_user
+            ## set the status
             if current_user.is_superuser == True:
                 status = 'added_by_admin'
             elif current_user.email == obj.email:
