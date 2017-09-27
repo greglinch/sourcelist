@@ -6,43 +6,48 @@ from sources.models import Person
 import random
 
 
-def set_related_user(email_address): # , person_id
+def set_related_user(email_address): # , person_id, user_existing
     obj = Person.objects.get(email_address=email_address) # (id=person_id)
-    try:
-        user_existing = User.objects.get(email=obj.email_address)
-    except:
-        user_existing = False
-    if user_existing:
-        obj.related_user = user_existing
+    # try:
+    #     user_existing = User.objects.get(email=obj.email_address)
+    # except:
+    #     user_existing = False
+    user = obj.related_user
+    if user:
+        ## update User fields based on the Person
+        user.email = obj.email_address
+        user.first_name = obj.first_name
+        user.last_name = obj.last_name
+        user.save()
     else:
-        username = '{}{}'.format(obj.first_name, obj.last_name).lower().replace('-','')
+        username = '{}{}'.format(obj.first_name, obj.last_name).lower().replace('-','').replace('\'','')
         choices = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        middle_choices = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+        middle_choices = choices + '!@#$%^&*(-_=+)'
         password = \
             ''.join([random.SystemRandom().choice(choices) for i in range(1)]) + \
             ''.join([random.SystemRandom().choice(middle_choices) for i in range(23)]) + \
             ''.join([random.SystemRandom().choice(choices) for i in range(1)])
-        user_new = User.objects.create_user(username, password=password)
-        user_new.email = obj.email_address
-        user_new.first_name = obj.first_name
-        user_new.last_name = obj.last_name
-        user_new.save()
+        user = User.objects.create_user(username, password=password)
+        user.email = obj.email_address
+        user.first_name = obj.first_name
+        user.last_name = obj.last_name
+        user.save()
         ## add new User to a group
         # try:
-        # if not user_new.last_login:
+        # if not user.last_login:
             ## get the group
         group = Group.objects.get(name__contains='change source')
         ## add the user to that group
-        group.user_set.add(user_new)
+        group.user_set.add(user)
         ## set the user as staff
-        user_new.is_staff = True
-        user_new.save()
+        user.is_staff = True
+        user.save()
         # except:
-        #     message = 'unable to associate {} with {}'.format(user_new, group)
+        #     message = 'unable to associate {} with {}'.format(user, group)
             ## email to admin?
         ## associate the new User with the new Person
         # try:
-        obj.related_user = user_new
+        obj.related_user = user
         obj.save()
         # except:
         #     message = 'unable to associate {} with {}'.format(user_existing, obj)
@@ -57,19 +62,21 @@ class Command(BaseCommand):
             help='Specify the user email.'
         )
 
-        ## optional
-        # parser.add_argument('-t' '--test',
+        # optional
+        # parser.add_argument('-e' '--existing',
         #     action='store_true',
         #     # type=str,
-        #     dest='test',
+        #     dest='existing',
         #     default=False,
-        #     help="Specific whether it's a test or not"
+        #     help='Specific user exists or not.'
         # )
 
     def handle(self, *args, **options):
         ## unpack args
         email_address = options['email']
+        # user_existing = options['existing']
 
         ## call the function
+        # set_related_user(email_address, user_existing)
         set_related_user(email_address)
 
