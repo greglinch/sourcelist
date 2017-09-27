@@ -6,6 +6,8 @@
 
 # To-do for development
 
+* ADD: type of scientist to all necessary places (admin, submission form, email sent to source, etc.)
+
 * UPDATE: Bootstrap design
 	* change theme to CDN
 
@@ -15,6 +17,11 @@
 
 * IN PROGRESS: include a link in `email_user` to approve 
 	* if we can't get a confirm link in the email, scratch this and just show info in the admin
+
+* consider switching `set_related_user` to look up based on the `id` of a `Person` rather than the `email_address` to avoid possible duplicates
+	* altho that should be an issue bc there wouldn't be a duplicate `User` -- it would just update
+	* and I could add validation to make sure `email_address` doesn't already exist
+	* overall, might still be easier to just use `id`
 
 * hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
 	* https://stackoverflow.com/questions/2297377/how-do-i-prevent-permission-escalation-in-django-admin-when-granting-user-chang
@@ -35,8 +42,6 @@
 * approve user on the part of the user and admin via email
 	* NOTE: if we can't have approval via email yet, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
 	* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
-
-* update a `User` based on an update to a `Person`
 
 * add boolean to `User` list display view to indicate that they're tied to a `Person`
 	* also include editable dropdown to add/change the associated `Person`?
@@ -78,11 +83,12 @@
 
 * add views
 	* terms of service (part of about?)
-	* search page?
+	* search page? (or just use homepage)
+	* footer: started but mostly empty
 
 * rename app in Google API console so it matches if people login with oauth
 
-* if we do front-end urls, change edit link from admin url to live url
+* if we do front-end edit urls, change edit link from admin url to live url
 
 # QUESTIONS 
 
@@ -119,8 +125,11 @@
 
 * Q: should org be m2m field? FK?
 
-* Q: contact form for site to track who messages who?
+* Q: contact form for site to track which journalists message which sources?
 	* where did we end up on that during earlier discussion?
+
+* Q: how to handle special characters in names? 
+	* e.g. https://stackoverflow.com/questions/517923/what-is-the-best-way-to-remove-accents-in-a-python-unicode-string
 
 # NOTE FOR LATER
 
@@ -191,3 +200,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add views
 	* submission form
 	* about
+
+* update a `User` based on an update to a `Person`
+	* code is written, but doesn't update
