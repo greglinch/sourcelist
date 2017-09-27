@@ -51,14 +51,17 @@ class Person(BasicInfo):
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True)
     email_address = models.EmailField(max_length=254)
-    expertise = models.ManyToManyField(Expertise, blank=True)
+    expertise = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
+    # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False)
     last_name = models.CharField(max_length=255, null=True, blank=False)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
-    language = models.ManyToManyField(Language)
+    language = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
+    # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    organization = models.ManyToManyField(Organization, blank=True)
+    organization = models.CharField(max_length=255, null=True, blank=True) # , help_text='Comma-separated list')
+    # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, help_text='Ideally a cell phone')
     phone_number_secondary = models.CharField(max_length=15, null=True, blank=True)
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
@@ -93,10 +96,14 @@ class Person(BasicInfo):
     # id_as_underrepresented.short_description = "Underrepresented?"
     # id_as_underrepresented.boolean = True
 
-    # def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
     #     ## avg of all ratings
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
-    #     return super(Person, self).save(*args, **kwargs) 
+        if self.status == 'approved_by_user':
+            self.approved_by_user = True
+        elif self.status == 'approved_by_admin':
+            self.approved_by_admin = True
+        return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):
         return '{} {}'.format(self.first_name, self.last_name)

@@ -27,8 +27,8 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_scientist', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = ['city', 'country', 'email_address', 'expertise__name', 'first_name', 'language__name', 'last_name', 'notes', 'organization__name', 'state', 'title', 'type_of_scientist', 'website'] # 'location', 'underrepresented',
-    filter_horizontal = ['expertise', 'organization', 'language']
+    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_scientist', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
+    # filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = ['rating_avg']
     save_as = True
     save_on_top = True
@@ -106,7 +106,7 @@ class SourceAdmin(admin.ModelAdmin):
     # list_editable = ['']
     list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
-    filter_horizontal = ['expertise', 'organization', 'language']
+    # filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = fields
 
     def get_queryset(self, request):
