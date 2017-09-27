@@ -18,6 +18,10 @@
             margin: 0 auto;
         }   */
 
+        footer {
+          margin-top: 35px;
+        }
+
         input,
         label, .btn {
             display: block;
@@ -55,6 +59,9 @@
         </div>
         <div class="container">
             {% block main %}{% endblock %}
+        </div>
+        <div class="container">
+            {% include 'footer.html' %}
         </div>
     </body>
     </html>
