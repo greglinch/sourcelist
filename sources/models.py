@@ -68,7 +68,7 @@ class Person(BasicInfo):
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False)
-    state = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name="Time zone offset") ## lookup based on city/state/county combo?
