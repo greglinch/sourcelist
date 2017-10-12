@@ -112,6 +112,13 @@ def join(request):
 
     return render(request, 'join.html', {'form': form})
 
+# def results(request):
+#     """ search and display results"""
+
+#     query = request.GET['q']
+
+#     return render(request, 'results.html', {'form': form})
+
 def thankyou(request):
     """ thank you page after submission """
 
