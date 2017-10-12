@@ -3,5 +3,5 @@ db.sqlite3
 *.pyo
 .DS_Store
 settings_private*
-sources/migrations/*
+sources/migrations*
 static/
