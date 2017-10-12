@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from sources.models import Person
 from datetime import datetime
 import sys
-import csv 
+import csv
 
 
 # def import_csv():
@@ -19,6 +19,8 @@ def import_csv(csv_path):
     # csv_path = '/Users/glinch/Downloads/sources.csv'
     with open(csv_path) as csv_file:
         csv_reader = csv.DictReader(csv_file)
+        message = 'Number of rows: {}\t'.format(len(csv_reader))
+        print(message)
         counter = 0
         ## loops thru the rows
         for row in csv_reader:
