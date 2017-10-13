@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from sources.views import about, confirm, contact, index, join, thankyou
+from sources.views import about, confirm, contact, index, join, results, thankyou
 
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^index$', index, name='index'),
     url(r'^about$', about, name='about'),
     url(r'^contact$', contact, name='contact'),
+    url(r'^results$', results, name='results'),
     ## submission form
     url(r'^confirmation/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         confirm, name='confirm'), ## UPDATE?!?!
