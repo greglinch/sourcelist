@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^about$', about, name='about'),
     url(r'^contact$', contact, name='contact'),
     ## submission form
-    url(r'^confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(r'^confirmation/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         confirm, name='confirm'), ## UPDATE?!?!
     url(r'^join', join, name='join'),
     url(r'^thank-you', thankyou, name='thank-you'),
