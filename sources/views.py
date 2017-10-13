@@ -118,12 +118,24 @@ def join(request):
 
     return render(request, 'join.html', {'form': form})
 
-# def results(request):
-#     """ search and display results"""
+def results(request):
+    """ search and display results"""
 
-#     query = request.GET['q']
+    # query = request.GET['q']
 
-#     return render(request, 'results.html', {'form': form})
+    field_list = ['last_name', 'first_name', 'type_of_scientist', 'expertise', 'organization', ]
+
+    results = Person.objects.filter(
+        approved_by_user=True,
+        approved_by_admin=True
+    ).values(*field_list)
+
+    context = {
+        'field_list': field_list,
+        'results': results
+    }
+
+    return render(request, 'results.html', context) # , {'form': form})
 
 def thankyou(request):
     """ thank you page after submission """
