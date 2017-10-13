@@ -6,12 +6,24 @@
 
 # To-do for development
 
+* use DataTables Bootstrap version for initial search/display?
+	* MABI is ok with that for v1
+	* use DRF for an API? bake that to a flat file to pull
+
+* only display `Person` objects that have are both `approved_by_user` and `approved_by_admin`
+
+* add way to handle if someone submits a duplicate
+	* currently, it throws an exception
+
+* switch to class-based views, especially for `join` and `contact`
+	* https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/
+
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
 	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
 
 * front-end search should be additive, not start over
-	e.g. if already one or more params, just append to query string
+	* e.g. if already one or more params, just append to query string (need to get that with JS?)
 
 * UPDATE: Bootstrap design
 	* change theme to CDN
@@ -22,8 +34,7 @@
 
 * handle status being set by submission form (checkbox?)
 
-* IN PROGRESS: include a link in `email_user` to approve 
-	* if we can't get a confirm link in the email, scratch this and just show info in the admin
+* include a confirmation link in `email_user` for admin to approve 
 
 * consider switching `set_related_user` to look up based on the `id` of a `Person` rather than the `email_address` to avoid possible duplicates
 	* altho that should be an issue bc there wouldn't be a duplicate `User` -- it would just update
@@ -97,11 +108,15 @@
 
 * if we do front-end edit urls, change edit link from admin url to live url
 
+* Django bakery to make static files
+	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
+
+* Point domain to the static files
+	* needs to be the same exact URL structure as dynamic app
+
 # QUESTIONS 
 
 * sync IDs across User and Person?
-
-* Q: Django bakery to make static files?
 
 * Q: show a source the `Person` or `Source` model to edit their info?
 
@@ -137,6 +152,15 @@
 
 * Q: how to handle special characters in names? 
 	* e.g. https://stackoverflow.com/questions/517923/what-is-the-best-way-to-remove-accents-in-a-python-unicode-string
+
+* Q: use this for front-end search?
+	* https://gregbrown.co/projects/django-simple-search
+	* https://github.com/gregplaysguitar/django-simple-search
+
+* Q: switch email content from formatted string in a mgmt cmd to html template?
+
+* Q: use AWS or personal hosting space? 
+	* does Certbot work on my personal hosting?
 
 # NOTE FOR LATER
 
@@ -213,3 +237,9 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * add type of scientist to all necessary places (admin, submission form, email sent to source, etc.)
 
+* switch to postgres so we can utilize more advanced search options
+	* https://docs.djangoproject.com/en/1.11/topics/db/search/#a-database-s-more-advanced-comparison-functions
+
+* include a confirmation link in `email_user` for user to approve 
+
+* 
