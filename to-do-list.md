@@ -6,9 +6,14 @@
 
 # To-do for development
 
-* use DataTables Bootstrap version for initial search/display?
+* auto-set anyone submitted through front-end form as `source` for the `role` of user
+
+* add logic to `Person` model save method to check if one of the `approved` booleans is True, then set the `status` accordingly
+
+* update `results.html` template to output a table
+
+* use DataTables Bootstrap version for search/display
 	* MABI is ok with that for v1
-	* use DRF for an API? bake that to a flat file to pull
 
 * only display `Person` objects that have are both `approved_by_user` and `approved_by_admin`
 
