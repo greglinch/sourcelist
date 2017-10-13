@@ -1,13 +1,15 @@
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.management import call_command
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render # , redirect
 from django.template.context import RequestContext
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from django.utils.html import format_html
-from .tokens import account_confirmation_token
 from sources.forms import ContactForm, SubmitForm
+from sources.models import Person
+from sources.tokens import account_confirmation_token
 # from django.contrib.auth import login, authenticate
 # from django.contrib.sites.shortcuts import get_current_site
 # from django.template.loader import render_to_string
@@ -41,14 +43,18 @@ def confirm(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
+    if user is not None and account_confirmation_token.check_token(user, token):
+        ## set the Person to being approved
+        person = Person.objects.get(email_address=user.email)
+        person.approved_by_user = True
+        person.save()
+        # user.is_active = True
+        # user.save()
+        # login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for confirming this source profile.') # Now you can view the live entry {}.').format(live_url)
+        return HttpResponse('Thank you for confirming your source profile.') # Now you can view the live entry {}.').format(live_url)
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Confirmation link is invalid!')
 
     ## see which token the user matches
     return render(request, 'confirmation.html', context)
