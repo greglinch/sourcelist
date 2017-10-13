@@ -1,9 +1,12 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from sesame import utils
 from sources.models import Person
 from sources.forms import SubmitForm
+from sources.tokens import account_confirmation_token
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
 
@@ -40,8 +43,13 @@ def email_user(email_address, status):
     login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token']) ## change from admin url to live url?
 
     ## confirmation url (for both user and admin?)
-    confirm_token = '<confirm_token_here>' ## UPDATE
-    confirm_url = '{}/confirmation/{}'.format(SITE_URL, confirm_token)
+    confirm_token = account_confirmation_token.make_token(user)
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    confirm_url = '{}/confirmation/{}/{}'.format(
+        SITE_URL,
+        uid,
+        confirm_token
+    )
 
     status = person['status']
     status_type = status.split('_')[0]
