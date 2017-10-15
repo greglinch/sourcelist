@@ -62,8 +62,8 @@ class Person(BasicInfo):
     notes = models.TextField(null=True, blank=True)
     organization = models.CharField(max_length=255, null=True, blank=True) # , help_text='Comma-separated list')
     # organization = models.ManyToManyField(Organization, blank=True)
-    phone_number_primary = models.CharField(max_length=15, null=True, blank=True, help_text='Ideally a cell phone')
-    phone_number_secondary = models.CharField(max_length=15, null=True, blank=True)
+    phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
+    phone_number_secondary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Secondary phone number')
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
