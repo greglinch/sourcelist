@@ -11,7 +11,7 @@ from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STAT
 class BasicInfo(models.Model):
     """ abstract base class used across models """
     created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-    updated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name="Updated in system", help_text="This is when the item was updated in the system.")
+    updated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name='Updated in system', help_text='This is when the item was updated in the system.')
 
     class Meta:
         abstract = True
@@ -24,14 +24,14 @@ class Expertise(BasicInfo):
         verbose_name_plural = 'Expertise'
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '{}'.format(self.name)
 
 
 class Language(BasicInfo):
     name = models.CharField(max_length=255, null=True, blank=True)
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '{}'.format(self.name)
 
 
 class Organization(BasicInfo):
@@ -41,7 +41,7 @@ class Organization(BasicInfo):
     # website = models.URLField(max_length=200, null=True, blank=True)
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '{}'.format(self.name)
 
 
 class Person(BasicInfo):
@@ -71,11 +71,11 @@ class Person(BasicInfo):
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
-    timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name="Time zone offset") ## lookup based on city/state/county combo?
+    timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset') ## lookup based on city/state/county combo?
     type_of_scientist = models.CharField(max_length=255, null=True, blank=True)
-    # underrepresented = models.BooleanField(default=False, verbose_name="Do you identify as a member of an underrepresented group?")
+    # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
     website = models.URLField(max_length=255, null=True, blank=True)
-    # woman = models.BooleanField(default=False, verbose_name="Do you identify as a woman?")
+    # woman = models.BooleanField(default=False, verbose_name='Do you identify as a woman?'')
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
 
@@ -84,11 +84,11 @@ class Person(BasicInfo):
             return '{} {}'.format(self.first_name, self.middle_name, self.last_name)
         else:
             return '{} {}'.format(self.first_name, self.last_name)
-    first_last_name.short_description = "Name"
+    first_last_name.short_description = 'Name'
         
     # def id_as_woman(self):
     #     return self.woman
-    # id_as_woman.short_description = "Woman?"
+    # id_as_woman.short_description = 'Woman?'
     # id_as_woman.boolean = True
 
     # def id_as_underrepresented(self):
@@ -107,7 +107,7 @@ class Person(BasicInfo):
         return '{} {}'.format(self.first_name, self.last_name)
 
     class Meta:
-        verbose_name_plural = "People"
+        verbose_name_plural = 'People'
 
 
 @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
@@ -138,7 +138,7 @@ class Rating(BasicInfo):
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
 
     def __unicode__(self):
-        return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
+        return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
 
     class Meta:
         ordering = ['updated']
@@ -151,7 +151,7 @@ class Rating(BasicInfo):
 #         proxy = True
 
 #     def __unicode__(self):
-#         return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
+#         return '{} {} {}' % (self.prefix, self.first_name, self.last_name)
 
 class Source(Person):
     """ sources for Journalists """
@@ -160,7 +160,7 @@ class Source(Person):
         proxy = True
 
     def __unicode__(self):
-        return "%s %s %s" % (self.prefix, self.first_name, self.last_name)
+        return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
 
 
 
