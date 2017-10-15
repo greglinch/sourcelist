@@ -67,7 +67,7 @@ class Person(BasicInfo):
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
-    role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False)
+    role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
