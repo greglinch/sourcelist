@@ -6,19 +6,10 @@
 
 # To-do for development
 
-* auto-set anyone submitted through front-end form as `source` for the `role` of user
-
-* add logic to `Person` model save method to check if one of the `approved` booleans is True, then set the `status` accordingly
-
-* update `results.html` template to output a table
-
-* use DataTables Bootstrap version for search/display
-	* MABI is ok with that for v1
-
-* only display `Person` objects that have are both `approved_by_user` and `approved_by_admin`
-
 * add way to handle if someone submits a duplicate
 	* currently, it throws an exception
+	* possible solution: add logic to see if the email address already exists
+	* possible solution: override existing entry with new entry? but that could be problematic if a third-party is submitting and the info is incorrect
 
 * switch to class-based views, especially for `join` and `contact`
 	* https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/
@@ -247,4 +238,19 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * include a confirmation link in `email_user` for user to approve 
 
-* 
+* set `source` as the deafult `role` for a `Person`
+
+* add logic to `Person` model save method to check if one of the `approved` booleans is True, then set the `status` accordingly
+
+* update `results.html` template to output a table
+
+* use DataTables Bootstrap version for search/display
+	* MABI is ok with that for v1
+
+* only display `Person` objects that have are both `approved_by_user` and `approved_by_admin`
+	* filter the queryset in `views`
+
+
+
+
+
