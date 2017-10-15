@@ -99,10 +99,8 @@ class Person(BasicInfo):
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
-        if self.status == 'approved_by_user':
-            self.approved_by_user = True
-        elif self.status == 'approved_by_admin':
-            self.approved_by_admin = True
+        if self.approved_by_user or self.approved_by_admin:
+            self.status = 'approved'
         return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):

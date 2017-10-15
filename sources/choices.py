@@ -25,8 +25,9 @@ STATUS_CHOICES = (
     ('added_by_self', 'Added by self'),
     ('added_by_other', 'Added by other'),
     ('added_by_admin', 'Added by admin'),
-    ('approved_by_user', 'Approved by user'),
-    ('approved_by_admin', 'Approved by admin')
+    ('approved', 'Approved') # ,
+    # ('approved_by_user', 'Approved by user'),
+    # ('approved_by_admin', 'Approved by admin')
 )
 
 COUNTRY_CHOICES = (
