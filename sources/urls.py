@@ -4,8 +4,8 @@ from sources.views import AboutView, ConfirmView, ContactView, IndexView, JoinVi
 
 urlpatterns = [
 	## main pages
-    url(r'^$', IndexView.as_view()),
-    url(r'^index$', IndexView.as_view()),
+    url(r'^$', ResultsView.as_view()),
+    url(r'^index$', ResultsView.as_view()),
     url(r'^about$', AboutView.as_view()),
     url(r'^contact$', ContactView.as_view()),
     url(r'^results$', ResultsView.as_view()),
