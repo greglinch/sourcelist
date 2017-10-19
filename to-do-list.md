@@ -6,13 +6,13 @@
 
 # To-do for development
 
+* limit choices displayed on ModelForm for `JoinView`
+	* currently includes all, but we'd only want to include `added_by_self` and `added_by_other`
+
 * add way to handle if someone submits a duplicate
 	* currently, it throws an exception
 	* possible solution: add logic to see if the email address already exists
 	* possible solution: override existing entry with new entry? but that could be problematic if a third-party is submitting and the info is incorrect
-
-* switch to class-based views, especially for `join` and `contact`
-	* https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -250,7 +250,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * only display `Person` objects that have are both `approved_by_user` and `approved_by_admin`
 	* filter the queryset in `views`
 
-
+* switch to class-based views, especially for `join` and `contact`
+	* https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/
 
 
 
