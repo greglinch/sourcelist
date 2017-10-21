@@ -21,10 +21,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if TEST_ENV:
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
-INTERNAL_IPS = ['127.0.0.1']
+## in private settings
+# ALLOWED_HOSTS = []
+# INTERNAL_IPS = []
 
 # Application definition
 
