@@ -98,6 +98,9 @@ class Person(BasicInfo):
     # id_as_underrepresented.short_description = "Underrepresented?"
     # id_as_underrepresented.boolean = True
 
+    def get_field_values(self):
+        return [field.value_to_string(self) for field in Person._meta.fields]
+
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
