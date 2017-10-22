@@ -22,6 +22,7 @@ RATING_CHOICES = (
 )
 
 STATUS_CHOICES = (
+    ('added', 'Added'),
     ('added_by_self', 'Added by self'),
     ('added_by_other', 'Added by other'),
     ('added_by_admin', 'Added by admin'),
