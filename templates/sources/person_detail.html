@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<style>
+	table {
+		width: 100%;
+	}
+	.detail-label {
+		width: 15%;
+		font-weight: bold;
+	}
+	.value {
+		width: 85%;
+	}
+</style>
+
+<h1>{{ person }}</h1>
+
+<table>
+	<tr>
+		<td class="detail-label">Type of Scientist</td>
+		<td class="value">{{ person.type_of_scientist }}</td>
+	</tr>
+	<tr>
+		<td class="detail-label">Organization</td>
+		<td class="value">{{ person.organization }}</td>
+	</tr>
+	<tr>
+		<td class="detail-label">Expertise</td>
+		<td class="value">{{ person.expertise }}</td>
+	</tr>
+</table>
+
+
+{% endblock %}
