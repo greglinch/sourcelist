@@ -8,6 +8,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.utils.html import format_html
 from django.views import View
+from django.views.generic.detail import DetailView #, ListView
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Person
 from sources.tokens import account_confirmation_token
@@ -98,6 +99,34 @@ class ContactView(View):
         form = ContactForm()
         return render(request, 'contact.html', {'form': form})
 
+class DetailView(DetailView):
+    """ details of the Person results"""
+
+    model = Person
+    # context_object_name = 'person'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context_object_name = 'person'
+        # context['now'] = timezone.now()
+        return context
+
+    # def get_queryset(self):
+    #     queryset = Person.objects.filter(slug=self.slug)
+    #     return queryset
+
+    # def get(self, request):
+
+    #     person = Person.objects.filter(
+    #         slug=slug
+    #     ).values()
+
+    #     context = {
+    #         'person': person
+    #     }
+
+    #     return render(request, 'detail.html', context) # , {'form': form})
+
 class JoinView(View):
     """ submission of a new source """
 
@@ -124,6 +153,7 @@ class JoinView(View):
         return render(request, 'join.html', {'form': form})
 
 class ResultsView(View):
+# class ResultsView(ListView):
     """ search and display results"""
 
     def get(self, request):
@@ -134,7 +164,7 @@ class ResultsView(View):
         results = Person.objects.filter(
             approved_by_user=True,
             approved_by_admin=True
-        ).values(*field_list)
+        ).values() # values(*field_list)
 
         context = {
             'field_list': field_list,
