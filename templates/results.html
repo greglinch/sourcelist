@@ -2,9 +2,12 @@
 
 {% block main %}
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
 
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function(){
@@ -14,11 +17,14 @@
 		});
 	});
 </script>
-
+<div class="jumbotron">
+    <h1 class="display-3">Search the database</h1>
+    <p class="lead">Contact the following experts.</p>
+</div>
 {% if results.count == 0 %}
 	<p>Sorry, there no sources available at this time.</p>
 {% else %}
-<table id="sources" class="display responsive" cellspacing="0" width="100%">
+<table id="sources" class="display responsive stripe" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			{% for field in field_list %}
