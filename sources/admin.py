@@ -23,13 +23,13 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    # fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'type_of_scientist', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
+    fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'type_of_scientist', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
     list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_scientist', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_scientist', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
     # filter_horizontal = ['expertise', 'organization', 'language']
-    readonly_fields = ['rating_avg']
+    readonly_fields = ['rating_avg', 'role', 'rating']
     save_as = True
     save_on_top = True
     # exclude  = ['']
