@@ -5,6 +5,7 @@ from django.core.management import call_command
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import slugify
 from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES
 
 
@@ -68,6 +69,7 @@ class Person(BasicInfo):
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
+    slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -101,6 +103,8 @@ class Person(BasicInfo):
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
         if self.approved_by_user or self.approved_by_admin:
             self.status = 'approved'
+        if not self.slug:
+            self.slug = slugify(self.first_name + '-' + self.last_name)
         return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):
