@@ -42,7 +42,7 @@ class AboutView(View):
 class ConfirmView(View):
     """ trigger mgmt cmd or, ideally, just the related function or just put the code here! """
 
-    def get(self, request):
+    def get(self, request, uidb64, token):
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
