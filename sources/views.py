@@ -137,15 +137,22 @@ class JoinView(View):
         ## check whether it's valid:
         if form.is_valid():
             ## extract the necessary values for sending emails
-            status = form.cleaned_data['status'].split('_')[0]
+            # status = form.cleaned_data['status'].split('_')[0]
             email_address = form.cleaned_data['email_address']
-            ## save the form data
-            form.save()
-            ## set the related user and email the source
-            call_command('set_related_user', email_address)
-            call_command('email_user', email_address, status)
-            # redirect to thank you page:
-            return HttpResponseRedirect('/thank-you/')
+            try:
+                existing = Person.objects.get(email_address=email_address)
+            except:
+                existing = False
+            if not existing:
+                ## save the form data
+                form.save()
+                ## set the related user and email the source
+                call_command('set_related_user', email_address)
+                call_command('email_user', email_address, 'added')
+                # redirect to thank you page:
+                return HttpResponseRedirect('/thank-you/')
+            else:
+                return HttpResponseRedirect('/thank-you/?existing=True')
 
     # create a blank form
     def get(self, request, *args, **kwargs):
@@ -177,8 +184,10 @@ class ThankYouView(View):
     """ thank you page after submission """
 
     def get(self, request):
+        existing = request.GET.get('existing')
         context = {
             'request': request,
-            'user': request.user
+            'existing': existing
+            # 'user': request.user
         }
         return render(request, 'thank-you.html', context)

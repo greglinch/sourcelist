@@ -2,4 +2,7 @@
 
 {% block main %}
 <p>Thanks for your submission!</p>
+{% if existing %}
+<p>Your profile already exists. If you need to update it, check your email for a message and then click on the link to update.</p>
+{% endif %}
 {% endblock %}
