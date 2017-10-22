@@ -15,6 +15,7 @@ def email_user(email_address, status):
     person_id = person.id
 
     fields = SubmitForm.Meta.fields ## abstracted to use same fields as the submission form
+    fields.append('status') ## add status field bc it's not included in the SubmitForm and it's necessary for sending email
     person = Person.objects.filter(email_address=email_address).values(*fields).exclude()[0]
     person_info = '<table>'
     spaces = '&nbsp;' * 5
