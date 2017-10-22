@@ -47,6 +47,7 @@ class Organization(BasicInfo):
 
 class Person(BasicInfo):
     """ class to be inherited by Sources and Journalists """
+    # added_by_other = models.BooleanField(default=False, verbose_name='Is the person you just added not you?')
     approved_by_user = models.BooleanField(default=False)
     approved_by_admin = models.BooleanField(default=False)
     city = models.CharField(max_length=255, null=True, blank=True)
@@ -106,6 +107,10 @@ class Person(BasicInfo):
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
         if self.approved_by_user or self.approved_by_admin:
             self.status = 'approved'
+        elif not self.status:
+            self.status = 'added'
+        # if self.added_by_other:
+        #     self.status = 'added_by_other'
         if not self.slug:
             self.slug = slugify(self.first_name + '-' + self.last_name)
         return super(Person, self).save(*args, **kwargs) 
