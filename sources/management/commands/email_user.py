@@ -58,7 +58,7 @@ def email_user(email_address, status):
     message = ''
 
     if status_type == 'added':
-        subject_title = 'You have been added as a source by '
+        subject_title = 'You have been added as a source'
         if status == 'added_by_self':
             subject_title += 'yourself'
         elif status == 'added_by_other':
