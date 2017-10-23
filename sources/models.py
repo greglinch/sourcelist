@@ -131,6 +131,8 @@ class Person(BasicInfo):
             name = '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
         elif self.middle_name:
             name = '{} {} {}'.format(self.first_name, self.middle_name, self.last_name)
+        else:
+            name = '{} {}'.format(self.first_name, self.last_name)
         return name
 
     class Meta:
