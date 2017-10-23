@@ -7,11 +7,11 @@
 		width: 100%;
 	}
 	.detail-label {
-		width: 20%;
+		width: 25%;
 		font-weight: bold;
 	}
 	.value {
-		width: 80%;
+		width: 75%;
 	}
 </style>
 
@@ -19,18 +19,84 @@
 
 <div class="lead">
 	<table>
+		{% if person.title %}
 		<tr>
-			<td class="detail-label">Type of Scientist</td>
-			<td class="value">{{ person.type_of_scientist }}</td>
+			<td class="detail-label">Title</td>
+			<td class="value">{{ person.title }}</td>
 		</tr>
+		{% endif %}
+		{% if person.organization %}
 		<tr>
 			<td class="detail-label">Organization</td>
 			<td class="value">{{ person.organization }}</td>
 		</tr>
+		{% endif %}
+		{% if person.website %}
+		<tr>
+			<td class="detail-label">Website</td>
+			<td class="value"><a href="{{ person.website }}">{{ person.website }}</a></td>
+		</tr>
+		{% endif %}
+		{% if person.expertise %}
 		<tr>
 			<td class="detail-label">Expertise</td>
 			<td class="value">{{ person.expertise }}</td>
 		</tr>
+		{% endif %}
+		{% if person.email_address %}
+		<tr>
+			<td class="detail-label">Email address</td>
+			<td class="value"><a href="mailto:{{ person.email_address }}">{{ person.email_address }}</a></td>
+		</tr>
+		{% endif %}
+		{% if person.phone_number_primary %}
+		<tr>
+			<td class="detail-label">Primary phone number</td>
+			<td class="value">{{ person.phone_number_primary }}</td>
+		</tr>
+		{% endif %}
+		{% if person.phone_number_secondary %}
+		<tr>
+			<td class="detail-label">Secondary phone number</td>
+			<td class="value">{{ person.phone_number_secondary }}</td>
+		</tr>
+		{% endif %}
+		{% if person.language %}
+		<tr>
+			<td class="detail-label">Language</td>
+			<td class="value">{{ person.language }}</td>
+		</tr>
+		{% endif %}
+		{% if person.timezone %}
+		<tr>
+			<td class="detail-label">Timezone</td>
+			<td class="value">{{ person.timezone }} GMT</td>
+		</tr>
+		{% endif %}
+		{% if person.city %}
+		<tr>
+			<td class="detail-label">City</td>
+			<td class="value">{{ person.city }}</td>
+		</tr>
+		{% endif %}
+		{% if person.state %}
+		<tr>
+			<td class="detail-label">State</td>
+			<td class="value">{{ person.state }}</td>
+		</tr>
+		{% endif %}
+		{% if person.country %}
+		<tr>
+			<td class="detail-label">Country</td>
+			<td class="value">{{ person.country }}</td>
+		</tr>
+		{% endif %}
+		{% if person.notes %}
+		<tr>
+			<td class="detail-label">Notes</td>
+			<td class="value">{{ person.notes }}</td>
+		</tr>
+		{% endif %}
 	</table>
 </div>
 
