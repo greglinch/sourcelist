@@ -99,8 +99,17 @@ class Person(BasicInfo):
     # id_as_underrepresented.short_description = "Underrepresented?"
     # id_as_underrepresented.boolean = True
 
-    def get_field_values(self):
-        return [field.value_to_string(self) for field in Person._meta.fields]
+    # def get_field_values(self):
+    #     return [field.value_to_string(self) for field in Person._meta.fields]
+
+    # def get_person_dict(self):
+    #     person_dict = {}
+    #     fields = Person._meta.fields
+    #     for field in fields:
+    #         field_name = field.name
+    #         field_value = field.value_to_string(self)
+    #         person_dict[field_name] = field_value
+    #     return person_dict
 
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
@@ -116,7 +125,13 @@ class Person(BasicInfo):
         return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        if self.prefix and self.middle_name:
+            name = '{} {} {} {}'.format(self.prefix, self.first_name, self.middle_name, self.last_name)
+        elif self.prefix:
+            name = '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
+        elif self.middle_name:
+            name = '{} {} {}'.format(self.first_name, self.middle_name, self.last_name)
+        return name
 
     class Meta:
         verbose_name_plural = 'People'
