@@ -4,44 +4,56 @@
 
 * add Google Analytics
 
-# To-do for development
+* Let's Encrypt `certbot`
 
-* limit choices displayed on ModelForm for `JoinView`
-	* currently includes all, but we'd only want to include `added_by_self` and `added_by_other`
+# To-do for development V1
 
-* add way to handle if someone submits a duplicate
-	* currently, it throws an exception
-	* possible solution: add logic to see if the email address already exists
-	* possible solution: override existing entry with new entry? but that could be problematic if a third-party is submitting and the info is incorrect
+* Q: use AWS or personal hosting space? 
+	* does Certbot work on my personal hosting? kinda
+
+* BUG: hamburger menu doesn't collapse for responsive view `results.html` 
+	* work fine for all others, so probably a JS conflict
+
+* change Bootstrap and related files to CDN versions
+	* or host them ourselves
+
+* move css to external file under static
+
+* (v2?) send user a message with their profile and link to update if someone tries to submit a new version
+	* would that be spamming? make them click a link to send that message?
+
+* (v2?) include a confirmation link in `email_user` for admin to approve 
+
+* (v2?) write error module to abstract error messages for `except` statements
+	* send to G, M or both? or an admin email Google group
+
+* (v2?)  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
+	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
+	* both in admin and on front-end forms
+
+* how to handle ratings? 
+	* require Journalist profile?
+	* added directly on the person or added in their own model and then you choose a user to attach it to?
+	* ManyToManyField? (only show ones added by that user)
+	* use a mgmt cmd to calculate?
+
+* rename app in Google API console so it matches if people login with oauth
+
+* Point domain to the static files
+	* needs to be the same exact URL structure as dynamic app
+
+* switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
+
+# To-do for development V2
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
 	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
 
+* save all the FK'ed fields on person model to flatten the data
+
 * front-end search should be additive, not start over
 	* e.g. if already one or more params, just append to query string (need to get that with JS?)
-
-* UPDATE: Bootstrap design
-	* change theme to CDN
-
-* move css to external file under static
-
-* FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
-
-* handle status being set by submission form (checkbox?)
-
-* include a confirmation link in `email_user` for admin to approve 
-
-* consider switching `set_related_user` to look up based on the `id` of a `Person` rather than the `email_address` to avoid possible duplicates
-	* altho that should be an issue bc there wouldn't be a duplicate `User` -- it would just update
-	* and I could add validation to make sure `email_address` doesn't already exist
-	* overall, might still be easier to just use `id`
-
-* hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
-	* https://stackoverflow.com/questions/2297377/how-do-i-prevent-permission-escalation-in-django-admin-when-granting-user-chang
-
-* write error module to abstract error messages for `except` statements
-	* send to G, M or both? or an admin email Google group
 
 * UPDATE: front-end form
 	* Q: include checkbox for "not this person?"
@@ -53,62 +65,49 @@
 		* a unique string different from system ID
 		* is combined with user email?
 
-* approve user on the part of the user and admin via email
-	* NOTE: if we can't have approval via email yet, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
-	* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
-
-* add boolean to `User` list display view to indicate that they're tied to a `Person`
-	* also include editable dropdown to add/change the associated `Person`?
-
-* because of `post_save`, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
-	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
-	* both in admin and on front-end forms
-
-* add social logins to `/admin` (a la DocPub)
-
-* hide person objects from everyone unless they 
-	* approved by user
-	* approved by admin
-	* added the person
-	* are the person (based on logged in user email)
-	* are a journalist
+* consider switching `set_related_user` to look up based on the `id` of a `Person` rather than the `email_address` to avoid possible duplicates
+	* altho that should be an issue bc there wouldn't be a duplicate `User` -- it would just update
+	* and I could add validation to make sure `email_address` doesn't already exist
+	* overall, might still be easier to just use `id`
 
 * hide journo M2M fields from sources
 
 * log of which journalist has viewed a source
 
-* how to handle ratings? 
-	* require Journalist profile?
-	* added directly on the person or added in their own model and then you choose a user to attach it to?
-	* ManyToManyField? (only show ones added by that user)
-	* use a mgmt cmd to calculate?
-
 * how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
 	* model inheritance? 
-
-* switch city, state, country, timezone, etc to FK fields?
-	* advantage: filters wouldn't show all choices for country -- just the ones available
-	* NOTE: be sure to save them on self
-
-* save all the FK'ed fields on person model to flatten the data
-
-* set up auth for Facebook
-	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
-
-* add views
-	* terms of service (part of about?)
-	* search page? (or just use homepage)
-	* footer: started but mostly empty
-
-* rename app in Google API console so it matches if people login with oauth
 
 * if we do front-end edit urls, change edit link from admin url to live url
 
 * Django bakery to make static files
 	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
 
-* Point domain to the static files
-	* needs to be the same exact URL structure as dynamic app
+* search form/page
+	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
+	* https://select2.org/getting-started/basic-usage
+	* https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/
+
+* switch city, state, country, timezone, etc to FK fields?
+	* advantage: filters wouldn't show all choices for country -- just the ones available
+	* NOTE: be sure to save them on self
+
+* in admin, hide person objects from everyone unless they 
+	* approved by user
+	* approved by admin
+	* added the person
+	* are the person (based on logged in user email)
+	* are a journalist
+
+* for `person_detail`, find a way to loop thru the keys and values that have been limited by `.values()` and ordered a specific way
+
+* add social logins to `/admin` (a la DocPub)
+
+* add views
+	* terms of service (part of about?)
+	* footer: started but mostly empty
+
+* set up auth for Facebook
+	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 # QUESTIONS 
 
@@ -155,8 +154,8 @@
 
 * Q: switch email content from formatted string in a mgmt cmd to html template?
 
-* Q: use AWS or personal hosting space? 
-	* does Certbot work on my personal hosting?
+* Q: add boolean to `User` list display view to indicate that they're tied to a `Person`?
+	* also include editable dropdown to add/change the associated `Person`?
 
 # NOTE FOR LATER
 
@@ -165,6 +164,11 @@ https://stackoverflow.com/questions/1110153/what-is-the-most-efficent-way-to-sto
 https://github.com/fajran/django-loginurl
 
 https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-has-changed
+
+# PUNTING
+
+* limit `status` choices displayed on ModelForm for `JoinView`
+	* field includes all, but we'd only want to include `added_by_self` and `added_by_other`
 
 # COMPLETED
 
@@ -253,5 +257,30 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * switch to class-based views, especially for `join` and `contact`
 	* https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/
 
+* add link to the detail view in `results.html`
 
+* add detail view for sources
+
+* FIX: `status` not being set automatically, despite same (?) code in admin `save_model` for Person class
+	* Solution: add new choice just called `added` and set it in `Person` save method if there's none
+
+* add way to handle if someone submits a duplicate
+	* currently, it throws an exception from the `email_user` mgmt cmd bc `get()` only work with unique item
+	* YES --> possible solution: add logic to see if the email address already exists
+	* NO --> possible solution: override existing entry with new entry? but that could be problematic if a third-party is submitting and the info is incorrect
+
+* approve user on the part of the user
+	* NOTE: if we can't have approval via email yet, then make them confirm in the admin (e.g. using existing `approved_by_user` boolean, which will need to trigger in the method an update of the `status`)
+	* Q: or is this is a good reason to separate all the `status` options to their own booleans? not sure
+
+* include `sources/` before `slug` for urls?
+	* would help avoid potential issues with any main pages that look like slugs (e.g. `/thank-you`)
+
+* UPDATE: Bootstrap design
+
+* hide permissions and other fieldsets a non-superuser shouldn't have access to in the `UserAdmin`
+	* https://stackoverflow.com/questions/2297377/how-do-i-prevent-permission-escalation-in-django-admin-when-granting-user-chang
+	* e.g. http://127.0.0.1:8000/admin/sources/person/17/change/?method=magic&url_auth_token=AAAADxvpRtr-cHETXIC5RyZf_E4:1e6I0F:1zV89aib1meRK5akQMaUkaWinYA
+
+* finish detail view for sources
 
