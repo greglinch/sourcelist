@@ -10,9 +10,9 @@ urlpatterns = [
     url(r'^thank-you', ThankYouView.as_view()),
 	## main pages
     url(r'^$', ResultsView.as_view()),
-    url(r'^index$', ResultsView.as_view()),
+    # url(r'^index$', ResultsView.as_view()),
     url(r'^about$', AboutView.as_view()),
     url(r'^contact$', ContactView.as_view()),
-    url(r'^results$', ResultsView.as_view()),
+    # url(r'^results$', ResultsView.as_view()),
     url(r'^sources/(?P<slug>[-\w]+)/$', DetailView.as_view(), name='source'),
 ]
