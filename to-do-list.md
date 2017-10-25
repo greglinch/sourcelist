@@ -1,3 +1,6 @@
+# To-do for production
+
+* update nginx caching
 
 # To-do for development V1
 
@@ -288,4 +291,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * Let's Encrypt `certbot`
 	* requires non-AWS domain for EC2
 	* requires workaround for personal hosting
+
+* disable all non-main allowed hosts after testing is done
 
