@@ -181,6 +181,17 @@ class ResultsView(View):
 
         return render(request, 'results.html', context) # , {'form': form})
 
+
+class SitemapView(View):
+    """ sitemap for search engines """
+
+    def get(self, request):
+        context = {
+            'request': request,
+            # 'user': request.user
+        }
+        return render(request, 'sitemap.xml', context)
+
 class ThankYouView(View):
     """ thank you page after submission """
 

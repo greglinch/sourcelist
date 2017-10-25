@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from sources.views import AboutView, ConfirmView, ContactView, DetailView, IndexView, JoinView, ResultsView, ThankYouView
+from sources.views import AboutView, ConfirmView, ContactView, DetailView, IndexView, JoinView, ResultsView, ThankYouView, SitemapView
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^contact$', ContactView.as_view()),
     # url(r'^results$', ResultsView.as_view()),
     url(r'^sources/(?P<slug>[-\w]+)/$', DetailView.as_view(), name='source'),
+    url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
