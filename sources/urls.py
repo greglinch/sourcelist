@@ -8,7 +8,7 @@ urlpatterns = [
         ConfirmView.as_view()),
     url(r'^join', JoinView.as_view()),
     url(r'^thank-you', ThankYouView.as_view()),
-	## main pages
+    ## main pages
     url(r'^$', ResultsView.as_view()),
     # url(r'^index$', ResultsView.as_view()),
     url(r'^about$', AboutView.as_view()),
