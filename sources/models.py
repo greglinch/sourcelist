@@ -74,10 +74,10 @@ class Person(BasicInfo):
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
-    timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset') ## lookup based on city/state/county combo?
+    timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset from GMT', help_text='-4, 10, etc.') ## lookup based on city/state/county combo?
     type_of_scientist = models.CharField(max_length=255, null=True, blank=True)
     # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
-    website = models.URLField(max_length=255, null=True, blank=True)
+    website = models.URLField(max_length=255, null=True, blank=True, help_text="Please include http:// at the beginning.")
     # woman = models.BooleanField(default=False, verbose_name='Do you identify as a woman?'')
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
