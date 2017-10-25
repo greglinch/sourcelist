@@ -1,15 +1,7 @@
-# To-dos for live version (TK)
-
-* create auth groups for permissions (mimic local version)
-
-* add Google Analytics
-
-* Let's Encrypt `certbot`
 
 # To-do for development V1
 
-* Q: use AWS or personal hosting space? 
-	* does Certbot work on my personal hosting? kinda
+* resize width of input boxes for person note and contact message 
 
 * BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
@@ -283,4 +275,17 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* e.g. http://127.0.0.1:8000/admin/sources/person/17/change/?method=magic&url_auth_token=AAAADxvpRtr-cHETXIC5RyZf_E4:1e6I0F:1zV89aib1meRK5akQMaUkaWinYA
 
 * finish detail view for sources
+
+* Q: use AWS or personal hosting space? 
+	* AWS
+
+# Completed for live version
+
+* create auth groups for permissions (mimic local version)
+
+* add Google Analytics
+
+* Let's Encrypt `certbot`
+	* requires non-AWS domain for EC2
+	* requires workaround for personal hosting
 
