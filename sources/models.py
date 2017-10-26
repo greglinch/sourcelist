@@ -24,14 +24,14 @@ class Expertise(BasicInfo):
     class Meta:
         verbose_name_plural = 'Expertise'
 
-    def __unicode__(self):
+    def __str__(self):
         return '{}'.format(self.name)
 
 
 class Language(BasicInfo):
     name = models.CharField(max_length=255, null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{}'.format(self.name)
 
 
@@ -41,7 +41,7 @@ class Organization(BasicInfo):
     # location = models.ForeignKey(Location, null=True, blank=True)
     # website = models.URLField(max_length=200, null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{}'.format(self.name)
 
 
@@ -130,7 +130,7 @@ class Person(BasicInfo):
             self.twitter = self.twitter.replace('@', '')
         return super(Person, self).save(*args, **kwargs) 
 
-    def __unicode__(self):
+    def __str__(self):
         if self.prefix and self.middle_name:
             name = '{} {} {} {}'.format(self.prefix, self.first_name, self.middle_name, self.last_name)
         elif self.prefix:
@@ -172,7 +172,7 @@ def send_user_added_email(sender, instance, **kwargs):
 #     # header = models.TextField(blank=True, null=True, help_text='Items to add to the header (e.g. CSS, JS, etc')
 #     title = models.CharField(blank=True, null=True, max_length=50, help_text='Limit: 50 characters')
 
-#     def __unicode__(self):
+#     def __str__(self):
 #         return self.title
 
 
@@ -184,7 +184,7 @@ class Rating(BasicInfo):
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
 
     class Meta:
@@ -197,7 +197,7 @@ class Rating(BasicInfo):
 #     class Meta:
 #         proxy = True
 
-#     def __unicode__(self):
+#     def __str__(self):
 #         return '{} {} {}' % (self.prefix, self.first_name, self.last_name)
 
 class Source(Person):
@@ -206,7 +206,7 @@ class Source(Person):
     class Meta:
         proxy = True
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
 
 
