@@ -1,3 +1,8 @@
+ENTRY_CHOICES = (
+    ('automated', 'Automated'),
+    ('manual', 'Manual')
+)
+
 PERSON_CHOICES = (
     ('journalist', 'Journalist'),
     ('source', 'Source')
