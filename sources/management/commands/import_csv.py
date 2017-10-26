@@ -36,7 +36,7 @@ def import_csv(csv_path):
                 'role': row['role'],
                 'first_name': row['first_name'],
                 'last_name': row['last_name'],
-                'type_of_scientist': row['type'],
+                'type_of_expert': row['type'],
                 # 'expertise': row['expertise'], ## m2m field
                 'title': row['title'],
                 # 'organization': row['organization'], ## m2m field
@@ -47,9 +47,9 @@ def import_csv(csv_path):
                 'email_address': email_address,
                 'phone_number_primary': row['phone_primary'],
                 'phone_number_secondary': row['phone_secondary'],
-                # '': row['twitter'],
+                'twitter': row['twitter'],
                 # '': row['notes'],
-                # 'notes': '',
+                'notes': row['notes'],
                 # 'website': '',
                 # 'prefix': '', 
                 # 'middle_name': '',

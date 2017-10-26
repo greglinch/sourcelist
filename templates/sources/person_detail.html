@@ -19,6 +19,12 @@
 
 <div class="lead">
 	<table>
+		{% if person.type_of_expert %}
+		<tr>
+			<td class="detail-label">Type of expert</td>
+			<td class="value">{{ person.type_of_expert }}</td>
+		</tr>
+		{% endif %}
 		{% if person.title %}
 		<tr>
 			<td class="detail-label">Title</td>
@@ -59,6 +65,12 @@
 		<tr>
 			<td class="detail-label">Secondary phone number</td>
 			<td class="value">{{ person.phone_number_secondary }}</td>
+		</tr>
+		{% endif %}
+		{% if person.twitter %}
+		<tr>
+			<td class="detail-label">Twitter</td>
+			<td class="value"><a href="https://twitter.com/{{ person.twitter }}">@{{ person.twitter }}</a></td>
 		</tr>
 		{% endif %}
 		{% if person.language %}

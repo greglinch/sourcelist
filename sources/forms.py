@@ -13,4 +13,4 @@ class ContactForm(forms.Form):
 class SubmitForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['prefix', 'first_name', 'middle_name', 'last_name', 'type_of_scientist', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes']
+        fields = ['prefix', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'twitter', 'language', 'timezone', 'city', 'state', 'country', 'notes']

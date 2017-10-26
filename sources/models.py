@@ -52,7 +52,7 @@ class Person(BasicInfo):
     approved_by_admin = models.BooleanField(default=False)
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True)
-    email_address = models.EmailField(max_length=254)
+    email_address = models.EmailField(max_length=254, null=True, blank=False)
     expertise = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False)
@@ -75,7 +75,8 @@ class Person(BasicInfo):
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset from GMT', help_text='-4, 10, etc.') ## lookup based on city/state/county combo?
-    type_of_scientist = models.CharField(max_length=255, null=True, blank=True)
+    twitter = models.CharField(null=True, blank=True, max_length=140, help_text='Please do not include the @ symbol.')
+    type_of_expert = models.CharField(max_length=255, null=True, blank=True, help_text='e.g. Biologist, Engineer, Mathematician, Sociologist, etc.')
     # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
     website = models.URLField(max_length=255, null=True, blank=True, help_text="Please include http:// at the beginning.")
     # woman = models.BooleanField(default=False, verbose_name='Do you identify as a woman?'')
@@ -122,6 +123,8 @@ class Person(BasicInfo):
         #     self.status = 'added_by_other'
         if not self.slug:
             self.slug = slugify(self.first_name + '-' + self.last_name)
+        if self.twitter:
+            self.twitter = self.twitter.replace('@', '')
         return super(Person, self).save(*args, **kwargs) 
 
     def __unicode__(self):
