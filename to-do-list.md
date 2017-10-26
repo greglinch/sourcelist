@@ -28,6 +28,8 @@
 
 * add @ symbol Bootstrap add-on to imput for Twitter 
 
+* Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_iser`?
+
 * (v2?) add "report this profile" link to send message on `person_detail` page template
 	* inaccurate
 	* imposter
