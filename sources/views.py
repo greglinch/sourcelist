@@ -160,6 +160,14 @@ class JoinView(View):
         form = SubmitForm()
         return render(request, 'join.html', {'form': form})
 
+# class NavView(View):
+#     """ nav bar """
+
+#     def get(self, request):
+#         site_name = PROJECT_NAME
+#         context = site_name
+#         return render(request, 'nav.html', context)
+
 class ResultsView(View):
 # class ResultsView(ListView):
     """ search and display results"""
