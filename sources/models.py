@@ -6,7 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
-from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES
+from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES
 
 
 class BasicInfo(models.Model):
@@ -53,6 +53,7 @@ class Person(BasicInfo):
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True)
     email_address = models.EmailField(max_length=254, null=True, blank=False)
+    entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
     expertise = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False)
@@ -122,7 +123,9 @@ class Person(BasicInfo):
         # if self.added_by_other:
         #     self.status = 'added_by_other'
         if not self.slug:
-            self.slug = slugify(self.first_name + '-' + self.last_name)
+            first = self.first_name #.replace(r'^".*"$', '')
+            last = self.last_name
+            self.slug = slugify(first + '-' + last)
         if self.twitter:
             self.twitter = self.twitter.replace('@', '')
         return super(Person, self).save(*args, **kwargs) 
@@ -155,7 +158,8 @@ def send_user_added_email(sender, instance, **kwargs):
     if role == 'source': # and instance.created == instance.updated:
         if status_type == 'added':
             call_command('set_related_user', email_address)
-            call_command('email_user', email_address, status)
+            # if instance.entry_type == 'manual':
+            #     call_command('email_user', email_address, status)
         else:
             call_command('set_related_user', email_address)
     ## TK TK: need a way to handle journalists role for this so it will update the User model, but not send too many emails
