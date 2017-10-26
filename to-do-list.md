@@ -2,17 +2,37 @@
 
 * update nginx caching
 
+* BUG: received email three times after submitting join form
+
+* IMPORT: make sure everyone doesn't receive a message until we need them (for updating their info)
+
 # To-do for development V1
+
+* Q: add `preferred_pronoun` field?
+
+* social metadata
+
+* 404 page
+	* probably want to redirect to 404 page
+	* probably don't want these
+	* https://stackoverflow.com/questions/14286732/how-do-i-redirect-from-a-django-detailview-when-the-specified-object-doesnt-exi
+	* https://docs.djangoproject.com/en/1.11/topics/http/views/#the-http404-exception
 
 * resize width of input boxes for person note and contact message 
 
 * BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
 
-* change Bootstrap and related files to CDN versions
-	* or host them ourselves
-
 * move css to external file under static
+	* also move all inlines styles there (e.g. image width for about)
+
+* add @ symbol Bootstrap add-on to imput for Twitter 
+
+* (v2?) add "report this profile" link to send message on `person_detail` page template
+	* inaccurate
+	* imposter
+	* offensive
+	* other (explain)
 
 * (v2?) send user a message with their profile and link to update if someone tries to submit a new version
 	* would that be spamming? make them click a link to send that message?
@@ -32,14 +52,14 @@
 	* ManyToManyField? (only show ones added by that user)
 	* use a mgmt cmd to calculate?
 
-* rename app in Google API console so it matches if people login with oauth
-
 * Point domain to the static files
 	* needs to be the same exact URL structure as dynamic app
 
 * switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
 
 # To-do for development V2
+
+* abstract pages to be control by a `Page` model or something we can do that all via the admin and not the code each time 
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -103,6 +123,12 @@
 
 * set up auth for Facebook
 	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
+
+* dynamically-generated xml sitemap
+	* https://github.com/xaralis/django-static-sitemaps
+
+* highlight current page in the navbar
+	* https://stackoverflow.com/a/7665655/217955
 
 # QUESTIONS 
 
@@ -282,15 +308,22 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * Q: use AWS or personal hosting space? 
 	* AWS
 
-# Completed for live version
 
-* create auth groups for permissions (mimic local version)
+* rename app in Google API console so it matches if people login with oauth
+
+* PROD: create auth groups for permissions (mimic local version)
 
 * add Google Analytics
 
-* Let's Encrypt `certbot`
+* PROD: Let's Encrypt `certbot`
 	* requires non-AWS domain for EC2
 	* requires workaround for personal hosting
 
 * disable all non-main allowed hosts after testing is done
 
+* starter, statically-generated xml sitemap
+
+* change Bootstrap and related files to CDN versions
+	* or host them ourselves
+
+* add credits: Mollie, Greg, Nacin, Kevin
