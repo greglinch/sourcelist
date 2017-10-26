@@ -35,14 +35,14 @@
 		<tbody>
 			{% for result in results %}
 				<tr>
+                    <td>
+                        <a href="{% url 'source' slug=result.slug %}">
+                            {{ result.first_name }}
+                        </a>
+                    </td>                    
 					<td>
 						<a href="{% url 'source' slug=result.slug %}">
 							{{ result.last_name }}
-						</a>
-					</td>
-					<td>
-						<a href="{% url 'source' slug=result.slug %}">
-							{{ result.first_name }}
 						</a>
 					</td>
 					<td>{{ result.type_of_expert }}</td>
