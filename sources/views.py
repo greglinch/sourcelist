@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.management import call_command
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect#, Http404
 from django.shortcuts import render # , redirect
 from django.template.context import RequestContext
 from django.utils.encoding import force_text
@@ -107,10 +107,11 @@ class DetailView(DetailView):
     # context_object_name = 'person'
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context_object_name = 'person'
-        # context['now'] = timezone.now()
-        return context
+
+            context = super(DetailView, self).get_context_data(**kwargs)
+            context_object_name = 'person'
+            # context['now'] = timezone.now()
+            return context
 
     # def get_queryset(self):
     #     queryset = Person.objects.filter(slug=self.slug)
