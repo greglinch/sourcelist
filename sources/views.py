@@ -175,7 +175,7 @@ class ResultsView(View):
     def get(self, request):
         # query = request.GET['q']
 
-        field_list = ['last_name', 'first_name', 'type_of_expert', 'expertise', 'organization', ]
+        field_list = ['first_name', 'last_name', 'type_of_expert', 'expertise', 'organization', ]
 
         results = Person.objects.filter(
             approved_by_user=True,
