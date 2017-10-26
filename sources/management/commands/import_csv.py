@@ -22,8 +22,10 @@ def import_csv(csv_path):
         message = 'Number of rows: {}\t'.format(len(csv_reader))
         print(message)
         counter = 0
+        failed_rows = []
         ## loops thru the rows
         for row in csv_reader:
+            counter += 1
             ## special fields
             status = 'added_by_admin'
             email_address = row['email_primary']
@@ -37,27 +39,29 @@ def import_csv(csv_path):
                 'first_name': row['first_name'],
                 'last_name': row['last_name'],
                 'type_of_expert': row['type'],
-                # 'expertise': row['expertise'], ## m2m field
+                'expertise': row['expertise'], ## m2m field
                 'title': row['title'],
-                # 'organization': row['organization'], ## m2m field
+                'organization': row['organization'], ## m2m field
                 'city': row['city'],
                 'state': row['state'],
                 'country': row['country'],
-                'timezone': timezone,
-                'email_address': email_address,
+                'timezone': row['timezone'],
+                'email_address': row['email_address'],
                 'phone_number_primary': row['phone_primary'],
                 'phone_number_secondary': row['phone_secondary'],
                 'twitter': row['twitter'],
-                # '': row['notes'],
                 'notes': row['notes'],
-                # 'website': '',
-                # 'prefix': '', 
+                'website': row['website'],
+                'prefix': row['prefix'], 
                 # 'middle_name': '',
                 # 'language': 'English', ## m2mfield
                 'status': status,
             }
             ## create the source Person
-            obj, created = Person.objects.update_or_create(**csv_to_model)
+            try:
+                obj, created = Person.objects.update_or_create(**csv_to_model)
+            except:
+                failed_rows.append(counter)
             # try:
             #     obj, created = Person.objects.create(**csv_to_model)
             # except:
@@ -69,12 +73,13 @@ def import_csv(csv_path):
             except:
                 message = 'Set related user: ' + str(sys.exc_info())
                 print(message)
-            try:
-                call_command('email_user', email_address, status)
-            except:
-                message = 'Email user:' + str(sys.exc_info())
-                print(message)
-            counter += 1
+            # try:
+            #     call_command('email_user', email_address, status)
+            # except:
+            #     message = 'Email user:' + str(sys.exc_info())
+            #     print(message)
+            message = '\nThe following rows failed: \n\n {}'.format(failed_rows)
+            print(message)
 
     ## end
     end_time = datetime.now()
