@@ -17,6 +17,8 @@
 
 <h1>{{ person }}</h1>
 
+<div class="return-to-db">
+	<p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p></div>
 <div class="lead">
 	<table>
 		{% if person.type_of_expert %}
@@ -111,5 +113,7 @@
 		{% endif %}
 	</table>
 </div>
-
+<div class="return-to-db">
+	<p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p>
+</div>
 {% endblock %}
