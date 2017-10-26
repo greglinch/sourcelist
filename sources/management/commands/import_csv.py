@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.management import call_command
 from django.contrib.auth.models import User, Group
 from sources.models import Person
+from sourcelist.settings import TEST_ENV
 from datetime import datetime
 import sys
 import csv
@@ -11,7 +12,7 @@ import csv
 def import_csv(csv_path):    
     ## start
     start_time = datetime.now()
-    start_message = '\nStarted import:\t {}'.format(start_time)
+    start_message = '\nStarted import:\t {}\n'.format(start_time)
     message = start_message
     print(message)
 
@@ -19,7 +20,8 @@ def import_csv(csv_path):
     # csv_path = '/Users/glinch/Downloads/sources.csv'
     with open(csv_path) as csv_file:
         csv_reader = csv.DictReader(csv_file)
-        message = 'Number of rows: {}\t'.format(len(csv_reader))
+        row_count = sum(1 for row in csv_reader)
+        message = 'Number of rows: {}\t'.format(row_count)
         print(message)
         counter = 0
         failed_rows = []
@@ -45,8 +47,6 @@ def import_csv(csv_path):
                 'city': row['city'],
                 'state': row['state'],
                 'country': row['country'],
-                'timezone': row['timezone'],
-                'email_address': row['email_address'],
                 'phone_number_primary': row['phone_primary'],
                 'phone_number_secondary': row['phone_secondary'],
                 'twitter': row['twitter'],
@@ -55,13 +55,15 @@ def import_csv(csv_path):
                 'prefix': row['prefix'], 
                 # 'middle_name': '',
                 # 'language': 'English', ## m2mfield
+                'email_address': email_address,
                 'status': status,
+                'timezone': timezone,
             }
             ## create the source Person
-            try:
-                obj, created = Person.objects.update_or_create(**csv_to_model)
-            except:
-                failed_rows.append(counter)
+            # try:
+            obj, created = Person.objects.update_or_create(**csv_to_model)
+            # except:
+                # failed_rows.append(counter)
             # try:
             #     obj, created = Person.objects.create(**csv_to_model)
             # except:
@@ -73,11 +75,12 @@ def import_csv(csv_path):
             except:
                 message = 'Set related user: ' + str(sys.exc_info())
                 print(message)
-            # try:
-            #     call_command('email_user', email_address, status)
-            # except:
-            #     message = 'Email user:' + str(sys.exc_info())
-            #     print(message)
+            # if not TEST_ENV:
+                # try:
+                #     call_command('email_user', email_address, status)
+                # except:
+                #     message = 'Email user:' + str(sys.exc_info())
+                #     print(message)
             message = '\nThe following rows failed: \n\n {}'.format(failed_rows)
             print(message)
 
