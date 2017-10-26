@@ -179,7 +179,8 @@ class ResultsView(View):
 
         results = Person.objects.filter(
             approved_by_user=True,
-            approved_by_admin=True
+            approved_by_admin=True,
+            role='source'
         ).values() # values(*field_list)
 
         context = {
