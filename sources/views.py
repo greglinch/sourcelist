@@ -107,11 +107,10 @@ class DetailView(DetailView):
     # context_object_name = 'person'
 
     def get_context_data(self, **kwargs):
-
-            context = super(DetailView, self).get_context_data(**kwargs)
-            context_object_name = 'person'
-            # context['now'] = timezone.now()
-            return context
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context_object_name = 'person'
+        # context['now'] = timezone.now()
+        return context
 
     # def get_queryset(self):
     #     queryset = Person.objects.filter(slug=self.slug)
