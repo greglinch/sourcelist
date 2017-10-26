@@ -31,10 +31,10 @@ def import_csv(csv_path):
             ## special fields
             status = 'added_by_admin'
             email_address = row['email_address']
-            if isinstance(row['timezone'], int):
-                timezone = row['timezone']
-            else:
-                timezone = None
+            # if isinstance(row['timezone'], int):
+            #     timezone = row['timezone']
+            # else:
+            #     timezone = None
             ## map fields from csv to Person model
             csv_to_model = {
                 'role': row['role'],
@@ -49,6 +49,7 @@ def import_csv(csv_path):
                 'country': row['country'],
                 'phone_number_primary': row['phone_primary'],
                 'phone_number_secondary': row['phone_secondary'],
+                'timezone': row['timezone'],
                 'twitter': row['twitter'],
                 'notes': row['notes'],
                 # 'website': row['website'],
@@ -58,7 +59,6 @@ def import_csv(csv_path):
                 'entry_type': 'automated',
                 'email_address': email_address,
                 'status': status,
-                'timezone': timezone,
             }
             ## create the source Person
             # try:
