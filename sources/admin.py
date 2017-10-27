@@ -4,15 +4,6 @@ from django.contrib import messages
 from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin # Location,
 
 
-class ExpertiseAdmin(admin.ModelAdmin):
-    fields = ['name']
-    list_display = ['name']
-    # list_editable = ['']
-    # list_filter = 
-    search_fields = ['name']
-    # exclude  = ['']
-
-
 class PersonAdmin(admin.ModelAdmin):
     # fieldsets = (
     #     (None, {
@@ -23,7 +14,7 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes'] # 'location', 'woman', 'underrepresented', 'rating',
+    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronoun', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes'] # 'location', 'woman', 'underrepresented', 'rating',
     list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_expert', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
@@ -82,30 +73,16 @@ class LanguageAdmin(admin.ModelAdmin):
 #     # exclude  = ['']
 
 
-class OrganizationAdmin(admin.ModelAdmin):
-    fields = ['name'] # 'location',
-    list_display = ['name']
-    # list_editable = ['']
-    # list_filter = ['']
-    search_fields = ['name']
-    # exclude  = ['']
-
-
-# class JournalistAdmin(admin.ModelAdmin):
-    # fields = ['']
-    # list_display = 
-    # list_editable = ['']
-    # list_filter = 
-    # search_fields = 
-    # exclude  = ['']
-
-
 class SourceForJournalistAdmin(admin.ModelAdmin):
-    fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
-    list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    fields = PersonAdmin.fields
+    # fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
+    list_display = PersonAdmin.list_display
+    # list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
-    list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
+    list_filter = PersonAdmin.list_filter
+    # list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
+    search_fields = PersonAdmin.search_fields
+    # search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
     # filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = fields
 
@@ -116,11 +93,15 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
 
 
 class SourceForAdminAdmin(admin.ModelAdmin):
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
-    list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    fields = PersonAdmin.fields
+    # fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
+    list_display = PersonAdmin.list_display
+    # list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = [''] 
-    list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
+    list_filter = PersonAdmin.list_filter
+    # list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
+    search_fields = PersonAdmin.search_fields
+    # search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
     # filter_horizontal = ['expertise', 'organization', 'language']
     save_on_top = True
 
@@ -128,6 +109,33 @@ class SourceForAdminAdmin(admin.ModelAdmin):
         """ only show Person objects with a role of source """
         qs = super(SourceForAdminAdmin, self).get_queryset(request)
         return qs.filter(role='source')
+
+
+class ExpertiseAdmin(admin.ModelAdmin):
+    fields = ['name']
+    list_display = ['name']
+    # list_editable = ['']
+    # list_filter = ['']
+    search_fields = ['name']
+    # exclude  = ['']
+
+
+class OrganizationAdmin(admin.ModelAdmin):
+    fields = ['name'] # 'location',
+    list_display = ['name']
+    # list_editable = ['']
+    # list_filter = ['']
+    search_fields = ['name']
+    # exclude  = ['']
+
+
+# class JournalistAdmin(admin.ModelAdmin):
+#     fields = ['']
+#     list_display = ['']
+#     # list_editable = ['']
+#     list_filter = ['']
+#     search_fields = ['']
+#     # exclude  = ['']
 
 
 ## TEMPLATE
