@@ -23,9 +23,22 @@
 	<p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p>
 </div>
 
-<h1>{{ person }}</h1>
+<div class="jumbotron">
+	<h1>{{ person }}</h1>
+		<p class="lead">
+			{% if person.title %}
+				{{ person.title }}
+			{% endif %}
+			{% if person.title and person.organization %}
+			&nbsp;/&nbsp;
+			{% endif %}
+			{% if person.organization %}
+				{{ person.organization }}
+			{% endif %}
+		</p>
+</div>
 
-<div class="lead">
+<div class="main-content lead">
 	<table>
 		{% if person.preferred_pronouns %}
 		<tr>
@@ -37,18 +50,6 @@
 		<tr>
 			<td class="detail-label">Type of expert</td>
 			<td class="value">{{ person.type_of_expert }}</td>
-		</tr>
-		{% endif %}
-		{% if person.title %}
-		<tr>
-			<td class="detail-label">Title</td>
-			<td class="value">{{ person.title }}</td>
-		</tr>
-		{% endif %}
-		{% if person.organization %}
-		<tr>
-			<td class="detail-label">Organization</td>
-			<td class="value">{{ person.organization }}</td>
 		</tr>
 		{% endif %}
 		{% if person.website %}
