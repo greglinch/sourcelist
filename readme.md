@@ -107,21 +107,17 @@ Paste the following (and fill all the `UPDATE` vars)
 	SITE_URL = '' # UPDATE
 
 	## database
-	db_engine = 'django.db.backends.postgresql_psycopg2'
-	db_name = 'sourcelist'
-	db_user = 'sourcelistuser'
+	db_engine = ''  # UPDATE
+	db_name = '' # UPDATE
+	db_user = '' # UPDATE
 	db_password = '' # UPDATE
-	db_host = 'localhost'
-	db_port = ''
-
-	## sqlite
-	# db_engine = 'django.db.backends.sqlite3',
-	# db_name = os.path.join(BASE_DIR, 'db.sqlite3'),
+	db_host = '' # UPDATE
+	db_port = '' # UPDATE
 
 	## email
 	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-	EMAIL_HOST = 'smtp.gmail.com' # UPDATE
-	EMAIL_PORT = 587
+	EMAIL_HOST = # UPDATE
+	EMAIL_PORT = # UPDATE
 	EMAIL_HOST_USER = '' # UPDATE
 	EMAIL_HOST_PASSWORD = '' # UPDATE
 	EMAIL_USE_TLS = True
