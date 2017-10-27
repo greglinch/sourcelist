@@ -14,8 +14,8 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_type'] # 'location', 'woman', 'underrepresented', 'rating',
-    list_display = ['last_name', 'first_name', 'updated', 'entry_type', 'approved_by_user', 'approved_by_admin', 'role' ] # 'country', 'timezone_abbrev', 'title', 'type_of_expert', 'rating' ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_method', 'entry_type'] # 'location', 'woman', 'underrepresented', 'rating',
+    list_display = ['last_name', 'first_name', 'updated', 'entry_method', 'entry_type', 'approved_by_user', 'approved_by_admin', 'role' ] # 'country', 'timezone_abbrev', 'title', 'type_of_expert', 'rating' ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_expert', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
@@ -53,6 +53,8 @@ class PersonAdmin(admin.ModelAdmin):
                 status = 'added_by_self'
             else:
                 status = 'added_by_other'
+            if not obj.entry_method:
+                obj.entry_method = 'admin-form'
         # obj.status = status
 
         ## save
