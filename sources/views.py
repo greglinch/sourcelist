@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.html import format_html
 from django.views import View
 from django.views.generic.detail import DetailView #, ListView
-from sourcelist.settings import PROJECT_NAME
+from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Person
 from sources.tokens import account_confirmation_token
@@ -88,8 +88,8 @@ class ContactView(View):
             send_mail(
                 '[{}] Contact form messsage from {}'.format(PROJECT_NAME, name),
                 plain_message,
-                'greglinch@gmail.com',
-                ['greglinch@gmail.com'],
+                EMAIL_SENDER,
+                [EMAIL_SENDER],
                 html_message=html_message,
                 )
             # redirect to thank you page:
