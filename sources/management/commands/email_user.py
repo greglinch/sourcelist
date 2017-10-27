@@ -67,7 +67,7 @@ def email_user(email_address, status):
             subject_title += 'an admin'
 
         html_message = '\
-            <p>Diverse Sources is a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.).</p> \
+            <p>Diverse Sources is a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented and is willing to respond to journalists on deadline is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.).</p> \
             <p>This database aims to make it easy for journalists and others to include a wider range of backgrounds, experiences and perspectives in their work. By doing so, we can improve our coverage and better reflect the world we cover.</p> \
             <p>To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here:</p> \
             <p>{confirm_url}</p> \
