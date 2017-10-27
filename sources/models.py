@@ -211,6 +211,7 @@ class SourceForAdmin(Person):
     class Meta:
         proxy = True
         verbose_name_plural = 'Sources for admins'
+        ordering = ['-updated']
 
     def __str__(self):
         if self.prefix and self.middle_name:
