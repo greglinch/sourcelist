@@ -72,7 +72,7 @@ def email_user(email_address, status):
             <p>To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here:</p> \
             <p>{confirm_url}</p> \
             <p>{person_info}</p> \
-            <p>If the information if incorrect, please edit your entry:</p> \
+            <p>If the information is incorrect, please edit your entry:</p> \
             <p>{login_link}</p> \
             <p>View the database:</p> \
             <p>{site_url}</p>\
