@@ -8,15 +8,7 @@
 
 # To-do for development V1
 
-* Q: add `preferred_pronoun` field?
-
 * social metadata
-
-* 404 page
-	* probably want to redirect to 404 page
-	* probably don't want these
-	* https://stackoverflow.com/questions/14286732/how-do-i-redirect-from-a-django-detailview-when-the-specified-object-doesnt-exi
-	* https://docs.djangoproject.com/en/1.11/topics/http/views/#the-http404-exception
 
 * resize width of input boxes for person note and contact message 
 
@@ -29,6 +21,7 @@
 * add @ symbol Bootstrap add-on to imput for Twitter 
 
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_iser`?
+	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template
 	* inaccurate
@@ -131,6 +124,8 @@
 
 * highlight current page in the navbar
 	* https://stackoverflow.com/a/7665655/217955
+
+* add admin action to batch set `approved_by_admin`
 
 # QUESTIONS 
 
@@ -329,3 +324,17 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* or host them ourselves
 
 * add credits: Mollie, Greg, Nacin, Kevin
+
+* add `return to database` link on `person_detail`
+
+* 404 page
+	* probably want to redirect to 404 page
+	* probably don't want these
+	* https://stackoverflow.com/questions/14286732/how-do-i-redirect-from-a-django-detailview-when-the-specified-object-doesnt-exi
+	* https://docs.djangoproject.com/en/1.11/topics/http/views/#the-http404-exception
+
+* favicon
+	* https://gist.github.com/asmallteapot/2038673
+
+* Q: add `preferred_pronoun` field?
+
