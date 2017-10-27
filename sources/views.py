@@ -212,3 +212,9 @@ class ThankYouView(View):
             # 'user': request.user
         }
         return render(request, 'thank-you.html', context)
+
+class ErrorView(View):
+    """ 404 page """
+
+    def get(self, request):
+        return render(request, '404.html', context)
