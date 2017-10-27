@@ -14,8 +14,8 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes'] # 'location', 'woman', 'underrepresented', 'rating',
-    list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_expert', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_type'] # 'location', 'woman', 'underrepresented', 'rating',
+    list_display = ['last_name', 'first_name', 'updated', 'entry_type', 'approved_by_user', 'approved_by_admin', 'role' ] # 'country', 'timezone_abbrev', 'title', 'type_of_expert', 'rating' ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_expert', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
@@ -24,6 +24,10 @@ class PersonAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
     # exclude  = ['']
+
+    def timezone_abbrev(self, obj):
+        return obj.timezone
+    timezone_abbrev.short_description = 'Timezone offset'
 
     ## THIS NEEDS TO SUPPORT
         # DONE if user.email is Person's email
@@ -63,6 +67,10 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
     search_fields = PersonAdmin.search_fields
     readonly_fields = fields
 
+    def timezone_abbrev(self, obj):
+        return obj.timezone
+    timezone_abbrev.short_description = 'Timezone offset'
+
     def get_queryset(self, request):
         """ only show Person objects with a role of source """
         qs = super(SourceForJournalistAdmin, self).get_queryset(request)
@@ -72,10 +80,14 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
 class SourceForAdminAdmin(admin.ModelAdmin):
     fields = PersonAdmin.fields
     list_display = PersonAdmin.list_display
-    # list_editable = [''] 
+    list_editable = ['approved_by_admin']
     list_filter = PersonAdmin.list_filter
     search_fields = PersonAdmin.search_fields
     save_on_top = True
+
+    def timezone_abbrev(self, obj):
+        return obj.timezone
+    timezone_abbrev.short_description = 'Timezone offset'
 
     def get_queryset(self, request):
         """ only show Person objects with a role of source """
