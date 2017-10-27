@@ -14,7 +14,7 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronoun', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes'] # 'location', 'woman', 'underrepresented', 'rating',
+    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'preferred_pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'language', 'timezone', 'city', 'state', 'country', 'notes'] # 'location', 'woman', 'underrepresented', 'rating',
     list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_expert', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'

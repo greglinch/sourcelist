@@ -6,21 +6,33 @@
 	table {
 		width: 100%;
 	}
+	tr {
+		border: 15px solid transparent;
+	}
 	.detail-label {
-		width: 25%;
+		width: 30%;
 		font-weight: bold;
+		padding-right: 15px;
 	}
 	.value {
-		width: 75%;
+		width: 70%;
 	}
 </style>
 
+<div class="return-to-db">
+	<p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p>
+</div>
+
 <h1>{{ person }}</h1>
 
-<div class="return-to-db">
-	<p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p></div>
 <div class="lead">
 	<table>
+		{% if person.preferred_pronouns %}
+		<tr>
+			<td class="detail-label">Preferred pronouns</td>
+			<td class="value">{{ person.preferred_pronouns }}</td>
+		</tr>
+		{% endif %}
 		{% if person.type_of_expert %}
 		<tr>
 			<td class="detail-label">Type of expert</td>
