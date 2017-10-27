@@ -68,6 +68,7 @@ class Person(BasicInfo):
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
     phone_number_secondary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Secondary phone number')
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
+    # preferred_pronoun = models.CharField(null=True, blank=True, max_length=255) ## switch rating to ManyToManyField?
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
@@ -200,14 +201,43 @@ class Rating(BasicInfo):
 #     def __str__(self):
 #         return '{} {} {}' % (self.prefix, self.first_name, self.last_name)
 
-class Source(Person):
+
+class SourceForAdmin(Person):
+    """ sources for admin """
+
+    class Meta:
+        proxy = True
+        verbose_name_plural = 'Sources for admins'
+
+    def __str__(self):
+        if self.prefix and self.middle_name:
+            name = '{} {} {} {}'.format(self.prefix, self.first_name, self.middle_name, self.last_name)
+        elif self.prefix:
+            name = '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
+        elif self.middle_name:
+            name = '{} {} {}'.format(self.first_name, self.middle_name, self.last_name)
+        else:
+            name = '{} {}'.format(self.first_name, self.last_name)
+        return name
+
+
+class SourceForJournalist(Person):
     """ sources for Journalists """
 
     class Meta:
         proxy = True
+        verbose_name_plural = 'Sources for journalists'
 
     def __str__(self):
-        return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
+        if self.prefix and self.middle_name:
+            name = '{} {} {} {}'.format(self.prefix, self.first_name, self.middle_name, self.last_name)
+        elif self.prefix:
+            name = '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
+        elif self.middle_name:
+            name = '{} {} {}'.format(self.first_name, self.middle_name, self.last_name)
+        else:
+            name = '{} {}'.format(self.first_name, self.last_name)
+        return name
 
 
 

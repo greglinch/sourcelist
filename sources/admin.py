@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Expertise, Person, Language, Organization, Source # Location,
+from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin # Location,
 
 
 class ExpertiseAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ['last_name', 'first_name', 'role', 'country', 'timezone', 'title', 'type_of_expert', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_scientist', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
+    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_expert', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
     # filter_horizontal = ['expertise', 'organization', 'language']
     readonly_fields = ['rating_avg', 'role', 'rating']
     save_as = True
@@ -100,7 +100,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     # exclude  = ['']
 
 
-class SourceAdmin(admin.ModelAdmin):
+class SourceForJournalistAdmin(admin.ModelAdmin):
     fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
     list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
@@ -111,7 +111,22 @@ class SourceAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         """ only show Person objects with a role of source """
-        qs = super(SourceAdmin, self).get_queryset(request)
+        qs = super(SourceForJournalistAdmin, self).get_queryset(request)
+        return qs.filter(role='source')
+
+
+class SourceForAdminAdmin(admin.ModelAdmin):
+    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
+    list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    # list_editable = [''] 
+    list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
+    search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
+    # filter_horizontal = ['expertise', 'organization', 'language']
+    save_on_top = True
+
+    def get_queryset(self, request):
+        """ only show Person objects with a role of source """
+        qs = super(SourceForAdminAdmin, self).get_queryset(request)
         return qs.filter(role='source')
 
 
@@ -132,4 +147,5 @@ admin.site.register(Language, LanguageAdmin)
 # admin.site.register(Location, LocationAdmin)
 admin.site.register(Organization, OrganizationAdmin)
 # admin.site.register(Journalist, JournalistAdmin)
-admin.site.register(Source, SourceAdmin)
+admin.site.register(SourceForJournalist, SourceForJournalistAdmin)
+admin.site.register(SourceForAdmin, SourceForAdminAdmin)
