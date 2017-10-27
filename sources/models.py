@@ -53,6 +53,7 @@ class Person(BasicInfo):
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True)
     email_address = models.EmailField(max_length=254, null=True, blank=False)
+    entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
     expertise = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # expertise = models.ManyToManyField(Expertise, blank=True)
@@ -129,6 +130,8 @@ class Person(BasicInfo):
             self.slug = slugify(first + '-' + last)
         if self.twitter:
             self.twitter = self.twitter.replace('@', '')
+        if not self.entry_method:
+            self.entry_method = 'site-form'
         return super(Person, self).save(*args, **kwargs) 
 
     def __str__(self):
@@ -146,23 +149,23 @@ class Person(BasicInfo):
         verbose_name_plural = 'People'
 
 
-@receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
-def send_user_added_email(sender, instance, **kwargs):
-    ## trigger mgmt cmd to notify user they've been created and by whom
-    email_address = instance.email_address
-    status = instance.status
+# @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
+# def send_user_added_email(sender, instance, **kwargs):
+#     ## trigger mgmt cmd to notify user they've been created and by whom
+#     email_address = instance.email_address
+#     status = instance.status
 
-    status = instance.status
-    status_type = status.split('_')[0]
-    role = instance.role
+#     status = instance.status
+#     status_type = status.split('_')[0]
+#     role = instance.role
 
-    if role == 'source': # and instance.created == instance.updated:
-        if status_type == 'added':
-            call_command('set_related_user', email_address)
-            if instance.entry_type == 'manual':
-                call_command('email_user', email_address, status)
-        else:
-            call_command('set_related_user', email_address)
+#     if role == 'source': # and instance.created == instance.updated:
+#         if status_type == 'added':
+#             call_command('set_related_user', email_address)
+#             if instance.entry_type == 'manual':
+#                 call_command('email_user', email_address, status)
+#         else:
+#             call_command('set_related_user', email_address)
     ## TK TK: need a way to handle journalists role for this so it will update the User model, but not send too many emails
 
 
