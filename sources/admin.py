@@ -55,6 +55,43 @@ class PersonAdmin(admin.ModelAdmin):
         super(PersonAdmin, self).save_model(request, obj, form, change)
 
 
+class SourceForJournalistAdmin(admin.ModelAdmin):
+    fields = PersonAdmin.fields
+    list_display = PersonAdmin.list_display
+    # list_editable = ['']
+    list_filter = PersonAdmin.list_filter
+    search_fields = PersonAdmin.search_fields
+    readonly_fields = fields
+
+    def get_queryset(self, request):
+        """ only show Person objects with a role of source """
+        qs = super(SourceForJournalistAdmin, self).get_queryset(request)
+        return qs.filter(role='source')
+
+
+class SourceForAdminAdmin(admin.ModelAdmin):
+    fields = PersonAdmin.fields
+    list_display = PersonAdmin.list_display
+    # list_editable = [''] 
+    list_filter = PersonAdmin.list_filter
+    search_fields = PersonAdmin.search_fields
+    save_on_top = True
+
+    def get_queryset(self, request):
+        """ only show Person objects with a role of source """
+        qs = super(SourceForAdminAdmin, self).get_queryset(request)
+        return qs.filter(role='source')
+
+
+class ExpertiseAdmin(admin.ModelAdmin):
+    fields = ['name']
+    list_display = ['name']
+    # list_editable = ['']
+    # list_filter = ['']
+    search_fields = ['name']
+    # exclude  = ['']
+
+
 class LanguageAdmin(admin.ModelAdmin):
     # fields = ['']
     list_display = ['name']
@@ -71,53 +108,6 @@ class LanguageAdmin(admin.ModelAdmin):
 #     list_filter = ['state', 'country', 'timezone']
 #     search_fields = ['city', 'state', 'country', 'timezone']
 #     # exclude  = ['']
-
-
-class SourceForJournalistAdmin(admin.ModelAdmin):
-    fields = PersonAdmin.fields
-    # fields = ['role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
-    list_display = PersonAdmin.list_display
-    # list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
-    # list_editable = ['']
-    list_filter = PersonAdmin.list_filter
-    # list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = PersonAdmin.search_fields
-    # search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
-    # filter_horizontal = ['expertise', 'organization', 'language']
-    readonly_fields = fields
-
-    def get_queryset(self, request):
-        """ only show Person objects with a role of source """
-        qs = super(SourceForJournalistAdmin, self).get_queryset(request)
-        return qs.filter(role='source')
-
-
-class SourceForAdminAdmin(admin.ModelAdmin):
-    fields = PersonAdmin.fields
-    # fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'first_name', 'middle_name', 'last_name', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'notes', 'rating_avg', 'language', 'timezone', 'city', 'state', 'country'] # 'location', 'woman', 'underrepresented',
-    list_display = PersonAdmin.list_display
-    # list_display = ['last_name', 'first_name', 'country', 'timezone', 'title', 'rating' ] ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
-    # list_editable = [''] 
-    list_filter = PersonAdmin.list_filter
-    # list_filter = ['rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
-    search_fields = PersonAdmin.search_fields
-    # search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'last_name', 'notes', 'organization', 'state', 'title', 'website'] # 'location',
-    # filter_horizontal = ['expertise', 'organization', 'language']
-    save_on_top = True
-
-    def get_queryset(self, request):
-        """ only show Person objects with a role of source """
-        qs = super(SourceForAdminAdmin, self).get_queryset(request)
-        return qs.filter(role='source')
-
-
-class ExpertiseAdmin(admin.ModelAdmin):
-    fields = ['name']
-    list_display = ['name']
-    # list_editable = ['']
-    # list_filter = ['']
-    search_fields = ['name']
-    # exclude  = ['']
 
 
 class OrganizationAdmin(admin.ModelAdmin):
