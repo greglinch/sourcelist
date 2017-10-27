@@ -66,9 +66,16 @@ def email_user(email_address, status):
         elif status == 'added_by_admin':
             subject_title += 'an admin'
 
-        html_message = 'To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here: <br><br> {confirm_url} <br><br> \
-            {person_info} <br><br> \
-            If the information if incorrect, please edit your entry: <br><br> {login_link} <br><br>View the database:<br><br> {site_url}\
+        html_message = '\
+            <p>Diverse Sources is a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.).</p> \
+            <p>This database aims to make it easy for journalists and others to include a wider range of backgrounds, experiences and perspectives in their work. By doing so, we can improve our coverage and better reflect the world we cover.</p> \
+            <p>To confirm you would like be included in the {project_name} database and to confirm the following information is correct, please click here:</p> \
+            <p>{confirm_url}</p> \
+            <p>{person_info}</p> \
+            <p>If the information if incorrect, please edit your entry:</p> \
+            <p>{login_link}</p> \
+            <p>View the database:</p> \
+            <p>{site_url}</p>\
             '.format(
                 project_name=PROJECT_NAME,
                 confirm_url=confirm_url,
