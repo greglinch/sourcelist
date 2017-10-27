@@ -20,7 +20,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_expert', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
     # filter_horizontal = ['expertise', 'organization', 'language']
-    readonly_fields = ['rating_avg', 'role', 'rating', 'approved_by_admin']
+    readonly_fields = ['rating_avg', 'role', 'rating', 'approved_by_admin', 'entry_method', 'entry_type']
     save_as = True
     save_on_top = True
     # exclude  = ['']
@@ -84,6 +84,7 @@ class SourceForAdminAdmin(admin.ModelAdmin):
     list_display = PersonAdmin.list_display
     list_editable = ['approved_by_admin']
     list_filter = PersonAdmin.list_filter
+    readonly_fields = ['entry_method', 'entry_type']
     search_fields = PersonAdmin.search_fields
     save_on_top = True
 
