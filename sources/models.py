@@ -159,8 +159,8 @@ def send_user_added_email(sender, instance, **kwargs):
     if role == 'source': # and instance.created == instance.updated:
         if status_type == 'added':
             call_command('set_related_user', email_address)
-            # if instance.entry_type == 'manual':
-            #     call_command('email_user', email_address, status)
+            if instance.entry_type == 'manual':
+                call_command('email_user', email_address, status)
         else:
             call_command('set_related_user', email_address)
     ## TK TK: need a way to handle journalists role for this so it will update the User model, but not send too many emails
