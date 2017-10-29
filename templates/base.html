@@ -26,55 +26,62 @@
        <!-- Bootstrap JS -->
        <script src="https://getbootstrap.com/docs/3.3/dist/js/bootstrap.min.js"></script>
 
+       <script>
+          $(function(){
+            $('input:required').prev().append(' *');
+          });
+       </script>
+
        <style>
 
-       body {
-          /*min-height: 2000px;*/
-          padding-top: 70px; /* push all content below the fixed-top nav */
-       }
+         body {
+            /*min-height: 2000px;*/
+            padding-top: 70px; /* push all content below the fixed-top nav */
+         }
 
-        /*  form {
-            width: 50%;
+          /*  form {
+              width: 50%;
+              margin: 0 auto;
+          }   */
+
+          footer {
+            margin-top: 35px;
+          }
+
+  /*        input {
+            width: 200px;
+          }
+  */
+          input,
+          label, .btn {
+              display: block;
+          }
+
+          /*  input {
+              width: 50%;
+          }*/
+
+          input.btn {
+              margin-top: 15px;
+          }
+
+          br {
+              display: none;
+          }
+
+          .helptext {
+              font-size: 60%;
+          }
+
+          .main-content {
+            width:90%;
             margin: 0 auto;
-        }   */
+          }
 
-        footer {
-          margin-top: 35px;
-        }
-
-/*        input {
-          width: 200px;
-        }
-*/
-        input,
-        label, .btn {
+          textarea {
+            width: 300px;
             display: block;
-        }
-
-        /*  input {
-            width: 50%;
-        }*/
-
-        input.btn {
-            margin-top: 15px; 
-        }
-
-        br {
-            display: none;
-        }
-
-        .helptext {
-            font-size: 60%;
-        }
-
-        .main-content {
-          width:90%;
-          margin: 0 auto;
-        }
-
-        /*input:required+label::after {
-          content: "*";
-        }*/
+          }
 
         </style>
 
