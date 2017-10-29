@@ -69,7 +69,7 @@ class Person(BasicInfo):
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
     phone_number_secondary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Secondary phone number')
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
-    preferred_pronouns = models.CharField(null=True, blank=True, max_length=255, help_text='e.g. she/her, they/their, etc.') ## switch rating to ManyToManyField?
+    pronouns = models.CharField(null=True, blank=True, max_length=255, help_text='e.g. she/her, they/their, etc.') ## switch to ManyToManyField? # help_text='Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.)
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
@@ -78,7 +78,7 @@ class Person(BasicInfo):
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset from GMT', help_text='-4, 10, etc.') ## lookup based on city/state/county combo?
-    twitter = models.CharField(null=True, blank=True, max_length=140, help_text='Please do not include the @ symbol.')
+    twitter = models.CharField(null=True, blank=True, max_length=140, help_text='Please do not include the @ symbol')
     type_of_expert = models.CharField(max_length=255, null=True, blank=True, help_text='e.g. Biologist, Engineer, Mathematician, Sociologist, etc.')
     # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
     website = models.URLField(max_length=255, null=True, blank=True, help_text="Please include http:// at the beginning.")
