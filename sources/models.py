@@ -63,7 +63,7 @@ class Person(BasicInfo):
     language = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True, help_text='If you would like to share the underrepresented group(s) you identify with, please do so here.')
     organization = models.CharField(max_length=255, null=True, blank=True) # , help_text='Comma-separated list')
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
