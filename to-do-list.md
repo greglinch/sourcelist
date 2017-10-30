@@ -8,6 +8,8 @@
 
 # To-do for development V1
 
+* FIX: timezone handling for `import_csv` and, after fixed locally, re-import those on prod
+
 * social metadata
 
 * resize width of input boxes for person note and contact message 
@@ -18,10 +20,16 @@
 * move css to external file under static
 	* also move all inlines styles there (e.g. image width for about)
 
-* add @ symbol Bootstrap add-on to imput for Twitter 
+* fix order of fields displayed in `email_user`
 
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_iser`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
+
+* update admin `index.html` with logic to see if superuser and display all recent actions, else just those of the user 
+
+* DataTables updates
+	* setting column width percents to avoid line breaks
+	* explore adding stacked view on mobile
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template
 	* inaccurate
@@ -40,6 +48,7 @@
 * (v2?)  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
 	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
 	* both in admin and on front-end forms
+	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
 
 * how to handle ratings? 
 	* require Journalist profile?
@@ -52,9 +61,11 @@
 
 * switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
 
+* email analytics?
+
 # To-do for development V2
 
-* abstract pages to be control by a `Page` model or something we can do that all via the admin and not the code each time 
+* abstract pages and all text that we want to change to be control by a `Page` model or something we can do that all via the admin and not the code each time 
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -126,6 +137,10 @@
 	* https://stackoverflow.com/a/7665655/217955
 
 * add admin action to batch set `approved_by_admin`
+
+* add @ symbol Bootstrap add-on to imput for Twitter 
+	* https://getbootstrap.com/docs/3.3/components/#input-groups-sizing
+
 
 # QUESTIONS 
 
