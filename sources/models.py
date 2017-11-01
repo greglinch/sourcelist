@@ -6,7 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
-from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES
+from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES, MEDIA_CHOICES
 
 
 class BasicInfo(models.Model):
@@ -59,11 +59,12 @@ class Person(BasicInfo):
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False)
     last_name = models.CharField(max_length=255, null=True, blank=False)
+    # media = models.CharField(max_length=255, null=True, blank=True, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.') # choices=MEDIA_CHOICES,
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     language = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True, help_text='If you would like to share the underrepresented group(s) you identify with, please do so here.')
+    notes = models.TextField(null=True, blank=True, verbose_name='Public notes', help_text='If you would like to share the underrepresented group(s) you identify with, please do so here.')
     organization = models.CharField(max_length=255, null=True, blank=True) # , help_text='Comma-separated list')
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
