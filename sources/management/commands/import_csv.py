@@ -31,10 +31,10 @@ def import_csv(csv_path):
             ## special fields
             status = 'added_by_admin'
             email_address = row['email_address']
-            # if isinstance(row['timezone'], int):
-            #     timezone = row['timezone']
-            # else:
-            #     timezone = None
+            if isinstance(row['timezone'], int):
+                timezone = row['timezone']
+            else:
+                timezone = None
             ## map fields from csv to Person model
             csv_to_model = {
                 'role': row['role'],
@@ -49,16 +49,17 @@ def import_csv(csv_path):
                 'country': row['country'],
                 'phone_number_primary': row['phone_primary'],
                 'phone_number_secondary': row['phone_secondary'],
-                'timezone': row['timezone'],
                 'twitter': row['twitter'],
                 'notes': row['notes'],
                 # 'website': row['website'],
                 'prefix': row['prefix'], 
                 # 'middle_name': '',
                 # 'language': 'English', ## m2mfield
+                'entry_method': 'import',
                 'entry_type': 'automated',
                 'email_address': email_address,
                 'status': status,
+                'timezone': timezone,
             }
             ## create the source Person
             # try:
@@ -80,10 +81,10 @@ def import_csv(csv_path):
             #     message = 'Create person' + str(sys.exc_info())
             #     print(message)
             ## set the related user and email them
-            # try:
-            #     call_command('set_related_user', email_address)
-            # except:
-            #     message = 'Set related user: ' + str(sys.exc_info())
+            try:
+                call_command('set_related_user', email_address)
+            except:
+                message = 'Set related user: ' + str(sys.exc_info())
             #     print(message)
             # if not TEST_ENV:
                 # try:
