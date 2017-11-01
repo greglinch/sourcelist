@@ -8,6 +8,11 @@
 
 # To-do for development V1
 
+* add ability to show "please confirm your profile in email" text if coming from `join.html` -- but not from `contact.html`
+
+* add fields and icons for text, audio and video media
+	* are you comfortable with or have experience the following?
+
 * FIX: timezone handling for `import_csv` and, after fixed locally, re-import those on prod
 
 * social metadata
