@@ -2,6 +2,8 @@ This is an open-source tool for creating a database of sources.
 
 (hat tip to Digital Ocean [Django](https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-16-04) and [Postgres](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04))
 
+The following instructions are intended for Ubuntu 16.
+
 # Prep the system
 
 	sudo apt-get update
