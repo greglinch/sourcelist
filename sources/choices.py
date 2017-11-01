@@ -10,6 +10,7 @@ PERSON_CHOICES = (
 
 PREFIX_CHOICES = (
     ('Dr.', 'Dr.'),
+    ('Miss', 'Miss'),
     ('Mr.', 'Mr.'),
     ('Mrs.', 'Mrs.'),
     ('Ms.', 'Ms.'),
