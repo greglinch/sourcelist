@@ -58,13 +58,13 @@ def email_user(email_address, status):
     message = ''
 
     if status_type == 'added':
-        subject_title = 'You have been added as a source'
-        if status == 'added_by_self':
-            subject_title += 'yourself'
-        elif status == 'added_by_other':
-            subject_title += 'someone else'
-        elif status == 'added_by_admin':
-            subject_title += 'an admin'
+        subject_title = 'Please confirm your profile'
+        # if status == 'added_by_self':
+        #     subject_title += 'yourself'
+        # elif status == 'added_by_other':
+        #     subject_title += 'someone else'
+        # elif status == 'added_by_admin':
+        #     subject_title += 'an admin'
 
         html_message = '\
             <p>Diverse Sources is a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented and is willing to respond to journalists on deadline is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.).</p> \
