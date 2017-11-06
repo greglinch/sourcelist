@@ -5,13 +5,25 @@
 	label {
 		border-top: 15px solid transparent;
 	}
+    .explanation {
+        font-size: 80%;
+    }
 </style>
+
+<script>
+    $(function(){
+        var text = '<h3>Are you experienced or interested in being a source for the following type of media?</h3>';
+        $("label[for*='id_media_audio']").before(text);
+    });
+</script>
+
 <div class="jumbotron">
     <h1 class="display-3">Join the Database</h1>
     <p class="lead">Science, health and environment news stories need a broader set of perspectives. Sign up to be a source for reporters on deadline.</p>
     <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
 </div>
 <div class="main-content lead">
+    <p class="explanation">Required fields are marked with an asterisk (*).</p>
     <form action="" method="POST">
         {% csrf_token %}
         <!-- {{ form.errors }} -->
