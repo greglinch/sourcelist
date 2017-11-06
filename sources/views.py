@@ -151,9 +151,9 @@ class JoinView(View):
                 call_command('set_related_user', email_address)
                 call_command('email_user', email_address, 'added')
                 # redirect to thank you page:
-                return HttpResponseRedirect('/thank-you/')
+                return HttpResponseRedirect('/thank-you/?previous=join')
             else:
-                return HttpResponseRedirect('/thank-you/?existing=True')
+                return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
 
     # create a blank form
     def get(self, request, *args, **kwargs):
@@ -206,9 +206,11 @@ class ThankYouView(View):
 
     def get(self, request):
         existing = request.GET.get('existing')
+        previous = request.GET.get('previous')
         context = {
             'request': request,
-            'existing': existing
+            'existing': existing,
+            'previous': previous
             # 'user': request.user
         }
         return render(request, 'thank-you.html', context)
