@@ -5,7 +5,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from sesame import utils
 from sources.models import Person
-from sources.forms import SubmitForm
+from sources.forms import FIELDS_PUBLIC
 from sources.tokens import account_confirmation_token
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
 
@@ -14,7 +14,7 @@ def email_user(email_address, status):
     person = Person.objects.get(email_address=email_address)
     person_id = person.id
 
-    fields = SubmitForm.Meta.fields ## abstracted to use same fields as the submission form
+    fields = FIELDS_PUBLIC ## abstracted to use same fields as the submission form
     fields.append('status') ## add status field bc it's not included in the SubmitForm and it's necessary for sending email
     person = Person.objects.filter(email_address=email_address).values(*fields).exclude()[0]
     person_info = '<table>'
