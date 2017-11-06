@@ -67,8 +67,8 @@ class Person(BasicInfo):
     notes = models.TextField(null=True, blank=True, verbose_name='Public notes', help_text='If you would like to share the underrepresented group(s) you identify with, please do so here.')
     organization = models.CharField(max_length=255, null=True, blank=True) # , help_text='Comma-separated list')
     # organization = models.ManyToManyField(Organization, blank=True)
-    phone_number_primary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
-    phone_number_secondary = models.CharField(max_length=15, null=True, blank=True, verbose_name='Secondary phone number')
+    phone_number_primary = models.CharField(max_length=30, null=True, blank=True, verbose_name='Primary phone number', help_text='Ideally a cell phone')
+    phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name='Secondary phone number')
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
     pronouns = models.CharField(null=True, blank=True, max_length=255, help_text='e.g. she/her, they/their, etc.') ## switch to ManyToManyField? # help_text='Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.)
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
