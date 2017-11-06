@@ -55,6 +55,8 @@ def import_csv(csv_path):
                 'prefix': row['prefix'], 
                 # 'middle_name': '',
                 # 'language': 'English', ## m2mfield
+                'approved_by_admin': True,
+                'approved_by_user': True,
                 'entry_method': 'import',
                 'entry_type': 'automated',
                 'email_address': email_address,
