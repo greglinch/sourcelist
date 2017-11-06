@@ -35,19 +35,17 @@
 			{% if person.organization %}
 				{{ person.organization }}
 			{% endif %}
-<!-- 			<p>
-			{% if person.media %}
-				{% if person.media %}
-					<i class="fa fa-video-camera" aria-hidden="true"></i>
-				{% endif %}
-				{% if person.media %}
-					<i class="fa fa-microphone" aria-hidden="true"></i>
-				{% endif %}
-				{% if person.media %}
-					<i class="fa fa-file-text-o" aria-hidden="true"></i>
-				{% endif %}
+			<p>
+			{% if person.media_video %}
+				<i class="fa fa-video-camera" aria-hidden="true"></i>
 			{% endif %}
-			</p> -->
+			{% if person.media_audio %}
+				<i class="fa fa-microphone" aria-hidden="true"></i>
+			{% endif %}
+			{% if person.media_text %}
+				<i class="fa fa-file-text-o" aria-hidden="true"></i>
+			{% endif %}
+			</p>
 		</p>
 </div>
 

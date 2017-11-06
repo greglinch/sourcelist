@@ -59,7 +59,9 @@ class Person(BasicInfo):
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False)
     last_name = models.CharField(max_length=255, null=True, blank=False)
-    # media = models.CharField(max_length=255, null=True, blank=True, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.') # choices=MEDIA_CHOICES,
+    media_audio = models.BooleanField(default=False, verbose_name='Audio')
+    media_text = models.BooleanField(default=False, verbose_name='Text')
+    media_video = models.BooleanField(default=False, verbose_name='Video')
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     language = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
     # language = models.ManyToManyField(Language)
