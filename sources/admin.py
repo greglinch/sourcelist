@@ -83,7 +83,7 @@ class SourceForAdminAdmin(admin.ModelAdmin):
     fields = PersonAdmin.fields
     list_display = PersonAdmin.list_display
     list_editable = ['approved_by_admin']
-    list_filter = PersonAdmin.list_filter
+    list_filter = ['created', 'updated', 'approved_by_user', 'approved_by_admin', 'entry_method', 'entry_type'] # PersonAdmin.list_filter
     readonly_fields = ['entry_method', 'entry_type']
     search_fields = PersonAdmin.search_fields
     save_on_top = True
