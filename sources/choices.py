@@ -3,12 +3,6 @@ ENTRY_CHOICES = (
     ('manual', 'Manual')
 )
 
-MEDIA_CHOICES = (
-    ('audio', 'Audio'),
-    ('text', 'Text'),
-    ('video', 'Video')
-)
-
 PERSON_CHOICES = (
     ('journalist', 'Journalist'),
     ('source', 'Source')
