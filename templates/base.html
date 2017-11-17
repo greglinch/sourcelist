@@ -37,7 +37,7 @@
 
          body {
             /*min-height: 2000px;*/
-            padding-top: 70px; /* push all content below the fixed-top nav */
+            padding: 70px 0 70px 0; /* push all content below the fixed-top nav */
          }
 
           /*  form {
@@ -47,6 +47,25 @@
 
           footer {
             margin-top: 35px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #f8f8f8;
+          }
+
+          footer .social-icons {
+            margin-bottom: 25px;
+          }
+
+          footer .social-icons a {
+            font-size: 26px;
+            margin-right: 10px;
+            text-decoration: none;
+          }
+
+          .social-icons, .social-icons li {
+            display: inline-block;
           }
 
   /*        input {
