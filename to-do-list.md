@@ -2,22 +2,27 @@
 
 * update nginx caching
 
-* BUG: received email three times after submitting join form
-
 * IMPORT: make sure everyone doesn't receive a message until we need them (for updating their info)
 
 # To-do for development V1
 
-* add ability to show "please confirm your profile in email" text if coming from `join.html` -- but not from `contact.html`
+* FIX: import issues (currently 4 remaining)
 
-* add fields and icons for text, audio and video media
-	* are you comfortable with or have experience the following?
+* UPDATE: email used to diversesources@gmail.com
 
-* FIX: timezone handling for `import_csv` and, after fixed locally, re-import those on prod
+* social media icons (in top-right of navbar? in footer?)
+	* https://www.facebook.com/DiverseSources/
+	* https://twitter.com/DiverseSources
+	* https://www.instagram.com/diversesources/
+
+* add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
+
+* we should add something that says we vet the sources, but journos should also do their due diligence
+	* Q: where?
+
+* BUG: required asterisk not appearing in `join` form for `country` although it's required
 
 * social metadata
-
-* resize width of input boxes for person note and contact message 
 
 * BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
@@ -27,7 +32,7 @@
 
 * fix order of fields displayed in `email_user`
 
-* Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_iser`?
+* Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
 * update admin `index.html` with logic to see if superuser and display all recent actions, else just those of the user 
@@ -325,7 +330,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * Q: use AWS or personal hosting space? 
 	* AWS
 
-
 * rename app in Google API console so it matches if people login with oauth
 
 * PROD: create auth groups for permissions (mimic local version)
@@ -357,4 +361,15 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* https://gist.github.com/asmallteapot/2038673
 
 * Q: add `preferred_pronoun` field?
+
+* FIX: timezone handling for `import_csv` and, after fixed locally, re-import those on prod
+
+* add ability to show "please confirm your profile in email" text if coming from `join.html` -- but not from `contact.html`
+
+* add fields and icons for text, audio and video media
+	* are you comfortable with or have experience the following?
+
+* BUG: received email three times after submitting join form
+
+* resize width of input boxes for person note and contact message 
 
