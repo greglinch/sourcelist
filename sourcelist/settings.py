@@ -171,4 +171,4 @@ SOCIAL_AUTH_PIPELINE = (
 
 ## django sesame magic link expiration
 
-SESAME_MAX_AGE = 60 * 60 * 24 # seconds x minutes x hours
+# SESAME_MAX_AGE = 60 * 60 * 24 # seconds x minutes x hours
