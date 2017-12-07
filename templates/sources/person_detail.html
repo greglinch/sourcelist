@@ -131,6 +131,12 @@
             <td class="value">{{ person.phone_number_secondary }}</td>
         </tr>
         {% endif %}
+        {% if person.skype %}
+        <tr>
+            <td class="detail-label">Skype username</td>
+            <td class="value">{{ person.skype }}</td>
+        </tr>
+        {% endif %}
         {% if person.twitter %}
         <tr>
             <td class="detail-label">Twitter</td>

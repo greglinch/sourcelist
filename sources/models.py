@@ -76,6 +76,7 @@ class Person(BasicInfo):
     rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True)
     role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
+    skype = models.CharField(max_length=255, null=True, blank=True, verbose_name='Skype username')
     slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
