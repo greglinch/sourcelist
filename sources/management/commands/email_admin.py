@@ -18,6 +18,9 @@ def email_admin():
     unapproved_count = unapproved_sources.count()
     
     if unapproved_count:
+        plural = ''
+        if unapproved_count > 1:
+            plural = 's'
         source_list_items = ''
         for source in unapproved_sources:
             source_link = '{}/admin/sources/sourceforadmin/{}/change/'.format(SITE_URL, source.id)
@@ -28,7 +31,7 @@ def email_admin():
         message = ''
         sender = 'greglinch@gmail.com' # EMAIL_SENDER
         recipients = ['diversesources@gmail.com']
-        html_message = '<p>The following source need to be reviewed:</p>{}'.format(source_list_items)
+        html_message = '<p>The following source{} need to be reviewed:</p>{}'.format(plural, source_list_items)
 
         send_mail(
             subject,
