@@ -1,7 +1,30 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin # Location,
+from django.utils.html import format_html
+from sourcelist.settings import SITE_URL
+from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin, Page # Location,
+
+
+class PageAdmin(admin.ModelAdmin):
+    fields = ['name', 'content', 'slug', 'page_link']
+    list_display = ['name', 'page_link']
+#     # list_editable = ['']
+#     list_filter = ['']
+    search_fields = ['name']
+    readonly_fields = ['slug', 'page_link']
+#     # exclude  = ['']
+
+    def page_link(self, obj):
+        if obj.slug:
+            url = '{}/{}'.format(SITE_URL, obj.slug)
+            link_unformatted = '<a href="{}">View page</a>'.format(url)
+            link = format_html(link_unformatted)
+        else:
+            link = '-'
+        return link
+    page_link.short_description = 'View page'
+
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -155,6 +178,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 ## TEMPLATE
 # admin.site.register(Model, ModelAdmin)
 admin.site.register(Expertise, ExpertiseAdmin)
+admin.site.register(Page, PageAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Language, LanguageAdmin)
 # admin.site.register(Location, LocationAdmin)

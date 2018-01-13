@@ -45,6 +45,20 @@ class Organization(BasicInfo):
         return '{}'.format(self.name)
 
 
+class Page(BasicInfo):
+    content = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    slug = models.SlugField(max_length=50, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Page, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
+
 class Person(BasicInfo):
     """ class to be inherited by Sources and Journalists """
     # added_by_other = models.BooleanField(default=False, verbose_name='Is the person you just added not you?')

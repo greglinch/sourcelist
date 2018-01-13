@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic.detail import DetailView #, ListView
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER
 from sources.forms import ContactForm, SubmitForm
-from sources.models import Person
+from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 # from django.contrib.auth import login, authenticate
 # from django.contrib.sites.shortcuts import get_current_site
@@ -215,8 +215,21 @@ class ThankYouView(View):
         }
         return render(request, 'thank-you.html', context)
 
+
 class ErrorView(View):
     """ 404 page """
 
     def get(self, request):
         return render(request, '404.html', context)
+
+
+class PageView(DetailView):
+    """ Genericized way of creating and updating pages """
+
+    model = Page
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context_object_name = 'page'
+        # context['now'] = timezone.now()
+        return context
