@@ -101,7 +101,7 @@ class Person(BasicInfo):
     twitter = models.CharField(null=True, blank=True, max_length=140, help_text='Please do not include the @ symbol')
     type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text='e.g. Biologist, Engineer, Mathematician, Sociologist, etc.')
     # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
-    website = models.URLField(max_length=255, null=True, blank=True, help_text="Please include http:// at the beginning.")
+    website = models.URLField(max_length=255, null=True, blank=False, help_text="Please include http:// at the beginning.")
     # woman = models.BooleanField(default=False, verbose_name='Do you identify as a woman?'')
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
