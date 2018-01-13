@@ -2,27 +2,18 @@
 
 * update nginx caching
 
-* IMPORT: make sure everyone doesn't receive a message until we need them (for updating their info)
-
-# To-do for development V1
+# To-do for development
 
 * FIX: import issues (currently 4 remaining)
 
 * UPDATE: email used to diversesources@gmail.com
 
-* social media icons (in top-right of navbar? in footer?)
-	* https://www.facebook.com/DiverseSources/
-	* https://twitter.com/DiverseSources
-	* https://www.instagram.com/diversesources/
-
 * add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
 
 * we should add something that says we vet the sources, but journos should also do their due diligence
-	* Q: where?
+	* Q: where? about page?
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
-
-* social metadata
 
 * BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
@@ -73,10 +64,6 @@
 
 * email analytics?
 
-# To-do for development V2
-
-* abstract pages and all text that we want to change to be control by a `Page` model or something we can do that all via the admin and not the code each time 
-
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
 	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
@@ -110,7 +97,8 @@
 
 * if we do front-end edit urls, change edit link from admin url to live url
 
-* Django bakery to make static files
+* Django bakery to make static files?
+	* better to simply use nginx to see caching?
 	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
 
 * search form/page
@@ -131,12 +119,6 @@
 
 * for `person_detail`, find a way to loop thru the keys and values that have been limited by `.values()` and ordered a specific way
 
-* add social logins to `/admin` (a la DocPub)
-
-* add views
-	* terms of service (part of about?)
-	* footer: started but mostly empty
-
 * set up auth for Facebook
 	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
@@ -150,7 +132,6 @@
 
 * add @ symbol Bootstrap add-on to imput for Twitter 
 	* https://getbootstrap.com/docs/3.3/components/#input-groups-sizing
-
 
 # QUESTIONS 
 
@@ -372,4 +353,23 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * BUG: received email three times after submitting join form
 
 * resize width of input boxes for person note and contact message 
+
+* PROD IMPORT: make sure everyone doesn't receive a message until we need them (for updating their info)
+
+* social media icons (in top-right of navbar? in footer?)
+	* https://www.facebook.com/DiverseSources/
+	* https://twitter.com/DiverseSources
+	* https://www.instagram.com/diversesources/
+
+* social metadata
+
+* add advisory board section to about page
+
+* abstract pages and all text that we want to change to be control by a `Page` model or something we can do that all via the admin and not the code each time 
+
+* make website field required
+
+* add
+	* terms of service (part of about?)
+	* footer: started but mostly empty
 
