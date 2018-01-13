@@ -5,11 +5,11 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    ## general
+    url(r'^admin/', admin.site.urls),
     ## patterns from sources app
 	# url(r'^sources/', include('sources.urls')),
     url(r'^', include('sources.urls')),
-    ## general
-    url(r'^admin/', admin.site.urls),
     ## social auth
     url(r'^accounts/login/$', auth_views.LoginView.as_view()),
     # url('', include('social.apps.django_app.urls', namespace='social')),
