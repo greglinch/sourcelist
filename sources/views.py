@@ -30,15 +30,15 @@ class IndexView(View):
         }
         return render(request, 'index.html', context)
 
-class AboutView(View):
-    """ about page """
+# class AboutView(View):
+#     """ about page """
 
-    def get(self, request):
-        context = {
-            'request': request,
-            'user': request.user
-        }
-        return render(request, 'about.html', context)
+#     def get(self, request):
+#         context = {
+#             'request': request,
+#             'user': request.user
+#         }
+#         return render(request, 'about.html', context)
 
 class ConfirmView(View):
     """ trigger mgmt cmd or, ideally, just the related function or just put the code here! """
