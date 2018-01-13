@@ -47,16 +47,18 @@ class Organization(BasicInfo):
 
 class Page(BasicInfo):
     content = models.TextField(null=True, blank=True)
-    name = models.CharField(max_length=255, null=True, blank=True)
+    # description = models.CharField(blank=True, null=True, max_length=160, help_text='Limit: 160 characters')
+    # header = models.TextField(blank=True, null=True, help_text='Items to add to the header (e.g. metadata, CSS, JS, etc')
+    title = models.CharField(max_length=255, null=True, blank=True)
     slug = models.SlugField(max_length=50, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.title)
         return super(Page, self).save(*args, **kwargs)
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.title)
 
 
 class Person(BasicInfo):

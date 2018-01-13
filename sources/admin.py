@@ -7,11 +7,11 @@ from .models import Expertise, Person, Language, Organization, SourceForJournali
 
 
 class PageAdmin(admin.ModelAdmin):
-    fields = ['name', 'content', 'slug', 'page_link']
-    list_display = ['name', 'page_link']
+    fields = ['title', 'content', 'page_link']
+    list_display = ['title', 'page_link']
 #     # list_editable = ['']
 #     list_filter = ['']
-    search_fields = ['name']
+    search_fields = ['title']
     readonly_fields = ['slug', 'page_link']
 #     # exclude  = ['']
 
