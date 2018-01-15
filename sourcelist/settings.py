@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # Locale must go after Session and before Common
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -172,3 +174,5 @@ SOCIAL_AUTH_PIPELINE = (
 ## django sesame magic link expiration
 
 # SESAME_MAX_AGE = 60 * 60 * 24 # seconds x minutes x hours
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale/')]

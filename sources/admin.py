@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 from sourcelist.settings import SITE_URL
 from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin, Page # Location,
 
@@ -18,12 +19,12 @@ class PageAdmin(admin.ModelAdmin):
     def page_link(self, obj):
         if obj.slug:
             url = '{}/{}'.format(SITE_URL, obj.slug)
-            link_unformatted = '<a href="{}">View page</a>'.format(url)
+            link_unformatted = '<a href="{}">{}</a>'.format(url, _('View page'))
             link = format_html(link_unformatted)
         else:
             link = '-'
         return link
-    page_link.short_description = 'View page'
+    page_link.short_description = _('View page')
 
 
 
@@ -50,7 +51,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     def timezone_abbrev(self, obj):
         return obj.timezone
-    timezone_abbrev.short_description = 'Timezone offset'
+    timezone_abbrev.short_description = _('Timezone offset')
 
     ## THIS NEEDS TO SUPPORT
         # DONE if user.email is Person's email
@@ -94,7 +95,7 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
 
     def timezone_abbrev(self, obj):
         return obj.timezone
-    timezone_abbrev.short_description = 'Timezone offset'
+    timezone_abbrev.short_description = _('Timezone offset')
 
     def get_queryset(self, request):
         """ only show Person objects with a role of source """
@@ -113,7 +114,7 @@ class SourceForAdminAdmin(admin.ModelAdmin):
 
     def timezone_abbrev(self, obj):
         return obj.timezone
-    timezone_abbrev.short_description = 'Timezone offset'
+    timezone_abbrev.short_description = _('Timezone offset')
 
     def get_queryset(self, request):
         """ only show Person objects with a role of source """

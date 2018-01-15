@@ -6,13 +6,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES#, MEDIA_CHOICES
 
 
 class BasicInfo(models.Model):
     """ abstract base class used across models """
     created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-    updated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name='Updated in system', help_text='This is when the item was updated in the system.')
+    updated = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name=_('Updated in system'), help_text=_('This is when the item was updated in the system.'))
 
     class Meta:
         abstract = True
@@ -22,7 +23,7 @@ class Expertise(BasicInfo):
     name = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        verbose_name_plural = 'Expertise'
+        verbose_name_plural = _('Expertise')
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -47,8 +48,8 @@ class Organization(BasicInfo):
 
 class Page(BasicInfo):
     content = models.TextField(null=True, blank=True)
-    # description = models.CharField(blank=True, null=True, max_length=160, help_text='Limit: 160 characters')
-    # header = models.TextField(blank=True, null=True, help_text='Items to add to the header (e.g. metadata, CSS, JS, etc')
+    # description = models.CharField(blank=True, null=True, max_length=160, help_text=_('Limit: 160 characters'))
+    # header = models.TextField(blank=True, null=True, help_text=_('Items to add to the header (e.g. metadata, CSS, JS, etc)'))
     title = models.CharField(max_length=255, null=True, blank=True)
     slug = models.SlugField(max_length=50, null=True, blank=True)
 
@@ -63,46 +64,46 @@ class Page(BasicInfo):
 
 class Person(BasicInfo):
     """ class to be inherited by Sources and Journalists """
-    # added_by_other = models.BooleanField(default=False, verbose_name='Is the person you just added not you?')
+    # added_by_other = models.BooleanField(default=False, verbose_name=_('Is the person you just added not you?'))
     approved_by_user = models.BooleanField(default=False)
     approved_by_admin = models.BooleanField(default=False)
-    city = models.CharField(max_length=255, null=True, blank=False)
-    country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True, blank=False)
-    email_address = models.EmailField(max_length=254, null=True, blank=False)
+    city = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('City'))
+    country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True, blank=False, verbose_name=_('Country'))
+    email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
-    expertise = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
+    expertise = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
     # expertise = models.ManyToManyField(Expertise, blank=True)
-    first_name = models.CharField(max_length=255, null=True, blank=False)
-    last_name = models.CharField(max_length=255, null=True, blank=False)
-    media_audio = models.BooleanField(default=False, verbose_name='Audio/radio/podcast')
-    media_text = models.BooleanField(default=False, verbose_name='Text/print')
-    media_video = models.BooleanField(default=False, verbose_name='Video/TV')
-    middle_name = models.CharField(max_length=255, null=True, blank=True)
-    language = models.CharField(max_length=255, null=True, blank=True, help_text='Comma-separated list')
+    first_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('First name'))
+    last_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Last name'))
+    media_audio = models.BooleanField(default=False, verbose_name=_('Audio/radio/podcast'))
+    media_text = models.BooleanField(default=False, verbose_name=_('Text/print'))
+    media_video = models.BooleanField(default=False, verbose_name=_('Video/TV'))
+    middle_name = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Middle name'))
+    language = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Language'))
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True, verbose_name='Public notes', help_text='If you would like to share the underrepresented group(s) you identify with, please do so here.')
-    organization = models.CharField(max_length=255, null=True, blank=False) # , help_text='Comma-separated list')
+    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here.'))
+    organization = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Organization')) # , help_text=_('Comma-separated list'))
     # organization = models.ManyToManyField(Organization, blank=True)
-    phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name='Primary phone number', help_text='Ideally a cell phone')
-    phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name='Secondary phone number')
+    phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
+    phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name=_('Secondary phone number'))
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
-    pronouns = models.CharField(null=True, blank=True, max_length=255, help_text='e.g. she/her, they/their, etc.') ## switch to ManyToManyField? # help_text='Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.)
-    rating = models.PositiveIntegerField(null=True, blank=True) ## switch rating to ManyToManyField?
-    rating_avg = models.IntegerField(null=True, blank=True)
-    role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source')
-    skype = models.CharField(max_length=255, null=True, blank=True, verbose_name='Skype username')
+    pronouns = models.CharField(null=True, blank=True, max_length=255, help_text=_('e.g. she/her, they/their, etc.'), verbose_name=_('Pronouns')) ## switch to ManyToManyField? # help_text=_('Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.))
+    rating = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Rating')) ## switch rating to ManyToManyField?
+    rating_avg = models.IntegerField(null=True, blank=True, verbose_name=_('Rating average'))
+    role = models.CharField(choices=PERSON_CHOICES, max_length=255, null=True, blank=False, default='source', verbose_name=_('Role'))
+    skype = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Skype username'))
     slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
-    state = models.CharField(max_length=255, null=True, blank=True, verbose_name='State/province')
+    state = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('State/province'))
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True, blank=True)
-    timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name='Time zone offset from GMT', help_text='-4, 10, etc.') ## lookup based on city/state/county combo?
-    twitter = models.CharField(null=True, blank=True, max_length=140, help_text='Please do not include the @ symbol')
-    type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text='e.g. Biologist, Engineer, Mathematician, Sociologist, etc.')
-    # underrepresented = models.BooleanField(default=False, verbose_name='Do you identify as a member of an underrepresented group?')
-    website = models.URLField(max_length=255, null=True, blank=False, help_text="Please include http:// at the beginning.")
-    # woman = models.BooleanField(default=False, verbose_name='Do you identify as a woman?'')
+    title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title'))
+    timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name=_('Time zone offset from GMT'), help_text=_('-4, 10, etc.')) ## lookup based on city/state/county combo?
+    twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol'), verbose_name=_('Twitter'))
+    type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text=_('e.g. Biologist, Engineer, Mathematician, Sociologist, etc.'), verbose_name=_('Type of expert'))
+    # underrepresented = models.BooleanField(default=False, verbose_name=_('Do you identify as a member of an underrepresented group?'))
+    website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include http:// at the beginning."), verbose_name=_('Website'))
+    # woman = models.BooleanField(default=False, verbose_name=_('Do you identify as a woman?''))
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
 
@@ -111,16 +112,16 @@ class Person(BasicInfo):
             return '{} {}'.format(self.first_name, self.middle_name, self.last_name)
         else:
             return '{} {}'.format(self.first_name, self.last_name)
-    first_last_name.short_description = 'Name'
+    first_last_name.short_description = _('Name')
         
     # def id_as_woman(self):
     #     return self.woman
-    # id_as_woman.short_description = 'Woman?'
+    # id_as_woman.short_description = _('Woman?')
     # id_as_woman.boolean = True
 
     # def id_as_underrepresented(self):
     #     return self.underrepresented
-    # id_as_underrepresented.short_description = "Underrepresented?"
+    # id_as_underrepresented.short_description = _('Underrepresented?')
     # id_as_underrepresented.boolean = True
 
     # def get_field_values(self):
@@ -166,7 +167,8 @@ class Person(BasicInfo):
         return name
 
     class Meta:
-        verbose_name_plural = 'People'
+        verbose_name = _('Person')
+        verbose_name_plural = _('People')
 
 
 # @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
@@ -192,9 +194,9 @@ class Person(BasicInfo):
 # class Page(BasicInfo):
 #     """ a Page on the website """
 #     content = models.TextField(blank=True, null=True)
-#     description = models.CharField(blank=True, null=True, max_length=160, help_text='Limit: 160 characters')
-#     # header = models.TextField(blank=True, null=True, help_text='Items to add to the header (e.g. CSS, JS, etc')
-#     title = models.CharField(blank=True, null=True, max_length=50, help_text='Limit: 50 characters')
+#     description = models.CharField(blank=True, null=True, max_length=160, help_text=_('Limit: 160 characters'))
+#     # header = models.TextField(blank=True, null=True, help_text=_('Items to add to the header (e.g. CSS, JS, etc'))
+#     title = models.CharField(blank=True, null=True, max_length=50, help_text=_('Limit: 50 characters'))
 
 #     def __str__(self):
 #         return self.title
@@ -202,7 +204,7 @@ class Person(BasicInfo):
 
 class Rating(BasicInfo):
     """ a Journalist can rate a Source each time """
-    # notes = models.TextField(null=True, blank=True, help_text='Optional')
+    # notes = models.TextField(null=True, blank=True, help_text=_('Optional'))
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
     ## these are FK to allow for multiples -- not just one
     created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
@@ -212,6 +214,8 @@ class Rating(BasicInfo):
         return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
 
     class Meta:
+        verbose_name = _('Rating')
+        verbose_name_plural = _('Ratings')
         ordering = ['updated']
 
 
@@ -230,7 +234,8 @@ class SourceForAdmin(Person):
 
     class Meta:
         proxy = True
-        verbose_name_plural = 'Sources for admins'
+        verbose_name = _('Source for admins')
+        verbose_name_plural = _('Sources for admins')
         ordering = ['-updated']
 
     def __str__(self):
@@ -250,7 +255,8 @@ class SourceForJournalist(Person):
 
     class Meta:
         proxy = True
-        verbose_name_plural = 'Sources for journalists'
+        verbose_name = _('Source for journalists')
+        verbose_name_plural = _('Sources for journalists')
 
     def __str__(self):
         if self.prefix and self.middle_name:

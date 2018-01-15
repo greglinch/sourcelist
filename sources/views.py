@@ -7,6 +7,7 @@ from django.template.context import RequestContext
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.utils.html import format_html
+from django.utils.translation import ugettext as _
 from django.views import View
 from django.views.generic.detail import DetailView #, ListView
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER
@@ -58,9 +59,11 @@ class ConfirmView(View):
             # user.save()
             # login(request, user)
             # return redirect('home')
-            return HttpResponse('Thank you for confirming your source profile.') # Now you can view the live entry {}.').format(live_url)
+            output = _('Thank you for confirming your source profile.')
+            return HttpResponse(output) # Now you can view the live entry {}.').format(live_url)
         else:
-            return HttpResponse('Confirmation link is invalid!')
+            output = _('Confirmation link is invalid!')
+            return HttpResponse(output)
 
         ## see which token the user matches
         return render(request, 'confirmation.html', context)
