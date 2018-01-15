@@ -191,17 +191,6 @@ class Person(BasicInfo):
     ## TK TK: need a way to handle journalists role for this so it will update the User model, but not send too many emails
 
 
-# class Page(BasicInfo):
-#     """ a Page on the website """
-#     content = models.TextField(blank=True, null=True)
-#     description = models.CharField(blank=True, null=True, max_length=160, help_text=_('Limit: 160 characters'))
-#     # header = models.TextField(blank=True, null=True, help_text=_('Items to add to the header (e.g. CSS, JS, etc'))
-#     title = models.CharField(blank=True, null=True, max_length=50, help_text=_('Limit: 50 characters'))
-
-#     def __str__(self):
-#         return self.title
-
-
 class Rating(BasicInfo):
     """ a Journalist can rate a Source each time """
     # notes = models.TextField(null=True, blank=True, help_text=_('Optional'))
@@ -268,7 +257,3 @@ class SourceForJournalist(Person):
         else:
             name = '{} {}'.format(self.first_name, self.last_name)
         return name
-
-
-
-
