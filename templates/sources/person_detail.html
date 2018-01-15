@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block main %}
 
@@ -46,13 +47,14 @@
 
 <script>
     $(function(){
-        var text = '<p>Are you experienced or interested in being a source for the following type of media?</p>';
-        $(".mediaicon i.'fa']").hover(text);
+        var text = {% trans 'Are you experienced or interested in being a source for the following type of media?' %};
+        var html = '<p>' + text + '</p>';
+        $(".mediaicon i.'fa']").hover(html);
     });
 </script>
 
 <div class="return-to-db">
-    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p>
+    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> {% trans 'Return to database' %}</a></p>
 </div>
 
 <div class="jumbotron">
@@ -91,97 +93,97 @@
     <table>
         {% if person.pronouns %}
         <tr>
-            <td class="detail-label">Pronouns</td>
+            <td class="detail-label">{% trans 'Pronouns' %}</td>
             <td class="value">{{ person.pronouns }}</td>
         </tr>
         {% endif %}
         {% if person.type_of_expert %}
         <tr>
-            <td class="detail-label">Type of expert</td>
+            <td class="detail-label">{% trans 'Type of expert' %}</td>
             <td class="value">{{ person.type_of_expert }}</td>
         </tr>
         {% endif %}
         {% if person.website %}
         <tr>
-            <td class="detail-label">Website</td>
+            <td class="detail-label">{% trans 'Website' %}</td>
             <td class="value"><a href="{{ person.website }}">{{ person.website }}</a></td>
         </tr>
         {% endif %}
         {% if person.expertise %}
         <tr>
-            <td class="detail-label">Expertise</td>
+            <td class="detail-label">{% trans 'Expertise' %}</td>
             <td class="value">{{ person.expertise }}</td>
         </tr>
         {% endif %}
         {% if person.email_address %}
         <tr>
-            <td class="detail-label">Email address</td>
+            <td class="detail-label">{% trans 'Email address' %}</td>
             <td class="value"><a href="mailto:{{ person.email_address }}">{{ person.email_address }}</a></td>
         </tr>
         {% endif %}
         {% if person.phone_number_primary %}
         <tr>
-            <td class="detail-label">Primary phone number</td>
+            <td class="detail-label">{% trans 'Primary phone number' %}</td>
             <td class="value">{{ person.phone_number_primary }}</td>
         </tr>
         {% endif %}
         {% if person.phone_number_secondary %}
         <tr>
-            <td class="detail-label">Secondary phone number</td>
+            <td class="detail-label">{% trans 'Secondary phone number' %}</td>
             <td class="value">{{ person.phone_number_secondary }}</td>
         </tr>
         {% endif %}
         {% if person.skype %}
         <tr>
-            <td class="detail-label">Skype username</td>
+            <td class="detail-label">{% trans 'Skype username' %}</td>
             <td class="value">{{ person.skype }}</td>
         </tr>
         {% endif %}
         {% if person.twitter %}
         <tr>
-            <td class="detail-label">Twitter</td>
+            <td class="detail-label">{% trans 'Twitter' %}</td>
             <td class="value"><a href="https://twitter.com/{{ person.twitter }}">@{{ person.twitter }}</a></td>
         </tr>
         {% endif %}
         {% if person.language %}
         <tr>
-            <td class="detail-label">Language</td>
+            <td class="detail-label">{% trans 'Language' %}</td>
             <td class="value">{{ person.language }}</td>
         </tr>
         {% endif %}
         {% if person.timezone %}
         <tr>
-            <td class="detail-label">Timezone</td>
+            <td class="detail-label">{% trans 'Timezone' %}</td>
             <td class="value">{{ person.timezone }} GMT</td>
         </tr>
         {% endif %}
         {% if person.city %}
         <tr>
-            <td class="detail-label">City</td>
+            <td class="detail-label">{% trans 'City' %}</td>
             <td class="value">{{ person.city }}</td>
         </tr>
         {% endif %}
         {% if person.state %}
         <tr>
-            <td class="detail-label">State</td>
+            <td class="detail-label">{% trans 'State' %}</td>
             <td class="value">{{ person.state }}</td>
         </tr>
         {% endif %}
         {% if person.country %}
         <tr>
-            <td class="detail-label">Country</td>
+            <td class="detail-label">{% trans 'Country' %}</td>
             <td class="value">{{ person.country }}</td>
         </tr>
         {% endif %}
         {% if person.notes %}
         <tr>
-            <td class="detail-label">Notes</td>
+            <td class="detail-label">{% trans 'Notes' %}</td>
             <td class="value">{{ person.notes }}</td>
         </tr>
         {% endif %}
     </table>
 </div>
 <div class="return-to-db">
-    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> Return to database</a></p>
+    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> {% trans 'Return to database' %}</a></p>
 </div>
 {% endblock %}

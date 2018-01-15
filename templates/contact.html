@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block main %}
 <div class="jumbotron">
-    <h1 class="display-3">Contact Us</h1>
-    <p class="lead">Have a question about this project? Want to help? Let us know!</p>
+    <h1 class="display-3">{% trans 'Contact Us' %}</h1>
+    <p class="lead">{% trans 'Have a question about this project? Want to help? Let us know!' %}</p>
 </div>
 <div class="main-content lead">
     <form action="" method="POST">

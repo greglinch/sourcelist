@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block main %}
 <div class="jumbotron">
-    <h1 class="display-3">Page Not Found</h1>
+    <h1 class="display-3">{% trans 'Page Not Found' %}</h1>
     <p class="lead">Please <a href="/">visit the homepage</a> and search for the source you're trying to find.</p>
 </div>
 {% endblock %}

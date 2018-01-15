@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block main %}
 
@@ -29,18 +30,18 @@
     <p class="lead">Search or <a href="/join">join</a> this database of experts to include more underrepresented voices and perspectives in your science, health and environment work on deadline.</p>
 </div>
 {% if results.count == 0 %}
-    <p class="leader">Sources coming soon!</p>
+    <p class="leader">{% trans 'Sources coming soon!' %}</p>
 {% else %}
 <div class="main-content">
     <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Type of expert</th>
-                <th>Expertise</th>
-                <th>Organization</th>
-                <th>Time zone</th>
+                <th>{% trans 'First name' %}</th>
+                <th>{% trans 'Last name' %}</th>
+                <th>{% trans 'Type of expert' %}</th>
+                <th>{% trans 'Expertise' %}</th>
+                <th>{% trans 'Organization' %}</th>
+                <th>{% trans 'Time zone' %}</th>
                 <!--
                 {% for field in field_list %}
                     <th>{{ field }}</th>
