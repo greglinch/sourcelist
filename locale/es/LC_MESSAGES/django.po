@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-31 22:59-0500\n"
+"POT-Creation-Date: 2018-02-02 22:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Actualizado en el sistema"
 msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
-#: sources/models.py:26 sources/models.py:75 templates/results.html:42
+#: sources/models.py:26 sources/models.py:75 templates/results.html:43
 #: templates/sources/person_detail.html:114
 msgid "Expertise"
 msgstr "Pericia"
@@ -55,11 +55,11 @@ msgstr "Dirección de correo electrónico"
 msgid "Comma-separated list"
 msgstr "Lista separada por comas"
 
-#: sources/models.py:77 templates/results.html:39
+#: sources/models.py:77 templates/results.html:40
 msgid "First name"
 msgstr "Nombre"
 
-#: sources/models.py:78 templates/results.html:40
+#: sources/models.py:78 templates/results.html:41
 msgid "Last name"
 msgstr "Apellido"
 
@@ -95,7 +95,7 @@ msgstr ""
 "Si desea compartir los grupos subrepresentados con los que se identifica, "
 "puede incluirlos aquí."
 
-#: sources/models.py:87 templates/results.html:43
+#: sources/models.py:87 templates/results.html:44
 msgid "Organization"
 msgstr "Organización"
 
@@ -110,6 +110,10 @@ msgstr "Idealmente un teléfono celular"
 #: sources/models.py:90 templates/sources/person_detail.html:132
 msgid "Secondary phone number"
 msgstr "Numero de telefono secundario"
+
+#: sources/models.py:91
+msgid "Prefix"
+msgstr "Título"
 
 #: sources/models.py:92
 msgid "e.g. she/her, they/their, etc."
@@ -163,7 +167,7 @@ msgstr "Twitter"
 msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
-#: sources/models.py:103 templates/results.html:41
+#: sources/models.py:103 templates/results.html:42
 #: templates/sources/person_detail.html:102
 msgid "Type of expert"
 msgstr "Tipo de experto"
@@ -282,7 +286,9 @@ msgstr "Iniciar sesión"
 msgid ""
 "Diverse Sources | Science, Health and Environment experts available on "
 "deadline"
-msgstr "Fuentes Diversas | Expertos en ciencias, salud y medio ambiente disponibles en la fecha límite"
+msgstr ""
+"Fuentes Diversas | Expertos en ciencias, salud y medio ambiente disponibles "
+"en la fecha límite"
 
 #: templates/contact.html:6
 msgid "Contact Us"
@@ -300,8 +306,11 @@ msgstr "Fuentes Diversas"
 
 #: templates/join.html:16 templates/sources/person_detail.html:50
 msgid ""
-"Are you experienced or interested in being a source for the following type of media?"
-msgstr "¿Tiene experiencia o está interesado en ser una fuente para el siguiente tipo de medios?"
+"Are you experienced or interested in being a source for the following type "
+"of media?"
+msgstr ""
+"¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
+"tipo de medios?"
 
 #: templates/join.html:23
 msgid "Join the Database"
@@ -311,7 +320,10 @@ msgstr "Únete a la base de datos"
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline."
-msgstr "Las noticias de ciencia, salud y medioambiente necesitan un conjunto más amplio de perspectivas. Regístrese para ser una fuente de reporteros en la fecha límite."
+msgstr ""
+"Las noticias de ciencia, salud y medioambiente necesitan un conjunto más "
+"amplio de perspectivas. Regístrese para ser una fuente de reporteros en la "
+"fecha límite."
 
 #: templates/join.html:28
 msgid "Required fields are marked with an asterisk (*)."
@@ -333,11 +345,11 @@ msgstr "Explicación"
 msgid "Contact"
 msgstr "Contáctenos"
 
-#: templates/results.html:33
+#: templates/results.html:34
 msgid "Sources coming soon!"
 msgstr "Fuente para administradores"
 
-#: templates/results.html:44
+#: templates/results.html:45 templates/sources/person_detail.html:156
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
 
@@ -349,10 +361,6 @@ msgstr "Buscar"
 #: templates/sources/person_detail.html:187
 msgid "Return to database"
 msgstr "Volver a la base de datos"
-
-#: templates/sources/person_detail.html:156
-msgid "Timezone"
-msgstr "Diferencia de zona horaria"
 
 #: templates/sources/person_detail.html:168
 msgid "State"
@@ -370,13 +378,21 @@ msgstr "Gracias por su presentación!"
 msgid ""
 "Please check your email and confirm your profile for it to appear on the "
 "site."
-msgstr "Por favor va a su correo electrónico y confirme su perfil para que aparezca en el sitio."
+msgstr ""
+"Por favor va a su correo electrónico y confirme su perfil para que aparezca "
+"en el sitio."
 
 #: templates/thank-you.html:13
 msgid ""
 "Your profile already exists. If you need to change any details, search your "
 "email for the initial message and click on the link to update the profile."
-msgstr "Su perfil ya existe. Si necesita cambiar algún detalle, busque en su correo electrónico el mensaje inicial y haga clic en el enlace para actualizar el perfil."
+msgstr ""
+"Su perfil ya existe. Si necesita cambiar algún detalle, busque en su correo "
+"electrónico el mensaje inicial y haga clic en el enlace para actualizar el "
+"perfil."
+
+#~ msgid "Timezone"
+#~ msgstr "Diferencia de zona horaria"
 
 #~ msgid "Welcome to my site."
 #~ msgstr "Bienvenido a mi sitio."

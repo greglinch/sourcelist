@@ -88,7 +88,7 @@ class Person(BasicInfo):
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
     phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name=_('Secondary phone number'))
-    prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True)
+    prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True, verbose_name=_('Prefix'))
     pronouns = models.CharField(null=True, blank=True, max_length=255, help_text=_('e.g. she/her, they/their, etc.'), verbose_name=_('Pronouns')) ## switch to ManyToManyField? # help_text=_('Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.))
     rating = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Rating')) ## switch rating to ManyToManyField?
     rating_avg = models.IntegerField(null=True, blank=True, verbose_name=_('Rating average'))
