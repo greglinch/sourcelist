@@ -10,5 +10,5 @@ def timezone_format(value):
 		if int(value) > 0:
 			value = '+' + str(value)
 	except:
-		value = None
+		value = ''
 	return value
