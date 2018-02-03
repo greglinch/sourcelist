@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load sources_extras %}
 
 {% block main %}
 
@@ -64,7 +65,7 @@
                     <td>{{ result.type_of_expert }}</td>
                     <td>{{ result.expertise }}</td>
                     <td>{{ result.organization }}</td>
-                    <td>{{ result.timezone }}</td>
+                    <td>{{ result.timezone|timezone_format }}</td>
                 </tr>
             {% endfor %}
         </tbody>
