@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-15 00:01-0500\n"
+"POT-Creation-Date: 2018-01-31 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,195 +20,197 @@ msgstr ""
 
 #: sources/admin.py:22 sources/admin.py:27
 msgid "View page"
-msgstr ""
+msgstr "Ver página"
 
 #: sources/admin.py:54 sources/admin.py:98 sources/admin.py:117
 msgid "Timezone offset"
-msgstr ""
+msgstr "Diferencia de zona horaria"
 
 #: sources/models.py:16
 msgid "Updated in system"
-msgstr ""
+msgstr "Actualizado en el sistema"
 
 #: sources/models.py:16
 msgid "This is when the item was updated in the system."
-msgstr ""
+msgstr "Cuando se actualizó en el sistema."
 
 #: sources/models.py:26 sources/models.py:75 templates/results.html:42
 #: templates/sources/person_detail.html:114
 msgid "Expertise"
-msgstr ""
+msgstr "Pericia"
 
 #: sources/models.py:70 templates/sources/person_detail.html:162
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: sources/models.py:71 templates/sources/person_detail.html:174
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: sources/models.py:72 templates/sources/person_detail.html:120
 msgid "Email address"
-msgstr ""
+msgstr "Dirección de correo electrónico"
 
 #: sources/models.py:75 sources/models.py:83
 msgid "Comma-separated list"
-msgstr ""
+msgstr "Lista separada por comas"
 
 #: sources/models.py:77 templates/results.html:39
 msgid "First name"
-msgstr ""
+msgstr "Nombre"
 
 #: sources/models.py:78 templates/results.html:40
 msgid "Last name"
-msgstr ""
+msgstr "Apellido"
 
 #: sources/models.py:79
 msgid "Audio/radio/podcast"
-msgstr ""
+msgstr "Audio/radio/podcast"
 
 #: sources/models.py:80
 msgid "Text/print"
-msgstr ""
+msgstr "Texto/medios impresos"
 
 #: sources/models.py:81
 msgid "Video/TV"
-msgstr ""
+msgstr "Video/TV"
 
 #: sources/models.py:82
 msgid "Middle name"
-msgstr ""
+msgstr "Segundo nombre"
 
 #: sources/models.py:83 templates/sources/person_detail.html:150
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: sources/models.py:86
 msgid "Public notes"
-msgstr ""
+msgstr "Notas públicas"
 
 #: sources/models.py:86
 msgid ""
 "If you would like to share the underrepresented group(s) you identify with, "
 "please do so here."
 msgstr ""
+"Si desea compartir los grupos subrepresentados con los que se identifica, "
+"puede incluirlos aquí."
 
 #: sources/models.py:87 templates/results.html:43
 msgid "Organization"
-msgstr ""
+msgstr "Organización"
 
 #: sources/models.py:89 templates/sources/person_detail.html:126
 msgid "Primary phone number"
-msgstr ""
+msgstr "Número de teléfono primario"
 
 #: sources/models.py:89
 msgid "Ideally a cell phone"
-msgstr ""
+msgstr "Idealmente un teléfono celular"
 
 #: sources/models.py:90 templates/sources/person_detail.html:132
 msgid "Secondary phone number"
-msgstr ""
+msgstr "Numero de telefono secundario"
 
 #: sources/models.py:92
 msgid "e.g. she/her, they/their, etc."
-msgstr ""
+msgstr "por ejemplo ella, etc."
 
 #: sources/models.py:92 templates/sources/person_detail.html:96
 msgid "Pronouns"
-msgstr ""
+msgstr "Pronombres"
 
 #: sources/models.py:93 sources/models.py:206
 msgid "Rating"
-msgstr ""
+msgstr "Clasificación"
 
 #: sources/models.py:94
 msgid "Rating average"
-msgstr ""
+msgstr "Promedio de clasificación"
 
 #: sources/models.py:95
 msgid "Role"
-msgstr ""
+msgstr "Papel en el sistema"
 
 #: sources/models.py:96 templates/sources/person_detail.html:138
 msgid "Skype username"
-msgstr ""
+msgstr "Nombre de usuario de Skype"
 
 #: sources/models.py:98
 msgid "State/province"
-msgstr ""
+msgstr "Estado/provincia"
 
 #: sources/models.py:100
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: sources/models.py:101
 msgid "Time zone offset from GMT"
-msgstr ""
+msgstr "Diferencia de zona horaria"
 
 #: sources/models.py:101
 msgid "-4, 10, etc."
-msgstr ""
+msgstr "-4, 10, etc."
 
 #: sources/models.py:102
 msgid "Please do not include the @ symbol"
-msgstr ""
+msgstr "Por favor no incluya el símbolo @"
 
 #: sources/models.py:102 templates/sources/person_detail.html:144
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: sources/models.py:103
 msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
-msgstr ""
+msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
 #: sources/models.py:103 templates/results.html:41
 #: templates/sources/person_detail.html:102
 msgid "Type of expert"
-msgstr ""
+msgstr "Tipo de experto"
 
 #: sources/models.py:105
 msgid "Please include http:// at the beginning."
-msgstr ""
+msgstr "Por favor incluya http:// al comienzo."
 
 #: sources/models.py:105 templates/sources/person_detail.html:108
 msgid "Website"
-msgstr ""
+msgstr "Sitio web"
 
 #: sources/models.py:115
 msgid "Name"
-msgstr ""
+msgstr "Por favor incluya http:// al comienzo."
 
 #: sources/models.py:170
 msgid "Person"
-msgstr ""
+msgstr "Persona"
 
 #: sources/models.py:171
 msgid "People"
-msgstr ""
+msgstr "Personas"
 
 #: sources/models.py:207
 msgid "Ratings"
-msgstr ""
+msgstr "Calificaciones"
 
 #: sources/models.py:226
 msgid "Source for admins"
-msgstr ""
+msgstr "Fuente para administradores"
 
 #: sources/models.py:227
 msgid "Sources for admins"
-msgstr ""
+msgstr "Fuente para administradores"
 
 #: sources/models.py:247
 msgid "Source for journalists"
-msgstr ""
+msgstr "Fuente para periodistas"
 
 #: sources/models.py:248
 msgid "Sources for journalists"
-msgstr ""
+msgstr "Fuentes para periodistas"
 
 #: sources/views.py:62
 msgid "Thank you for confirming your source profile."
-msgstr "Gracias por confirmar su perfil de Fuentes Diversos."
+msgstr "Gracias por confirmar su perfil de Fuentes Diversas."
 
 #: sources/views.py:65
 msgid "Confirmation link is invalid!"
@@ -221,43 +223,43 @@ msgstr "Página no encontrada"
 #: templates/admin/index.html:20
 #, python-format
 msgid "Models in the %(name)s application"
-msgstr ""
+msgstr "Modelos en la aplicación %(name)s"
 
 #: templates/admin/index.html:31
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: templates/admin/index.html:37
 msgid "Change"
-msgstr ""
+msgstr "Editar"
 
 #: templates/admin/index.html:47
 msgid "You don't have permission to edit anything."
-msgstr ""
+msgstr "No tienes permiso para editar nada."
 
 #: templates/admin/index.html:55
 msgid "Recent actions"
-msgstr ""
+msgstr "Acciones recientes"
 
 #: templates/admin/index.html:56
 msgid "My actions"
-msgstr ""
+msgstr "Mis acciones"
 
 #: templates/admin/index.html:60
 msgid "None available"
-msgstr ""
+msgstr "Ningunos fuentes disponible"
 
 #: templates/admin/index.html:74
 msgid "Unknown content"
-msgstr ""
+msgstr "Contenido desconocido"
 
 #: templates/admin/login.html:33
 msgid "Please correct the error below."
-msgstr ""
+msgstr "Por favor, corrija el error a continuación."
 
 #: templates/admin/login.html:33
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Por favor corrija los siguientes errores."
 
 #: templates/admin/login.html:49
 #, python-format
@@ -265,20 +267,22 @@ msgid ""
 "You are authenticated as %(username)s, but do not yet have the necessary "
 "permissions to log in. Please contact your administrator."
 msgstr ""
+"Estás autenticado como %(username)s, pero todavía no tienes los permisos "
+"necesarios para iniciar la sesión. Póngase en contacto con su administrador."
 
 #: templates/admin/login.html:77
 msgid "Forgotten your password or username?"
-msgstr ""
+msgstr "¿Olvidó su contraseña o nombre de usuario?"
 
 #: templates/admin/login.html:81
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: templates/base.html:8
 msgid ""
 "Diverse Sources | Science, Health and Environment experts available on "
 "deadline"
-msgstr ""
+msgstr "Fuentes Diversas | Expertos en ciencias, salud y medio ambiente disponibles en la fecha límite"
 
 #: templates/contact.html:6
 msgid "Contact Us"
@@ -292,90 +296,87 @@ msgstr ""
 
 #: templates/footer.html:5 templates/navbar.html:12
 msgid "Diverse Sources"
-msgstr "Fuentes Diversos"
+msgstr "Fuentes Diversas"
 
 #: templates/join.html:16 templates/sources/person_detail.html:50
 msgid ""
-"Are you experienced or interested in being a source for the following type "
-"of media?"
-msgstr ""
+"Are you experienced or interested in being a source for the following type of media?"
+msgstr "¿Tiene experiencia o está interesado en ser una fuente para el siguiente tipo de medios?"
 
 #: templates/join.html:23
 msgid "Join the Database"
-msgstr ""
+msgstr "Únete a la base de datos"
 
 #: templates/join.html:24
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline."
-msgstr ""
+msgstr "Las noticias de ciencia, salud y medioambiente necesitan un conjunto más amplio de perspectivas. Regístrese para ser una fuente de reporteros en la fecha límite."
 
 #: templates/join.html:28
 msgid "Required fields are marked with an asterisk (*)."
-msgstr ""
+msgstr "Los campos obligatorios están marcados con un asterisco (*)."
 
 #: templates/navbar.html:7
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Navegación de palanca"
 
 #: templates/navbar.html:17
 msgid "Join"
-msgstr ""
+msgstr "Únete"
 
 #: templates/navbar.html:18
 msgid "About"
-msgstr ""
+msgstr "Explicación"
 
 #: templates/navbar.html:19
-#, fuzzy
-#| msgid "Contact Us"
 msgid "Contact"
 msgstr "Contáctenos"
 
 #: templates/results.html:33
 msgid "Sources coming soon!"
-msgstr ""
+msgstr "Fuente para administradores"
 
 #: templates/results.html:44
 msgid "Time zone"
-msgstr ""
+msgstr "Diferencia de zona horaria"
 
 #: templates/search.html:6
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: templates/sources/person_detail.html:57
 #: templates/sources/person_detail.html:187
 msgid "Return to database"
-msgstr ""
+msgstr "Volver a la base de datos"
 
 #: templates/sources/person_detail.html:156
 msgid "Timezone"
-msgstr ""
+msgstr "Diferencia de zona horaria"
 
 #: templates/sources/person_detail.html:168
 msgid "State"
-msgstr ""
+msgstr "Estado/provincia"
 
 #: templates/sources/person_detail.html:180
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #: templates/thank-you.html:6
 msgid "Thanks for your submission!"
-msgstr ""
+msgstr "Gracias por su presentación!"
 
 #: templates/thank-you.html:9
 msgid ""
 "Please check your email and confirm your profile for it to appear on the "
 "site."
-msgstr ""
+msgstr "Por favor va a su correo electrónico y confirme su perfil para que aparezca en el sitio."
 
 #: templates/thank-you.html:13
 msgid ""
 "Your profile already exists. If you need to change any details, search your "
 "email for the initial message and click on the link to update the profile."
-msgstr ""
+msgstr "Su perfil ya existe. Si necesita cambiar algún detalle, busque en su correo electrónico el mensaje inicial y haga clic en el enlace para actualizar el perfil."
 
 #~ msgid "Welcome to my site."
 #~ msgstr "Bienvenido a mi sitio."
