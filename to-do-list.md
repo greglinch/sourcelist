@@ -6,12 +6,9 @@
 
 * FIX: import issues (currently 4 remaining)
 
-* UPDATE: email used to diversesources@gmail.com
-
 * add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
 
-* we should add something that says we vet the sources, but journos should also do their due diligence
-	* Q: where? about page?
+* automatically send nudge message to user after X days to remind them they need to confirm their profile
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
@@ -23,6 +20,15 @@
 
 * fix order of fields displayed in `email_user`
 
+* !!! wrap user-facing ForeignKey, OneToOne and ManyToMany fields in `_()` for translation when/if activated !!!
+	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#model-fields-and-relationships-verbose-name-and-help-text-option-values
+
+* use `from django.utils.translation import ugettext_lazy as _` for `forms.py`?
+	* docs say to use for forms, but idk if applicable give our setup (e.g. no hard-coded text in it)
+
+* translating URL patterns
+	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
+
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
@@ -30,7 +36,7 @@
 
 * DataTables updates
 	* setting column width percents to avoid line breaks
-	* explore adding stacked view on mobile
+	* explore adding stacked view on mobile 
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template
 	* inaccurate
@@ -372,4 +378,9 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add
 	* terms of service (part of about?)
 	* footer: started but mostly empty
+
+* we should add something that says we vet the sources, but journos should also do their due diligence
+	* Q: where? about page?
+
+* UPDATE: email used to diversesources@gmail.com
 
