@@ -27,8 +27,12 @@
     });
 </script>
 <div class="jumbotron">
-    <h1 class="display-3">Find Sources</h1>
-    <p class="lead">Search or <a href="/join">join</a> this database of experts to include more underrepresented voices and perspectives in your science, health and environment work on deadline.</p>
+    <h1 class="display-3">{% trans 'Find Sources' %}</h1>
+    <p class="lead">
+        {% blocktrans %}
+            Search or <a href="/join">join</a> this database of experts to include more underrepresented voices and perspectives in your science, health and environment work on deadline.
+        {% endblocktrans %}
+</p>
 </div>
 {% if results.count == 0 %}
     <p class="leader">{% trans 'Sources coming soon!' %}</p>

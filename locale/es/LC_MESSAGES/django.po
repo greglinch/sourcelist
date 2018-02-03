@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-02 22:13-0500\n"
+"POT-Creation-Date: 2018-02-02 22:48-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Actualizado en el sistema"
 msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
-#: sources/models.py:26 sources/models.py:75 templates/results.html:43
+#: sources/models.py:26 sources/models.py:75 templates/results.html:47
 #: templates/sources/person_detail.html:114
 msgid "Expertise"
 msgstr "Pericia"
@@ -55,11 +55,11 @@ msgstr "Dirección de correo electrónico"
 msgid "Comma-separated list"
 msgstr "Lista separada por comas"
 
-#: sources/models.py:77 templates/results.html:40
+#: sources/models.py:77 templates/results.html:44
 msgid "First name"
 msgstr "Nombre"
 
-#: sources/models.py:78 templates/results.html:41
+#: sources/models.py:78 templates/results.html:45
 msgid "Last name"
 msgstr "Apellido"
 
@@ -95,7 +95,7 @@ msgstr ""
 "Si desea compartir los grupos subrepresentados con los que se identifica, "
 "puede incluirlos aquí."
 
-#: sources/models.py:87 templates/results.html:44
+#: sources/models.py:87 templates/results.html:48
 msgid "Organization"
 msgstr "Organización"
 
@@ -167,7 +167,7 @@ msgstr "Twitter"
 msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
-#: sources/models.py:103 templates/results.html:42
+#: sources/models.py:103 templates/results.html:46
 #: templates/sources/person_detail.html:102
 msgid "Type of expert"
 msgstr "Tipo de experto"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: templates/join.html:23
 msgid "Join the Database"
-msgstr "Únete a la base de datos"
+msgstr "Participa en la base de datos"
 
 #: templates/join.html:24
 msgid ""
@@ -335,7 +335,7 @@ msgstr "Navegación de palanca"
 
 #: templates/navbar.html:17
 msgid "Join"
-msgstr "Únete"
+msgstr "Participar"
 
 #: templates/navbar.html:18
 msgid "About"
@@ -345,11 +345,29 @@ msgstr "Explicación"
 msgid "Contact"
 msgstr "Contáctenos"
 
-#: templates/results.html:34
+#: templates/results.html:30
+msgid "Find Sources"
+msgstr "Encontrar Fuentes"
+
+#: templates/results.html:32
+msgid ""
+"\n"
+"            Search or <a href=\"/join\">join</a> this database of experts to "
+"include more underrepresented voices and perspectives in your science, "
+"health and environment work on deadline.\n"
+"        "
+msgstr ""
+"\n"
+"            Buscar o <a href=\"/join\">participar en</a> este base de datos de fuentes "
+"para incluir más voces y perspectivas subrepresentadas en sus historias de ciencia, "
+"salud y ambiente en la fecha límite.\n"
+"        "
+
+#: templates/results.html:38
 msgid "Sources coming soon!"
 msgstr "Fuente para administradores"
 
-#: templates/results.html:45 templates/sources/person_detail.html:156
+#: templates/results.html:49 templates/sources/person_detail.html:156
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
 
