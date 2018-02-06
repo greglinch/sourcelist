@@ -4,11 +4,16 @@
 
 # To-do for development
 
+* FIX: width of content well of person_detail template runs over horizontally on mobile
+
 * FIX: import issues (currently 4 remaining)
 
 * add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
 
 * automatically send nudge message to user after X days to remind them they need to confirm their profile
+
+* translate text stored in the database (e.g. About page)
+	* idea: since it's HTML, just use a hidden div and toggle?
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
@@ -383,4 +388,7 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* Q: where? about page?
 
 * UPDATE: email used to diversesources@gmail.com
+
+* translate template text with HTML in it
+	* use blocktrans template tag
 
