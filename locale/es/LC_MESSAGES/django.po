@@ -317,16 +317,12 @@ msgid "Join the Database"
 msgstr "Participe en la base de datos"
 
 #: templates/join.html:24
-#, fuzzy
-#| msgid ""
-#| "Science, health and environment news stories need a broader set of "
-#| "perspectives. Sign up to be a source for reporters on deadline."
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline in this "
 "public database."
 msgstr ""
-"Las noticias de ciencia, salud y medioambiente necesitan un conjunto más "
+"El periodismo de ciencia, salud y medioambiente necesitan un conjunto más "
 "amplio de perspectivas. Regístrese para ser una fuente para reporteros en "
 "fecha límite en esta base de datos pública."
 
