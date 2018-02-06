@@ -37,7 +37,7 @@ msgstr "Cuando se actualizó en el sistema."
 #: sources/models.py:26 sources/models.py:75 templates/results.html:47
 #: templates/sources/person_detail.html:114
 msgid "Expertise"
-msgstr "Pericia"
+msgstr "Área de especialización"
 
 #: sources/models.py:70 templates/sources/person_detail.html:162
 msgid "City"
@@ -61,7 +61,7 @@ msgstr "Nombre"
 
 #: sources/models.py:78 templates/results.html:45
 msgid "Last name"
-msgstr "Apellido"
+msgstr "Apellido(s)"
 
 #: sources/models.py:79
 msgid "Audio/radio/podcast"
@@ -101,7 +101,7 @@ msgstr "Organización"
 
 #: sources/models.py:89 templates/sources/person_detail.html:126
 msgid "Primary phone number"
-msgstr "Número de teléfono primario"
+msgstr "Número de teléfono principal"
 
 #: sources/models.py:89
 msgid "Ideally a cell phone"
@@ -109,7 +109,7 @@ msgstr "Idealmente un teléfono celular"
 
 #: sources/models.py:90 templates/sources/person_detail.html:132
 msgid "Secondary phone number"
-msgstr "Numero de telefono secundario"
+msgstr "Número de teléfono secundario"
 
 #: sources/models.py:91
 msgid "Prefix"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: templates/join.html:23
 msgid "Join the Database"
-msgstr "Participa en la base de datos"
+msgstr "Participe en la base de datos"
 
 #: templates/join.html:24
 msgid ""
@@ -322,7 +322,7 @@ msgid ""
 "perspectives. Sign up to be a source for reporters on deadline."
 msgstr ""
 "Las noticias de ciencia, salud y medioambiente necesitan un conjunto más "
-"amplio de perspectivas. Regístrese para ser una fuente de reporteros en la "
+"amplio de perspectivas. Regístrese para ser una fuente para reporteros en "
 "fecha límite."
 
 #: templates/join.html:28
