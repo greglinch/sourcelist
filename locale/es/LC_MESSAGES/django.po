@@ -170,7 +170,7 @@ msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 #: sources/models.py:103 templates/results.html:46
 #: templates/sources/person_detail.html:102
 msgid "Type of expert"
-msgstr "Tipo de experto"
+msgstr "Especialidad principal"
 
 #: sources/models.py:105
 msgid "Please include http:// at the beginning."
@@ -322,9 +322,8 @@ msgid ""
 "perspectives. Sign up to be a source for reporters on deadline in this "
 "public database."
 msgstr ""
-"El periodismo de ciencia, salud y medioambiente necesitan un conjunto más "
-"amplio de perspectivas. Regístrese para ser una fuente para reporteros en "
-"fecha límite en esta base de datos pública."
+"El periodismo de ciencia, salud y medioambiente necesita más perspectivas. "
+"Regístrese en este base de datos pública para ayudar reporteros en fecha límite."
 
 #: templates/join.html:28
 msgid "Required fields are marked with an asterisk (*)."
@@ -340,7 +339,7 @@ msgstr "Participar"
 
 #: templates/navbar.html:18
 msgid "About"
-msgstr "Explicación"
+msgstr "Este proyecto"
 
 #: templates/navbar.html:19
 msgid "Contact"
