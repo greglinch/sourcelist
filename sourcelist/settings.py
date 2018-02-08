@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'social.apps.django_app.default',
     'social_django',
     'debug_toolbar',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -176,3 +177,12 @@ SOCIAL_AUTH_PIPELINE = (
 # SESAME_MAX_AGE = 60 * 60 * 24 # seconds x minutes x hours
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale/')]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}

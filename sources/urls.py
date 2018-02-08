@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from sources.views import ConfirmView, ContactView, DetailView, IndexView, JoinView, PageView, ResultsView, ThankYouView, SitemapView # AboutView, 
 
 
@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^confirmation/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         ConfirmView.as_view()),
     url(r'^join', JoinView.as_view()),
+    url(r'^search/', include('haystack.urls')),
     url(r'^thank-you', ThankYouView.as_view()),
     ## main pages
     url(r'^$', ResultsView.as_view()),
