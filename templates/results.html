@@ -46,6 +46,7 @@
                 <th>{% trans 'Type of expert' %}</th>
                 <th>{% trans 'Expertise' %}</th>
                 <th>{% trans 'Organization' %}</th>
+                <th>{% trans 'Language(s)' %}</th>
                 <th>{% trans 'Time zone' %}</th>
                 <!--
                 {% for field in field_list %}
@@ -69,6 +70,7 @@
                     <td>{{ result.type_of_expert }}</td>
                     <td>{{ result.expertise }}</td>
                     <td>{{ result.organization }}</td>
+                    <td>{{ result.language }}</td>
                     <td>{{ result.timezone|timezone_format }}</td>
                 </tr>
             {% endfor %}

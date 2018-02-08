@@ -10,7 +10,7 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 from django.views import View
 from django.views.generic.detail import DetailView #, ListView
-from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER
+from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, EMAIL_HOST_USER
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
@@ -92,7 +92,7 @@ class ContactView(View):
                 '[{}] Contact form messsage from {}'.format(PROJECT_NAME, name),
                 plain_message,
                 EMAIL_SENDER,
-                [EMAIL_SENDER],
+                [EMAIL_HOST_USER],
                 html_message=html_message,
                 )
             # redirect to thank you page:

@@ -4,6 +4,8 @@
 
 # To-do for development
 
+* SEARCH ENGINE: need to be able to search across all fields
+
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
 * FIX: import issues (currently 4 remaining)
