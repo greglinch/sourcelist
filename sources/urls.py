@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from sources.views import ConfirmView, ContactView, DetailView, IndexView, JoinView, PageView, ResultsView, ThankYouView, SitemapView # AboutView, 
 
 
@@ -13,6 +13,7 @@ urlpatterns = [
     # url(r'^index$', ResultsView.as_view()),
     # url(r'^about$', AboutView.as_view()),
     url(r'^contact$', ContactView.as_view()),
+    url(r'^search/', include('watson.urls', namespace='watson')),
     url(r'^(?P<slug>[-\w]+)/$', PageView.as_view()),
     # url(r'^results$', ResultsView.as_view()),
     url(r'^sources/(?P<slug>[-\w]+)/$', DetailView.as_view(), name='source'),
