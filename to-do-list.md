@@ -8,6 +8,8 @@
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
+* add ability for people to do links with brief comments and titles for their mentioned citations or things that they got because of the database
+
 * FIX: import issues (currently 4 remaining)
 
 * add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
@@ -193,6 +195,9 @@
 
 * Q: add boolean to `User` list display view to indicate that they're tied to a `Person`?
 	* also include editable dropdown to add/change the associated `Person`?
+
+* Q: add django-ckeditor?
+
 
 # NOTE FOR LATER
 
