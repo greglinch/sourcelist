@@ -38,6 +38,11 @@
 * translating URL patterns
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
 
+* in `results.html` template, update
+		<a href="{% url 'source' slug=result.slug %}">
+	to
+		<a href="{{ result.get_absolute_url }}">
+
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
