@@ -69,23 +69,6 @@
             {% if person.organization %}
                 {{ person.organization }}
             {% endif %}
-            <p>
-            {% if person.media_video %}
-                <span class="media-icon">
-                    <i class="fa fa-video-camera" aria-hidden="true" aria-label="Video icon"></i>
-                </span>
-            {% endif %}
-            {% if person.media_audio %}
-                <span class="media-icon">
-                    <i class="fa fa-microphone" aria-hidden="true" aria-label="Audio icon"></i>
-                </span>
-            {% endif %}
-            {% if person.media_text %}
-                <span class="media-icon">
-                    <i class="fa fa-file-text-o" aria-hidden="true" aria-label="Text icon"></i>
-                </span>
-            {% endif %}
-            </p>
         </p>
 </div>
 
@@ -179,6 +162,28 @@
         <tr>
             <td class="detail-label">{% trans 'Notes' %}</td>
             <td class="value">{{ person.notes }}</td>
+        </tr>
+        {% endif %}
+        {% if person.media_video or person.media_video or person.media_text %}
+        <tr>
+            <td class="detail-label" style"white-space:pre;">{% trans 'Available for the following media' %}</td>
+            <td class="value">
+                {% if person.media_video %}
+                    <span class="media-icon" title="Video">
+                        <i class="fa fa-video-camera" aria-hidden="true" aria-label="Video icon"></i>
+                    </span>
+                {% endif %}
+                {% if person.media_audio %}
+                    <span class="media-icon" title="Audio">
+                        <i class="fa fa-microphone" aria-hidden="true" aria-label="Audio icon"></i>
+                    </span>
+                {% endif %}
+                {% if person.media_text %}
+                    <span class="media-icon" title="Text">
+                        <i class="fa fa-file-text-o" aria-hidden="true" aria-label="Text icon"></i>
+                    </span>
+                {% endif %}
+            </td>
         </tr>
         {% endif %}
     </table>

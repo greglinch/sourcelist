@@ -5,6 +5,9 @@
 # To-do for development
 
 * SEARCH ENGINE: need to be able to search across all fields
+	* django-watson does the trick
+
+* update `results.html` to properly filter (approved by admin + user) and display results
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 

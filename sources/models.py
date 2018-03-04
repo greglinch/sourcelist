@@ -70,6 +70,7 @@ class Person(BasicInfo):
     approved_by_admin = models.BooleanField(default=False)
     city = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('City'))
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True, blank=False, verbose_name=_('Country'))
+    declined_by_admin = models.BooleanField(default=False, verbose_name=_('Declined'))
     email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
