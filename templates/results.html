@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load sources_extras %}
+{% load watson %}
 
 {% block main %}
 
@@ -38,6 +39,27 @@
     <p class="leader">{% trans 'Sources coming soon!' %}</p>
 {% else %}
 <div class="main-content">
+
+    <!-- START SEARCH -->
+        <h1>Search results{% if query %} for &ldquo;{{query}}&rdquo;{% endif %}</h1>
+        {% if search_results %}
+            {% search_results search_results %}
+        {% else %}
+            {% if query %}
+                <p><em>There are no results to display.</em></p>
+                <p><em>Try entering a less specific search term.</em></p>
+            {% else %}
+                <p><em>Please enter a query in the search form.</em></p>
+
+                <form action="{% url 'watson:search' %}">
+                    <input name="q" value="{{request.GET.q}}">
+                    <input type="submit" value="Go">
+                </form>
+
+            {% endif %}
+        {% endif %}
+    <!-- END SEARCH -->
+
     <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
         <thead>
             <tr>
