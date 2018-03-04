@@ -86,12 +86,14 @@ class PersonAdmin(admin.ModelAdmin):
 
 
 class SourceForJournalistAdmin(admin.ModelAdmin):
-    SOURCE_FIELDS = PersonAdmin.fields
-    SOURCE_FIELDS.remove('approved_by_user')
-    fields = SOURCE_FIELDS  
-    SOURCE_DISPLAY = PersonAdmin.list_display
-    SOURCE_DISPLAY.remove('approved_by_user')
-    list_display = SOURCE_DISPLAY
+    # SOURCE_FIELDS = PersonAdmin.fields
+    # SOURCE_FIELDS.remove('approved_by_user')
+    # fields = SOURCE_FIELDS  
+    fields = PersonAdmin.fields
+    # SOURCE_DISPLAY = PersonAdmin.list_display
+    # SOURCE_DISPLAY.remove('approved_by_user')
+    # list_display = SOURCE_DISPLAY
+    list_display = PersonAdmin.list_display
     # list_editable = ['']
     list_filter = PersonAdmin.list_filter
     search_fields = PersonAdmin.search_fields
