@@ -38,13 +38,13 @@ class PersonAdmin(admin.ModelAdmin):
     #     }),
     #     (, {}),
     # )
-    fields = ['approved_by_admin', 'approved_by_user', 'role', 'prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'skype', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_method', 'entry_type'] # 'location', 'woman', 'underrepresented', 'rating','media',
-    list_display = ['last_name', 'first_name', 'updated', 'entry_method', 'entry_type', 'approved_by_user', 'approved_by_admin', 'role' ] # 'country', 'timezone_abbrev', 'title', 'type_of_expert', 'rating' ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
+    fields = ['approved_by_user', 'role', 'prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'skype', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_method', 'entry_type'] # 'location', 'woman', 'underrepresented', 'rating','media',
+    list_display = ['last_name', 'first_name', 'updated', 'entry_method', 'entry_type', 'approved_by_user', 'role'] # 'country', 'timezone_abbrev', 'title', 'type_of_expert', 'rating' ## 'email_address', 'phone_number', 'website', 'first_last_name', 'id_as_woman', 'id_as_underrepresented',
     # list_editable = ['']
     list_filter = ['role', 'rating', 'timezone', 'city', 'state', 'country'] ## , 'title', 'underrepresented', 'woman'
     search_fields = ['city', 'country', 'email_address', 'expertise', 'first_name', 'language', 'last_name', 'notes', 'organization', 'state', 'title', 'type_of_expert', 'twitter', 'website'] # 'location', 'underrepresented', # 'expertise__name', 'language__name', 'organization__name',
     # filter_horizontal = ['expertise', 'organization', 'language']
-    readonly_fields = ['rating_avg', 'role', 'rating', 'approved_by_admin', 'entry_method', 'entry_type']
+    readonly_fields = ['rating_avg', 'role', 'rating', 'entry_method', 'entry_type']
     save_as = True
     save_on_top = True
     # exclude  = ['']
@@ -104,10 +104,10 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
 
 
 class SourceForAdminAdmin(admin.ModelAdmin):
-    fields = PersonAdmin.fields
-    list_display = PersonAdmin.list_display
-    list_editable = ['approved_by_admin']
-    list_filter = ['created', 'updated', 'approved_by_user', 'approved_by_admin', 'entry_method', 'entry_type'] # PersonAdmin.list_filter
+    fields = ['approved_by_admin', 'approved_by_user', 'declined_by_admin', 'role', 'prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'skype', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_method', 'entry_type']
+    list_display = ['last_name', 'first_name', 'updated', 'entry_method', 'entry_type', 'approved_by_user', 'approved_by_admin', 'declined_by_admin', 'role' ]
+    list_editable = ['approved_by_admin', 'declined_by_admin']
+    list_filter = ['created', 'updated', 'approved_by_user', 'approved_by_admin', 'declined_by_admin', 'entry_method', 'entry_type'] # PersonAdmin.list_filter
     readonly_fields = ['entry_method', 'entry_type']
     search_fields = PersonAdmin.search_fields
     save_on_top = True
