@@ -58,7 +58,7 @@
             {% for result in results %}
                 <tr>
                     <td>
-                        <a href="{% url 'source' slug=result.slug %}">
+                        <a href="{{ result.get_absolute_url }}">
                             {{ result.first_name }}
                         </a>
                     </td>                    
