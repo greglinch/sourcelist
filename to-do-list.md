@@ -15,12 +15,7 @@
 
 * FIX: import issues (currently 4 remaining)
 
-* add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
-
 * automatically send nudge message to user after X days to remind them they need to confirm their profile
-
-* translate text stored in the database (e.g. About page)
-	* idea: since it's HTML, just use a hidden div and toggle?
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
@@ -40,11 +35,6 @@
 
 * translating URL patterns
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
-
-* in `results.html` template, update
-		<a href="{% url 'source' slug=result.slug %}">
-	to
-		<a href="{{ result.get_absolute_url }}">
 
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
@@ -406,4 +396,19 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * translate template text with HTML in it
 	* use blocktrans template tag
+
+* translate text stored in the database (e.g. About page)
+	* idea: since it's HTML, just use a hidden div and toggle?
+	* solution: JS toggle w/ hidden div for About page
+
+* add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
+	* added declined_by_admin
+
+* move video/audio/text icons to bottom of `person_detail` template
+
+
+* in `results.html` template, update
+		<a href="{% url 'source' slug=result.slug %}">
+	to
+		<a href="{{ result.get_absolute_url }}">
 
