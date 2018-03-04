@@ -104,7 +104,7 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         """ only show Person objects with a role of source """
         qs = super(SourceForJournalistAdmin, self).get_queryset(request)
-        return qs.filter(role='source')
+        return qs.filter(role='source', approved_by_user=True, approved_by_admin=True)
 
 
 class SourceForAdminAdmin(admin.ModelAdmin):
