@@ -13,7 +13,8 @@ def email_admin():
 
     unapproved_sources = Person.objects.filter(
         role='source',
-        approved_by_admin=False
+        approved_by_admin=False,
+        declined_by_admin=False
     )
     unapproved_count = unapproved_sources.count()
     
