@@ -9,4 +9,9 @@ class SourcesConfig(AppConfig):
 
     def ready(self):
         Person = self.get_model('Person')
-        watson.register(Person)
+        watson.register(
+            Person.objects.filter(
+                approved_by_admin=True,
+                approved_by_user=True
+            )
+        )
