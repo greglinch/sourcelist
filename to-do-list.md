@@ -6,8 +6,6 @@
 
 * add plus sign to template `person_detail.html` for timezone
 
-* add post-save method to trigger `buildwatson`
-
 * update "return to database" to be a "return to results"?
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
@@ -16,12 +14,11 @@
 
 * FIX: import issues (currently 4 remaining)
 
-* add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
-
 * automatically send nudge message to user after X days to remind them they need to confirm their profile
 
 * translate text stored in the database (e.g. About page)
 	* idea: since it's HTML, just use a hidden div and toggle?
+	* working version of this is ready -- just needs to go live
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
@@ -424,4 +421,11 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * SEARCH ENGINE: need to be able to search across all fields
 	* django-watson does the trick
 	* make sure watson search properly filters (approved by admin + user) results
+		* done in apps.py
+	* add post-save method to trigger `buildwatson`
+		* done in models.py
+
+* add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
+	* accomplished by adding a new `declined_by_admin` field
+
 
