@@ -13,6 +13,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        /* setup and customize data tables plugin */
         $("#sources").DataTable({
             responsive: true, 
             details: true,
@@ -25,6 +26,9 @@
             //     null
             // ]
         });
+        /* replace 'search' with 'filter' */
+        var search_label = $("#sources_filter label");
+        search_label.html(search_label.html().replace("Search", "Filter"));
     });
 </script>
 <div class="jumbotron">
@@ -40,7 +44,7 @@
 {% else %}
 <div class="main-content">
     <!-- START SEARCH -->
-    <h1>Search results{% if query %} for &ldquo;{{query}}&rdquo;{% endif %}</h1>
+    <h1>{% if query %}Search results for &ldquo;{{query}}&rdquo;{% endif %}</h1>
     {% if search_results %}
         <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
             <thead>
@@ -79,14 +83,8 @@
     {% else %}
         {% if query %}
             <p><em>There are no results to display.</em></p>
-            <p><em>Try entering a less specific search term.</em></p>
+            <p><em>Try entering less specific search terms.</em></p>
         {% else %}
-            <p><em>Please enter a query in the search form.</em></p>
-
-            <form action="{% url 'watson:search' %}">
-                <input name="q" value="{{request.GET.q}}">
-                <input type="submit" value="Go">
-            </form>
             <!-- START default view -->
             <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
                 <thead>
