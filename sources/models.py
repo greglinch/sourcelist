@@ -177,6 +177,10 @@ class Person(BasicInfo):
         verbose_name_plural = _('People')
 
 
+@receiver(post_save, sender=Person, dispatch_uid='build_watson_search_index')
+def build_watson_search_index(sender, instance, **kwargs):
+    call_command('buildwatson')
+
 # @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
 # def send_user_added_email(sender, instance, **kwargs):
 #     ## trigger mgmt cmd to notify user they've been created and by whom
