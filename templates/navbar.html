@@ -18,15 +18,17 @@
         <li><a href="/about">{% trans 'About' %}</a></li>
         <li><a href="/contact">{% trans 'Contact' %}</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+    <div class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav" style="float:left;">
         {% include "social-icons.html" %}
       </ul>
-      <form action="{% url 'watson:search' %}" class="nav navbar-form navbar-right">
+      <form action="{% url 'watson:search' %}" class="nav navbar-form" style="float:left;">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Find sources" name="q" value="{{request.GET.q}}">
           <input type="submit" value="Go" class="btn btn-default" style="float:right; margin:0px 0px 0px 10px;">
         </div>
       </form>
+    </div>
       <!-- <ul class="nav navbar-nav navbar-right">
         <li><a href="../navbar/">Default</a></li>
         <li><a href="../navbar-static-top/">Static top</a></li>
