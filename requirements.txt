@@ -2,7 +2,6 @@ certifi==2017.7.27.1
 chardet==3.0.4
 Django==1.11.3
 django-debug-toolbar==1.8
-django-haystack==2.6.1
 django-sesame==1.2
 django-watson==1.5.1
 future==0.16.0
