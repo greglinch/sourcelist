@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load sources_extras %}
+{% load watson %}
 
 {% block main %}
 
@@ -12,7 +13,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#sources').DataTable({
+        /* setup and customize data tables plugin */
+        $("#sources").DataTable({
             responsive: true, 
             details: true,
             "order": [[ 1, "asc" ]]
@@ -24,6 +26,9 @@
             //     null
             // ]
         });
+        /* replace 'search' with 'filter' */
+        var search_label = $("#sources_filter label");
+        search_label.html(search_label.html().replace("Search", "Filter"));
     });
 </script>
 <div class="jumbotron">
@@ -38,44 +43,87 @@
     <p class="leader">{% trans 'Sources coming soon!' %}</p>
 {% else %}
 <div class="main-content">
-    <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>{% trans 'First name' %}</th>
-                <th>{% trans 'Last name' %}</th>
-                <th>{% trans 'Type of expert' %}</th>
-                <th>{% trans 'Expertise' %}</th>
-                <th>{% trans 'Organization' %}</th>
-                <th>{% trans 'Language(s)' %}</th>
-                <th>{% trans 'Time zone' %}</th>
-                <!--
-                {% for field in field_list %}
-                    <th>{{ field }}</th>
-                {% endfor %}  -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
+    <!-- START SEARCH -->
+    <h1>{% if query %}Search results for &ldquo;{{query}}&rdquo;{% endif %}</h1>
+    {% if search_results %}
+        <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
+            <thead>
                 <tr>
-                    <td>
-                        <a href="{{ result.get_absolute_url }}">
-                            {{ result.first_name }}
-                        </a>
-                    </td>                    
-                    <td>
-                        <a href="{% url 'source' slug=result.slug %}">
-                            {{ result.last_name }}
-                        </a>
-                    </td>
-                    <td>{{ result.type_of_expert }}</td>
-                    <td>{{ result.expertise }}</td>
-                    <td>{{ result.organization }}</td>
-                    <td>{{ result.language }}</td>
-                    <td>{{ result.timezone|timezone_format }}</td>
+                    <th>{% trans 'First name' %}</th>
+                    <th>{% trans 'Last name' %}</th>
+                    <th>{% trans 'Type of expert' %}</th>
+                    <th>{% trans 'Expertise' %}</th>
+                    <th>{% trans 'Organization' %}</th>
+                    <th>{% trans 'Language(s)' %}</th>
+                    <th>{% trans 'Time zone' %}</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for search_result in search_results %}
+                    <tr>
+                        <td>
+                            <a href="{{ search_result.url }}">
+                                {{ search_result.object.first_name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ search_result.url }}">
+                                {{ search_result.object.last_name }}
+                            </a>
+                        </td>
+                        <td>{{ search_result.object.type_of_expert }}</td>
+                        <td>{{ search_result.object.expertise }}</td>
+                        <td>{{ search_result.object.organization }}</td>
+                        <td>{{ search_result.object.language }}</td>
+                        <td>{{ search_result.object.timezone|timezone_format }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% if query %}
+            <p><em>There are no results to display.</em></p>
+            <p><em>Try entering less specific search terms.</em></p>
+        {% else %}
+            <!-- START default view -->
+            <table id="sources" class="display responsive stripe lead" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>{% trans 'First name' %}</th>
+                        <th>{% trans 'Last name' %}</th>
+                        <th>{% trans 'Type of expert' %}</th>
+                        <th>{% trans 'Expertise' %}</th>
+                        <th>{% trans 'Organization' %}</th>
+                        <th>{% trans 'Language(s)' %}</th>
+                        <th>{% trans 'Time zone' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'source' slug=result.slug %}">
+                                    {{ result.first_name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'source' slug=result.slug %}">
+                                    {{ result.last_name }}
+                                </a>
+                            </td>
+                            <td>{{ result.type_of_expert }}</td>
+                            <td>{{ result.expertise }}</td>
+                            <td>{{ result.organization }}</td>
+                            <td>{{ result.language }}</td>
+                            <td>{{ result.timezone|timezone_format }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- END default view -->
+        {% endif %}
+    {% endif %}
+    <!-- END SEARCH -->
 </div>
 {% endif %}
 {% endblock %}

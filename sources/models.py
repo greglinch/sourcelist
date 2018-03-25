@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES#, MEDIA_CHOICES
 
 
@@ -137,6 +138,10 @@ class Person(BasicInfo):
     #         person_dict[field_name] = field_value
     #     return person_dict
 
+    def get_absolute_url(self):
+        """ preferred/abstract way to defin the URL """
+        return reverse('source', args=[self.slug])
+
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
@@ -171,6 +176,10 @@ class Person(BasicInfo):
         verbose_name = _('Person')
         verbose_name_plural = _('People')
 
+
+@receiver(post_save, sender=Person, dispatch_uid='build_watson_search_index')
+def build_watson_search_index(sender, instance, **kwargs):
+    call_command('buildwatson')
 
 # @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
 # def send_user_added_email(sender, instance, **kwargs):

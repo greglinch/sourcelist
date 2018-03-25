@@ -4,10 +4,9 @@
 
 # To-do for development
 
-* SEARCH ENGINE: need to be able to search across all fields
-	* django-watson does the trick
+* add plus sign to template `person_detail.html` for timezone
 
-* update `results.html` to properly filter (approved by admin + user) and display results
+* update "return to database" to be a "return to results"?
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
@@ -44,6 +43,19 @@
 * DataTables updates
 	* setting column width percents to avoid line breaks
 	* explore adding stacked view on mobile 
+
+* abstract the column list in `results.html`, such as:
+```{% for field in field_list %}
+    <th>{{ field }}</th>
+{% endfor %}```
+
+* add to base.html? but make sure you can override first (e.g. with specific pages titles)
+
+```
+{% block header %}
+
+{% endblock %}
+```
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template
 	* inaccurate
@@ -402,13 +414,18 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* solution: JS toggle w/ hidden div for About page
 
 * add `pending`, `reviewed` (redundant with `approved_by_admin` as True?) or `rejected` for admins
-	* added declined_by_admin
+	* accomplished by adding a new `declined_by_admin` field
 
 * move video/audio/text icons to bottom of `person_detail` template
-
 
 * in `results.html` template, update
 		<a href="{% url 'source' slug=result.slug %}">
 	to
 		<a href="{{ result.get_absolute_url }}">
 
+* SEARCH ENGINE: need to be able to search across all fields
+	* django-watson does the trick
+	* make sure watson search properly filters (approved by admin + user) results
+		* done in apps.py
+	* add post-save method to trigger `buildwatson`
+		* done in models.py
