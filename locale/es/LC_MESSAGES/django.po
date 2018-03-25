@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-05 20:03-0500\n"
+"POT-Creation-Date: 2018-03-25 12:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,72 +22,76 @@ msgstr ""
 msgid "View page"
 msgstr "Ver página"
 
-#: sources/admin.py:54 sources/admin.py:98 sources/admin.py:117
+#: sources/admin.py:54 sources/admin.py:104 sources/admin.py:123
 msgid "Timezone offset"
 msgstr "Diferencia de zona horaria"
 
-#: sources/models.py:16
+#: sources/models.py:17
 msgid "Updated in system"
 msgstr "Actualizado en el sistema"
 
-#: sources/models.py:16
+#: sources/models.py:17
 msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
-#: sources/models.py:26 sources/models.py:75 templates/results.html:47
-#: templates/sources/person_detail.html:114
+#: sources/models.py:27 sources/models.py:77 templates/results.html:55
+#: templates/results.html:95 templates/sources/person_detail.html:97
 msgid "Expertise"
 msgstr "Área de especialización"
 
-#: sources/models.py:70 templates/sources/person_detail.html:162
+#: sources/models.py:71 templates/sources/person_detail.html:145
 msgid "City"
 msgstr "Ciudad"
 
-#: sources/models.py:71 templates/sources/person_detail.html:174
+#: sources/models.py:72 templates/sources/person_detail.html:157
 msgid "Country"
 msgstr "País"
 
-#: sources/models.py:72 templates/sources/person_detail.html:120
+#: sources/models.py:73
+msgid "Declined"
+msgstr "Rechazado"
+
+#: sources/models.py:74 templates/sources/person_detail.html:103
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
-#: sources/models.py:75 sources/models.py:83
+#: sources/models.py:77 sources/models.py:85
 msgid "Comma-separated list"
 msgstr "Lista separada por comas"
 
-#: sources/models.py:77 templates/results.html:44
+#: sources/models.py:79 templates/results.html:52 templates/results.html:92
 msgid "First name"
 msgstr "Nombre"
 
-#: sources/models.py:78 templates/results.html:45
+#: sources/models.py:80 templates/results.html:53 templates/results.html:93
 msgid "Last name"
 msgstr "Apellido(s)"
 
-#: sources/models.py:79
+#: sources/models.py:81
 msgid "Audio/radio/podcast"
 msgstr "Audio/radio/podcast"
 
-#: sources/models.py:80
+#: sources/models.py:82
 msgid "Text/print"
 msgstr "Texto/medios impresos"
 
-#: sources/models.py:81
+#: sources/models.py:83
 msgid "Video/TV"
 msgstr "Video/TV"
 
-#: sources/models.py:82
+#: sources/models.py:84
 msgid "Middle name"
 msgstr "Segundo nombre"
 
-#: sources/models.py:83 templates/sources/person_detail.html:150
+#: sources/models.py:85 templates/sources/person_detail.html:133
 msgid "Language"
 msgstr "Idioma"
 
-#: sources/models.py:86
+#: sources/models.py:88
 msgid "Public notes"
 msgstr "Notas públicas"
 
-#: sources/models.py:86
+#: sources/models.py:88
 msgid ""
 "If you would like to share the underrepresented group(s) you identify with, "
 "please do so here."
@@ -95,120 +99,120 @@ msgstr ""
 "Si desea compartir los grupos subrepresentados con los que se identifica, "
 "puede incluirlos aquí."
 
-#: sources/models.py:87 templates/results.html:48
+#: sources/models.py:89 templates/results.html:56 templates/results.html:96
 msgid "Organization"
 msgstr "Organización"
 
-#: sources/models.py:89 templates/sources/person_detail.html:126
+#: sources/models.py:91 templates/sources/person_detail.html:109
 msgid "Primary phone number"
 msgstr "Número de teléfono principal"
 
-#: sources/models.py:89
+#: sources/models.py:91
 msgid "Ideally a cell phone"
 msgstr "Idealmente un teléfono celular"
 
-#: sources/models.py:90 templates/sources/person_detail.html:132
+#: sources/models.py:92 templates/sources/person_detail.html:115
 msgid "Secondary phone number"
 msgstr "Número de teléfono secundario"
 
-#: sources/models.py:91
+#: sources/models.py:93
 msgid "Prefix"
 msgstr "Título"
 
-#: sources/models.py:92
+#: sources/models.py:94
 msgid "e.g. she/her, they/their, etc."
 msgstr "por ejemplo ella, etc."
 
-#: sources/models.py:92 templates/sources/person_detail.html:96
+#: sources/models.py:94 templates/sources/person_detail.html:79
 msgid "Pronouns"
 msgstr "Pronombres"
 
-#: sources/models.py:93 sources/models.py:206
+#: sources/models.py:95 sources/models.py:216
 msgid "Rating"
 msgstr "Clasificación"
 
-#: sources/models.py:94
+#: sources/models.py:96
 msgid "Rating average"
 msgstr "Promedio de clasificación"
 
-#: sources/models.py:95
+#: sources/models.py:97
 msgid "Role"
 msgstr "Papel en el sistema"
 
-#: sources/models.py:96 templates/sources/person_detail.html:138
+#: sources/models.py:98 templates/sources/person_detail.html:121
 msgid "Skype username"
 msgstr "Nombre de usuario de Skype"
 
-#: sources/models.py:98
+#: sources/models.py:100
 msgid "State/province"
 msgstr "Estado/provincia"
 
-#: sources/models.py:100
+#: sources/models.py:102
 msgid "Title"
 msgstr "Título"
 
-#: sources/models.py:101
+#: sources/models.py:103
 msgid "Time zone offset from GMT"
 msgstr "Diferencia de zona horaria"
 
-#: sources/models.py:101
+#: sources/models.py:103
 msgid "-4, 10, etc."
 msgstr "-4, 10, etc."
 
-#: sources/models.py:102
+#: sources/models.py:104
 msgid "Please do not include the @ symbol"
 msgstr "Por favor no incluya el símbolo @"
 
-#: sources/models.py:102 templates/sources/person_detail.html:144
+#: sources/models.py:104 templates/sources/person_detail.html:127
 msgid "Twitter"
 msgstr "Twitter"
 
-#: sources/models.py:103
+#: sources/models.py:105
 msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
-#: sources/models.py:103 templates/results.html:46
-#: templates/sources/person_detail.html:102
+#: sources/models.py:105 templates/results.html:54 templates/results.html:94
+#: templates/sources/person_detail.html:85
 msgid "Type of expert"
 msgstr "Especialidad principal"
 
-#: sources/models.py:105
+#: sources/models.py:107
 msgid "Please include http:// at the beginning."
 msgstr "Por favor incluya http:// al comienzo."
 
-#: sources/models.py:105 templates/sources/person_detail.html:108
+#: sources/models.py:107 templates/sources/person_detail.html:91
 msgid "Website"
 msgstr "Sitio web"
 
-#: sources/models.py:115
+#: sources/models.py:117
 msgid "Name"
 msgstr "Por favor incluya http:// al comienzo."
 
-#: sources/models.py:170
+#: sources/models.py:176
 msgid "Person"
 msgstr "Persona"
 
-#: sources/models.py:171
+#: sources/models.py:177
 msgid "People"
 msgstr "Personas"
 
-#: sources/models.py:207
+#: sources/models.py:217
 msgid "Ratings"
 msgstr "Calificaciones"
 
-#: sources/models.py:226
+#: sources/models.py:236
 msgid "Source for admins"
 msgstr "Fuente para administradores"
 
-#: sources/models.py:227
+#: sources/models.py:237
 msgid "Sources for admins"
 msgstr "Fuente para administradores"
 
-#: sources/models.py:247
+#: sources/models.py:257
 msgid "Source for journalists"
 msgstr "Fuente para periodistas"
 
-#: sources/models.py:248
+#: sources/models.py:258
 msgid "Sources for journalists"
 msgstr "Fuentes para periodistas"
 
@@ -323,7 +327,8 @@ msgid ""
 "public database."
 msgstr ""
 "El periodismo de ciencia, salud y medioambiente necesita más perspectivas. "
-"Regístrese en este base de datos pública para ayudar reporteros en fecha límite."
+"Regístrese en este base de datos pública para ayudar reporteros en fecha "
+"límite."
 
 #: templates/join.html:28
 msgid "Required fields are marked with an asterisk (*)."
@@ -345,11 +350,11 @@ msgstr "Este proyecto"
 msgid "Contact"
 msgstr "Contáctenos"
 
-#: templates/results.html:30
+#: templates/results.html:35
 msgid "Find Sources"
 msgstr "Encontrar Fuentes"
 
-#: templates/results.html:32
+#: templates/results.html:37
 msgid ""
 "\n"
 "            Search or <a href=\"/join\">join</a> this database of experts to "
@@ -363,11 +368,16 @@ msgstr ""
 "historias de ciencia, salud y ambiente en la fecha límite.\n"
 "        "
 
-#: templates/results.html:38
+#: templates/results.html:43
 msgid "Sources coming soon!"
 msgstr "Fuente para administradores"
 
-#: templates/results.html:49 templates/sources/person_detail.html:156
+#: templates/results.html:57 templates/results.html:97
+msgid "Language(s)"
+msgstr "Idioma(s)"
+
+#: templates/results.html:58 templates/results.html:98
+#: templates/sources/person_detail.html:139
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
 
@@ -376,17 +386,21 @@ msgid "Search"
 msgstr "Buscar"
 
 #: templates/sources/person_detail.html:57
-#: templates/sources/person_detail.html:187
+#: templates/sources/person_detail.html:192
 msgid "Return to database"
 msgstr "Volver a la base de datos"
 
-#: templates/sources/person_detail.html:168
+#: templates/sources/person_detail.html:151
 msgid "State"
 msgstr "Estado/provincia"
 
-#: templates/sources/person_detail.html:180
+#: templates/sources/person_detail.html:163
 msgid "Notes"
 msgstr "Notas"
+
+#: templates/sources/person_detail.html:169
+msgid "Available for the following media"
+msgstr "Disponible para estos tipos de medios"
 
 #: templates/thank-you.html:6
 msgid "Thanks for your submission!"
