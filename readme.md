@@ -299,3 +299,13 @@ Enable uwsgi and nginx to run on startup
 For example:
 
 	https://certbot.eff.org/#ubuntuxenial-nginx
+
+## Translations
+
+Run this command to generate or re-generate the translation file:
+
+	python3 manage.py makemessages -l es
+
+Run this command to compil the translation:
+
+	python3 manage.py compilemessages
