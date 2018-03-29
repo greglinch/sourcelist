@@ -11,7 +11,9 @@
         {% csrf_token %}
         <!-- {{ form.errors }} -->
         {{ form }}
+        <div class="g-recaptcha" data-sitekey="6LdRFU8UAAAAAAKMOt7BIdvNaZnI_2ZLy0j_cFsA"></div>	
         <input class="btn btn-primary" type="submit" value="Submit" />
+        <!-- CAPTCHA -->
     </form>
 </div>
 {% endblock %}
