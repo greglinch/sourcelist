@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^$', ResultsView.as_view()),
     # url(r'^index$', ResultsView.as_view()),
     # url(r'^about$', AboutView.as_view()),
-    url(r'^contact$', ContactView.as_view()),
+    url(r'^contact/$', ContactView.as_view()),
     url(r'^search/', include('watson.urls', namespace='watson'), search_customizations),
     url(r'^(?P<slug>[-\w]+)/$', PageView.as_view()),
     # url(r'^results$', ResultsView.as_view()),
