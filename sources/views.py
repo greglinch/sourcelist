@@ -93,9 +93,12 @@ class ContactView(FormView):
         response = urllib.request.urlopen(req)
         result = json.loads(response.read().decode())
         ## extract the necessary value for sending emails
+        name = form.cleaned_data['name']
         email = form.cleaned_data['email']
         message = form.cleaned_data['message']
-        name = form.cleaned_data['name']
+        message_type = form.cleaned_data['message_type']
+        message_type = dict(form.fields['message_type'].choices)[message_type]
+        ## construct the message
         plain_message = ''
         html_message = '<table> \
             <tr><td>Name:</td><td>{}</td></tr> \
@@ -103,16 +106,16 @@ class ContactView(FormView):
             <tr><td>Message:</td><td>{}</td></td></tr> \
             </table> \
             '.format(name, email, message)
-
+        ## send the message
         if result['success']:
             send_mail(
-                '[{}] Contact form messsage from {}'.format(PROJECT_NAME, name),
+                '[{} contact form] {} from {}'.format(PROJECT_NAME, message_type, name),
                 plain_message,
                 EMAIL_SENDER,
                 [EMAIL_HOST_USER],
                 html_message=html_message,
             )
-
+        ## or return the form with the same values plus the error
         else:
             payload = {
                 'form': form,
