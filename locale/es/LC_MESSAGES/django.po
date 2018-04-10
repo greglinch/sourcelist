@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-25 12:28-0400\n"
+"POT-Creation-Date: 2018-04-09 22:43-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,51 @@ msgstr "Ver página"
 #: sources/admin.py:54 sources/admin.py:104 sources/admin.py:123
 msgid "Timezone offset"
 msgstr "Diferencia de zona horaria"
+
+#: sources/forms.py:11
+msgid "General contact"
+msgstr "Contacto general"
+
+#: sources/forms.py:12
+#, fuzzy
+#| msgid "Sources for journalists"
+msgid "Share your succes story as a journalist"
+msgstr "Comparta su cuento de éxito como periodista"
+
+#: sources/forms.py:13
+msgid "Share your succes story as a source"
+msgstr "Comparta su cuento de éxito como periodista"
+
+#: sources/forms.py:14
+msgid "Profile request"
+msgstr "Solicitud de perfil"
+
+#: sources/forms.py:15
+msgid "Feature request"
+msgstr "Solicitud de nueva característica"
+
+#: sources/forms.py:16
+#, fuzzy
+#| msgid "Website"
+msgid "Website error"
+msgstr "Error en este sitio"
+
+#: sources/forms.py:21
+msgid "Full name"
+msgstr "Nombre completo"
+
+#: sources/forms.py:22 sources/models.py:74
+#: templates/sources/person_detail.html:103
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#: sources/forms.py:27
+msgid "Message type"
+msgstr "Tipo de mensaje"
+
+#: sources/forms.py:32
+msgid "Message"
+msgstr "Mensaje"
 
 #: sources/models.py:17
 msgid "Updated in system"
@@ -50,10 +95,6 @@ msgstr "País"
 #: sources/models.py:73
 msgid "Declined"
 msgstr "Rechazado"
-
-#: sources/models.py:74 templates/sources/person_detail.html:103
-msgid "Email address"
-msgstr "Dirección de correo electrónico"
 
 #: sources/models.py:77 sources/models.py:85
 msgid "Comma-separated list"
@@ -216,11 +257,11 @@ msgstr "Fuente para periodistas"
 msgid "Sources for journalists"
 msgstr "Fuentes para periodistas"
 
-#: sources/views.py:62
+#: sources/views.py:67
 msgid "Thank you for confirming your source profile."
 msgstr "Gracias por confirmar su perfil de Fuentes Diversas."
 
-#: sources/views.py:65
+#: sources/views.py:70
 msgid "Confirmation link is invalid!"
 msgstr "¡El enlace de confirmación no es válido!"
 
@@ -304,23 +345,43 @@ msgstr ""
 "¿Tiene una pregunta sobre este proyecto? ¿Quiere ayudar? ¡Envianos un "
 "mensaje!"
 
+#: templates/contact.html:14
+msgid ""
+"\n"
+"                <strong>WARNING</strong>: Please complete the CAPTCHA to "
+"submit your form.\n"
+"            "
+msgstr ""
+"\n"
+"                <strong>ADVERTENCIA</strong>: Completa el CAPTCHA para "
+"enviar su mensaje.\n"
+"            "
+
+#: templates/contact.html:24 templates/join.html:39
+msgid " value=\"Submit\" "
+msgstr " value=\"Enviar\" "
+
 #: templates/footer.html:5 templates/navbar.html:12
 msgid "Diverse Sources"
 msgstr "Fuentes Diversas"
 
-#: templates/join.html:16 templates/sources/person_detail.html:50
+#: templates/join.html:18
+#, fuzzy
+#| msgid ""
+#| "Are you experienced or interested in being a source for the following "
+#| "type of media?"
 msgid ""
-"Are you experienced or interested in being a source for the following type "
-"of media?"
+" \"Are you experienced or interested in being a source for the following "
+"type of media?\" "
 msgstr ""
 "¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
 "tipo de medios?"
 
-#: templates/join.html:23
+#: templates/join.html:29
 msgid "Join the Database"
 msgstr "Participe en la base de datos"
 
-#: templates/join.html:24
+#: templates/join.html:30
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline in this "
@@ -330,7 +391,7 @@ msgstr ""
 "Regístrese en este base de datos pública para ayudar reporteros en fecha "
 "límite."
 
-#: templates/join.html:28
+#: templates/join.html:34
 msgid "Required fields are marked with an asterisk (*)."
 msgstr "Los campos obligatorios están marcados con un asterisco (*)."
 
@@ -385,6 +446,14 @@ msgstr "Diferencia de zona horaria"
 msgid "Search"
 msgstr "Buscar"
 
+#: templates/sources/person_detail.html:50
+msgid ""
+"Are you experienced or interested in being a source for the following type "
+"of media?"
+msgstr ""
+"¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
+"tipo de medios?"
+
 #: templates/sources/person_detail.html:57
 #: templates/sources/person_detail.html:192
 msgid "Return to database"
@@ -404,7 +473,7 @@ msgstr "Disponible para estos tipos de medios"
 
 #: templates/thank-you.html:6
 msgid "Thanks for your submission!"
-msgstr "Gracias por su presentación!"
+msgstr "Gracias por su sumisión!"
 
 #: templates/thank-you.html:9
 msgid ""
