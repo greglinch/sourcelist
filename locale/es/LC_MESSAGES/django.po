@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 22:43-0400\n"
+"POT-Creation-Date: 2018-04-09 23:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,43 +31,47 @@ msgid "General contact"
 msgstr "Contacto general"
 
 #: sources/forms.py:12
+msgid "Volunteer to help"
+msgstr "Voluntario para ayudar"
+
+#: sources/forms.py:13
 #, fuzzy
 #| msgid "Sources for journalists"
 msgid "Share your succes story as a journalist"
 msgstr "Comparta su cuento de éxito como periodista"
 
-#: sources/forms.py:13
+#: sources/forms.py:14
 msgid "Share your succes story as a source"
 msgstr "Comparta su cuento de éxito como periodista"
 
-#: sources/forms.py:14
+#: sources/forms.py:15
 msgid "Profile request"
 msgstr "Solicitud de perfil"
 
-#: sources/forms.py:15
+#: sources/forms.py:16
 msgid "Feature request"
 msgstr "Solicitud de nueva característica"
 
-#: sources/forms.py:16
+#: sources/forms.py:17
 #, fuzzy
 #| msgid "Website"
 msgid "Website error"
 msgstr "Error en este sitio"
 
-#: sources/forms.py:21
+#: sources/forms.py:22
 msgid "Full name"
 msgstr "Nombre completo"
 
-#: sources/forms.py:22 sources/models.py:74
+#: sources/forms.py:23 sources/models.py:74
 #: templates/sources/person_detail.html:103
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
-#: sources/forms.py:27
+#: sources/forms.py:28
 msgid "Message type"
 msgstr "Tipo de mensaje"
 
-#: sources/forms.py:32
+#: sources/forms.py:33
 msgid "Message"
 msgstr "Mensaje"
 

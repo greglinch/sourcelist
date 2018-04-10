@@ -9,6 +9,7 @@ FIELDS_PUBLIC = ['prefix', 'pronouns', 'first_name', 'middle_name', 'last_name',
 MESSAGE_CHOICES = (
     (None, '------'),
     ('general', _('General contact')),
+    ('volunteer', _('Volunteer to help')),
     ('share-success-journalist', _('Share your succes story as a journalist')),
     ('share-success-source', _('Share your succes story as a source')),
     ('request-update', _('Profile request')),
