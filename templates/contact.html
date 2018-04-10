@@ -9,11 +9,19 @@
 <div class="main-content lead">
     <form action="" method="POST">
         {% csrf_token %}
-        <!-- {{ form.errors }} -->
+        {% if captcha_error %}
+        <div class="alert alert-warning alert-dismissible show">
+            {% blocktrans %}
+                <strong>WARNING</strong>: Please complete the CAPTCHA to submit your form.
+            {% endblocktrans %}
+        </div>
+        {% endif %}
+        {{ form.errors }}
         {{ form }}
-        <div class="g-recaptcha" data-sitekey="6LdRFU8UAAAAAAKMOt7BIdvNaZnI_2ZLy0j_cFsA"></div>	
-        <input class="btn btn-primary" type="submit" value="Submit" />
         <!-- CAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LdRFU8UAAAAAAKMOt7BIdvNaZnI_2ZLy0j_cFsA"></div>	
+        <!-- submit button -->
+        <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
 </div>
 {% endblock %}

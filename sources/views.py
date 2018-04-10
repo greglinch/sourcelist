@@ -10,6 +10,7 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 from django.views import View
 from django.views.generic.detail import DetailView #, ListView
+from django.views.generic.edit import FormView
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, EMAIL_HOST_USER, GOOGLE_RECAPTCHA_SECRET_KEY
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Page, Person
@@ -73,56 +74,53 @@ class ConfirmView(View):
         return render(request, 'confirmation.html', context)
 
 
-class ContactView(View):
+class ContactView(FormView):
     """ contact page """
+    template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = '/thank-you/'
 
-    ## process the submitted form data
-    def post(self, request, *args, **kwargs):
-    # if request.method == 'POST':
-        form = ContactForm(request.POST)
-        ## check whether it's valid:
-        if form.is_valid():
-            ## reCAPTCHA validation
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
+    def form_valid(self, form):
+        ## reCAPTCHA validation
+        recaptcha_response = self.request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(values).encode()
+        req =  urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+        ## extract the necessary value for sending emails
+        email = form.cleaned_data['email']
+        message = form.cleaned_data['message']
+        name = form.cleaned_data['name']
+        plain_message = ''
+        html_message = '<table> \
+            <tr><td>Name:</td><td>{}</td></tr> \
+            <tr><td>Email:</td><td>{}</td></td></tr> \
+            <tr><td>Message:</td><td>{}</td></td></tr> \
+            </table> \
+            '.format(name, email, message)
+
+        if result['success']:
+            send_mail(
+                '[{}] Contact form messsage from {}'.format(PROJECT_NAME, name),
+                plain_message,
+                EMAIL_SENDER,
+                [EMAIL_HOST_USER],
+                html_message=html_message,
+            )
+
+        else:
+            payload = {
+                'form': form,
+                'captcha_error': True
             }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            ## extract the necessary value for sending emails
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-            name = form.cleaned_data['name']
-            plain_message = ''
-            html_message = '<table> \
-                <tr><td>Name:</td><td>{}</td></tr> \
-                <tr><td>Email:</td><td>{}</td></td></tr> \
-                <tr><td>Message:</td><td>{}</td></td></tr> \
-                </table> \
-                '.format(name, email, message)
+            return render(self.request, 'contact.html', payload)
 
-            if result['success']:
-                send_mail(
-                    '[{}] Contact form messsage from {}'.format(PROJECT_NAME, name),
-                    plain_message,
-                    EMAIL_SENDER,
-                    [EMAIL_HOST_USER],
-                    html_message=html_message,
-                )
-                # redirect to thank you page:
-                return HttpResponseRedirect('/thank-you/')
-            else:
-                from django.contrib import messages
-                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-
-    # create a blank form
-    def get(self, request, *args, **kwargs):
-        form = ContactForm()
-        return render(request, 'contact.html', {'form': form})
+        return super().form_valid(form)
 
 
 class DetailView(DetailView):
