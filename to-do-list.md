@@ -6,8 +6,6 @@
 
 * add a "Testimonials" style page with success stories instead of just on the about page
 
-* update "return to database" to be a "return to results"?
-
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
 * add ability for people to do links with brief comments and titles for their mentioned citations or things that they got because of the database
@@ -441,4 +439,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add a "Share Your Story" link to nav for testimonials and have a form -- either the contact form or something more specific
 
 * add plus sign to template `person_detail.html` for timezone
+
+* update "return to database" to be a "return to results" if coming from a search result page
 

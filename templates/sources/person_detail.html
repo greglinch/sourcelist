@@ -53,9 +53,7 @@
     });
 </script>
 
-<div class="return-to-db">
-    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> {% trans 'Return to database' %}</a></p>
-</div>
+{% include "return_links.html" %}
 
 <div class="jumbotron">
     <h1>{{ person }}</h1>
@@ -194,7 +192,5 @@
         {% endif %}
     </table>
 </div>
-<div class="return-to-db">
-    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/"> {% trans 'Return to database' %}</a></p>
-</div>
+{% include "return_links.html" %}
 {% endblock %}
