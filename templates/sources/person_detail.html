@@ -137,7 +137,13 @@
         {% if person.timezone %}
         <tr>
             <td class="detail-label">{% trans 'Time zone' %}</td>
-            <td class="value">{{ person.timezone }} GMT</td>
+            <td class="value">
+                {% if person.timezone >= 1 %}
+                    +{{ person.timezone }}
+                {% else %}
+                    {{ person.timezone }}
+                {% endif %} GMT
+            </td>
         </tr>
         {% endif %}
         {% if person.city %}

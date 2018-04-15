@@ -4,11 +4,7 @@
 
 # To-do for development
 
-* add a "Share Your Story" link to nav for testimonials and have a form -- either the contact form or something more specific
-
 * add a "Testimonials" style page with success stories instead of just on the about page
-
-* add plus sign to template `person_detail.html` for timezone
 
 * update "return to database" to be a "return to results"?
 
@@ -441,3 +437,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* bug report
 	* share your story (journalist)
 	* share your story (source)
+
+* add a "Share Your Story" link to nav for testimonials and have a form -- either the contact form or something more specific
+
+* add plus sign to template `person_detail.html` for timezone
+
