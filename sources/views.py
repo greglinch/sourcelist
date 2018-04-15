@@ -95,21 +95,23 @@ class ContactView(FormView):
         ## extract the necessary value for sending emails
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
+        role = form.cleaned_data['role']
         message = form.cleaned_data['message']
         message_type = form.cleaned_data['message_type']
-        message_type = dict(form.fields['message_type'].choices)[message_type]
+        message_type_display = dict(form.fields['message_type'].choices)[message_type]
         ## construct the message
         plain_message = ''
         html_message = '<table> \
             <tr><td>Name:</td><td>{}</td></tr> \
             <tr><td>Email:</td><td>{}</td></td></tr> \
+            <tr><td>Role:</td><td>{}</td></td></tr> \
             <tr><td>Message:</td><td>{}</td></td></tr> \
             </table> \
-            '.format(name, email, message)
+            '.format(name, email, role, message)
         ## send the message
         if result['success']:
             send_mail(
-                '[{} contact form] {} from {}'.format(PROJECT_NAME, message_type, name),
+                '[{} contact form] {} from {}'.format(PROJECT_NAME, message_type_display, name),
                 plain_message,
                 EMAIL_SENDER,
                 [EMAIL_HOST_USER],

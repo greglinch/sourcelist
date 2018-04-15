@@ -4,11 +4,7 @@
 
 # To-do for development
 
-* add a "Share Your Story" link to nav for testimonials and have a form -- either the contact form or something more specific; we could update fields of the contact form based on selecting an option:
-	* general contact
-	* bug report
-	* share your story (journalist)
-	* share your story (source)
+* add a "Share Your Story" link to nav for testimonials and have a form -- either the contact form or something more specific
 
 * add a "Testimonials" style page with success stories instead of just on the about page
 
@@ -440,3 +436,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * add recaptcha to contact form
 
+* update contact form field based on selecting an option:
+	* general contact
+	* bug report
+	* share your story (journalist)
+	* share your story (source)

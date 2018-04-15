@@ -10,11 +10,17 @@ MESSAGE_CHOICES = (
     (None, '------'),
     ('general', _('General contact')),
     ('volunteer', _('Volunteer to help')),
-    ('share-success-journalist', _('Share your succes story as a journalist')),
-    ('share-success-source', _('Share your succes story as a source')),
-    ('request-update', _('Profile request')),
-    ('feature-requset', _('Feature request')),
+    ('share-success', _('Share your succes story')),
+    ('request-update', _('Profile update request')),
+    ('feature-requset', _('New feature request')),
     ('website-error', _('Website error')),
+)
+
+ROLE_CHOICES = (
+    (None, '------'),
+    ('source', 'Source'),
+    ('journalist', 'Journalist'),
+    ('other', 'Other'),
 )
 
 
@@ -26,6 +32,12 @@ class ContactForm(forms.Form):
         required=True,
         initial='----',
         label=_('Message type')
+    )
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES,
+        required=True,
+        initial='----',
+        label=_('Role')
     )
     message = forms.CharField(
         required=True,
