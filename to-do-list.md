@@ -4,6 +4,11 @@
 
 # To-do for development
 
+* IN PROGRESS:  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
+	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
+	* both in admin and on front-end forms
+	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
+
 * add a "Testimonials" style page with success stories instead of just on the about page
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
@@ -55,7 +60,7 @@
 {% endblock %}
 ```
 
-* (v2?) add "report this profile" link to send message on `person_detail` page template
+* (v2?) add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
 	* inaccurate
 	* imposter
 	* offensive
@@ -69,11 +74,6 @@
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
 
-* (v2?)  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
-	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
-	* both in admin and on front-end forms
-	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
-
 * how to handle ratings? 
 	* require Journalist profile?
 	* added directly on the person or added in their own model and then you choose a user to attach it to?
@@ -85,13 +85,9 @@
 
 * switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
 
-* email analytics?
-
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
 	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
-
-* save all the FK'ed fields on person model to flatten the data
 
 * front-end search should be additive, not start over
 	* e.g. if already one or more params, just append to query string (need to get that with JS?)
@@ -110,19 +106,6 @@
 	* altho that should be an issue bc there wouldn't be a duplicate `User` -- it would just update
 	* and I could add validation to make sure `email_address` doesn't already exist
 	* overall, might still be easier to just use `id`
-
-* hide journo M2M fields from sources
-
-* log of which journalist has viewed a source
-
-* how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
-	* model inheritance? 
-
-* if we do front-end edit urls, change edit link from admin url to live url
-
-* Django bakery to make static files?
-	* better to simply use nginx to see caching?
-	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
 
 * search form/page
 	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
@@ -158,10 +141,17 @@
 
 # QUESTIONS 
 
+* save all the FK'ed fields on person model to flatten the data?
 
 * add ('Prof.', 'Prof.'), to PREFIX_CHOICES, but then do we need all variations?
 
 * sync IDs across User and Person?
+
+* Django bakery to make static files?
+	* better to simply use nginx to see caching?
+	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
+
+* email analytics?
 
 * Q: show a source the `Person` or `Source` model to edit their info?
 
@@ -222,6 +212,15 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * limit `status` choices displayed on ModelForm for `JoinView`
 	* field includes all, but we'd only want to include `added_by_self` and `added_by_other`
+
+* hide journo M2M fields from sources
+
+* log of which journalist has viewed a source
+
+* how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
+	* model inheritance? 
+
+* if we do front-end edit urls, change edit link from admin url to live url
 
 # COMPLETED
 
