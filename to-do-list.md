@@ -158,6 +158,9 @@
 
 # QUESTIONS 
 
+
+* add ('Prof.', 'Prof.'), to PREFIX_CHOICES, but then do we need all variations?
+
 * sync IDs across User and Person?
 
 * Q: show a source the `Person` or `Source` model to edit their info?

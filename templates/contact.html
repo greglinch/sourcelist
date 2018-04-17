@@ -7,7 +7,7 @@
     <p class="lead">{% trans 'Have a question about this project? Want to help? Let us know!' %}</p>
 </div>
 <div class="main-content lead">
-    <p class="explanation">All fields required.</p>
+    <p class="explanation">{% trans 'All fields required.' %}</p>
     <form action="" method="POST">
         {% csrf_token %}
         {% if captcha_error %}

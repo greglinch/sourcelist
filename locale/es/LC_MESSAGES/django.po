@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 23:02-0400\n"
+"POT-Creation-Date: 2018-04-16 21:06-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,43 +35,51 @@ msgid "Volunteer to help"
 msgstr "Voluntario para ayudar"
 
 #: sources/forms.py:13
-#, fuzzy
-#| msgid "Sources for journalists"
-msgid "Share your succes story as a journalist"
-msgstr "Comparta su cuento de éxito como periodista"
+msgid "Share your succes story"
+msgstr "Comparta su historia de éxito"
 
 #: sources/forms.py:14
-msgid "Share your succes story as a source"
-msgstr "Comparta su cuento de éxito como periodista"
+msgid "Profile update request"
+msgstr "Solicitud de cambiar perfil"
 
 #: sources/forms.py:15
-msgid "Profile request"
-msgstr "Solicitud de perfil"
-
-#: sources/forms.py:16
-msgid "Feature request"
+msgid "New feature request"
 msgstr "Solicitud de nueva característica"
 
-#: sources/forms.py:17
-#, fuzzy
-#| msgid "Website"
+#: sources/forms.py:16
 msgid "Website error"
 msgstr "Error en este sitio"
 
+#: sources/forms.py:21
+msgid "Expert"
+msgstr "Experto/a"
+
 #: sources/forms.py:22
+msgid "Journalist"
+msgstr "Periodista"
+
+#: sources/forms.py:23
+msgid "Other"
+msgstr "Otro(a)"
+
+#: sources/forms.py:28
 msgid "Full name"
 msgstr "Nombre completo"
 
-#: sources/forms.py:23 sources/models.py:74
-#: templates/sources/person_detail.html:103
+#: sources/forms.py:29 sources/models.py:74
+#: templates/sources/person_detail.html:101
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
-#: sources/forms.py:28
-msgid "Message type"
-msgstr "Tipo de mensaje"
+#: sources/forms.py:34
+msgid "I'm getting in touch because..."
+msgstr "Razón para contacto..."
 
-#: sources/forms.py:33
+#: sources/forms.py:40
+msgid "I'm a..."
+msgstr "Yo so un(a)..."
+
+#: sources/forms.py:45
 msgid "Message"
 msgstr "Mensaje"
 
@@ -84,15 +92,15 @@ msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
 #: sources/models.py:27 sources/models.py:77 templates/results.html:55
-#: templates/results.html:95 templates/sources/person_detail.html:97
+#: templates/results.html:95 templates/sources/person_detail.html:95
 msgid "Expertise"
 msgstr "Área de especialización"
 
-#: sources/models.py:71 templates/sources/person_detail.html:145
+#: sources/models.py:71 templates/sources/person_detail.html:149
 msgid "City"
 msgstr "Ciudad"
 
-#: sources/models.py:72 templates/sources/person_detail.html:157
+#: sources/models.py:72 templates/sources/person_detail.html:161
 msgid "Country"
 msgstr "País"
 
@@ -128,7 +136,7 @@ msgstr "Video/TV"
 msgid "Middle name"
 msgstr "Segundo nombre"
 
-#: sources/models.py:85 templates/sources/person_detail.html:133
+#: sources/models.py:85 templates/sources/person_detail.html:131
 msgid "Language"
 msgstr "Idioma"
 
@@ -148,7 +156,7 @@ msgstr ""
 msgid "Organization"
 msgstr "Organización"
 
-#: sources/models.py:91 templates/sources/person_detail.html:109
+#: sources/models.py:91 templates/sources/person_detail.html:107
 msgid "Primary phone number"
 msgstr "Número de teléfono principal"
 
@@ -156,7 +164,7 @@ msgstr "Número de teléfono principal"
 msgid "Ideally a cell phone"
 msgstr "Idealmente un teléfono celular"
 
-#: sources/models.py:92 templates/sources/person_detail.html:115
+#: sources/models.py:92 templates/sources/person_detail.html:113
 msgid "Secondary phone number"
 msgstr "Número de teléfono secundario"
 
@@ -168,7 +176,7 @@ msgstr "Título"
 msgid "e.g. she/her, they/their, etc."
 msgstr "por ejemplo ella, etc."
 
-#: sources/models.py:94 templates/sources/person_detail.html:79
+#: sources/models.py:94 templates/sources/person_detail.html:77
 msgid "Pronouns"
 msgstr "Pronombres"
 
@@ -184,7 +192,7 @@ msgstr "Promedio de clasificación"
 msgid "Role"
 msgstr "Papel en el sistema"
 
-#: sources/models.py:98 templates/sources/person_detail.html:121
+#: sources/models.py:98 templates/sources/person_detail.html:119
 msgid "Skype username"
 msgstr "Nombre de usuario de Skype"
 
@@ -208,7 +216,7 @@ msgstr "-4, 10, etc."
 msgid "Please do not include the @ symbol"
 msgstr "Por favor no incluya el símbolo @"
 
-#: sources/models.py:104 templates/sources/person_detail.html:127
+#: sources/models.py:104 templates/sources/person_detail.html:125
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -217,7 +225,7 @@ msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
 #: sources/models.py:105 templates/results.html:54 templates/results.html:94
-#: templates/sources/person_detail.html:85
+#: templates/sources/person_detail.html:83
 msgid "Type of expert"
 msgstr "Especialidad principal"
 
@@ -225,7 +233,7 @@ msgstr "Especialidad principal"
 msgid "Please include http:// at the beginning."
 msgstr "Por favor incluya http:// al comienzo."
 
-#: sources/models.py:107 templates/sources/person_detail.html:91
+#: sources/models.py:107 templates/sources/person_detail.html:89
 msgid "Website"
 msgstr "Sitio web"
 
@@ -349,7 +357,11 @@ msgstr ""
 "¿Tiene una pregunta sobre este proyecto? ¿Quiere ayudar? ¡Envianos un "
 "mensaje!"
 
-#: templates/contact.html:14
+#: templates/contact.html:10
+msgid "All fields required."
+msgstr "Todas las respuestas son requeridas"
+
+#: templates/contact.html:15
 msgid ""
 "\n"
 "                <strong>WARNING</strong>: Please complete the CAPTCHA to "
@@ -361,7 +373,7 @@ msgstr ""
 "enviar su mensaje.\n"
 "            "
 
-#: templates/contact.html:24 templates/join.html:39
+#: templates/contact.html:25 templates/join.html:67
 msgid " value=\"Submit\" "
 msgstr " value=\"Enviar\" "
 
@@ -369,7 +381,7 @@ msgstr " value=\"Enviar\" "
 msgid "Diverse Sources"
 msgstr "Fuentes Diversas"
 
-#: templates/join.html:18
+#: templates/join.html:46
 #, fuzzy
 #| msgid ""
 #| "Are you experienced or interested in being a source for the following "
@@ -381,11 +393,11 @@ msgstr ""
 "¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
 "tipo de medios?"
 
-#: templates/join.html:29
+#: templates/join.html:57
 msgid "Join the Database"
 msgstr "Participe en la base de datos"
 
-#: templates/join.html:30
+#: templates/join.html:58
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline in this "
@@ -395,7 +407,7 @@ msgstr ""
 "Regístrese en este base de datos pública para ayudar reporteros en fecha "
 "límite."
 
-#: templates/join.html:34
+#: templates/join.html:62
 msgid "Required fields are marked with an asterisk (*)."
 msgstr "Los campos obligatorios están marcados con un asterisco (*)."
 
@@ -442,9 +454,19 @@ msgid "Language(s)"
 msgstr "Idioma(s)"
 
 #: templates/results.html:58 templates/results.html:98
-#: templates/sources/person_detail.html:139
+#: templates/sources/person_detail.html:137
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
+
+#: templates/return_links.html:6
+#, fuzzy
+#| msgid "Return to database"
+msgid "Return to results"
+msgstr "Volver a la base de datos"
+
+#: templates/return_links.html:8
+msgid "Return to database"
+msgstr "Volver a la base de datos"
 
 #: templates/search.html:6
 msgid "Search"
@@ -458,20 +480,15 @@ msgstr ""
 "¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
 "tipo de medios?"
 
-#: templates/sources/person_detail.html:57
-#: templates/sources/person_detail.html:192
-msgid "Return to database"
-msgstr "Volver a la base de datos"
-
-#: templates/sources/person_detail.html:151
+#: templates/sources/person_detail.html:155
 msgid "State"
 msgstr "Estado/provincia"
 
-#: templates/sources/person_detail.html:163
+#: templates/sources/person_detail.html:167
 msgid "Notes"
 msgstr "Notas"
 
-#: templates/sources/person_detail.html:169
+#: templates/sources/person_detail.html:173
 msgid "Available for the following media"
 msgstr "Disponible para estos tipos de medios"
 
@@ -495,6 +512,14 @@ msgstr ""
 "Su perfil ya existe. Si necesita cambiar algún detalle, busque en su correo "
 "electrónico el mensaje inicial y haga clic en el enlace para actualizar el "
 "perfil."
+
+#, fuzzy
+#~| msgid "Sources for journalists"
+#~ msgid "Share your succes story as a journalist"
+#~ msgstr "Comparta su cuento de éxito como periodista"
+
+#~ msgid "Message type"
+#~ msgstr "Tipo de mensaje"
 
 #~ msgid "Timezone"
 #~ msgstr "Diferencia de zona horaria"

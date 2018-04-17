@@ -18,9 +18,9 @@ MESSAGE_CHOICES = (
 
 ROLE_CHOICES = (
     (None, '------'),
-    ('source', 'Source'),
-    ('journalist', 'Journalist'),
-    ('other', 'Other'),
+    ('source', _('Expert')),
+    ('journalist', _('Journalist')),
+    ('other', _('Other')),
 )
 
 
@@ -31,13 +31,13 @@ class ContactForm(forms.Form):
         choices=MESSAGE_CHOICES,
         required=True,
         initial='----',
-        label=_('Message type')
+        label=_('I\'m getting in touch because...')
     )
     role = forms.ChoiceField(
         choices=ROLE_CHOICES,
         required=True,
         initial='----',
-        label=_('Role')
+        label=_('I\'m a...')
     )
     message = forms.CharField(
         required=True,
