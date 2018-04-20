@@ -106,8 +106,8 @@ class Person(BasicInfo):
     # underrepresented = models.BooleanField(default=False, verbose_name=_('Do you identify as a member of an underrepresented group?'))
     website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include http:// at the beginning."), verbose_name=_('Website'))
     # woman = models.BooleanField(default=False, verbose_name=_('Do you identify as a woman?''))
-    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
-    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
+    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person', on_delete=models.SET_NULL)
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person', on_delete=models.SET_NULL)
 
     def first_last_name(self):
         if self.middle_name:
@@ -206,8 +206,8 @@ class Rating(BasicInfo):
     # notes = models.TextField(null=True, blank=True, help_text=_('Optional'))
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
     ## these are FK to allow for multiples -- not just one
-    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
-    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
+    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating', on_delete=models.SET_NULL)
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating', on_delete=models.SET_NULL)
 
     def __str__(self):
         return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
