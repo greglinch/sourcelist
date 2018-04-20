@@ -4,10 +4,21 @@
 
 # To-do for development
 
+* more detailed “about” on home page?
+
+* fix confirmation link issues
+	* add fields?
+		* confirmation_clicked
+		* confirmation_user_agent ???
+	* add confirm page instead of clicking link?
+	* how do TinyLetter and Mailchimp get around this? bc they just have single confirm links
+
 * IN PROGRESS:  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
 	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
 	* both in admin and on front-end forms
 	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
+
+* upgrade to Django 2.0
 
 * add a "Testimonials" style page with success stories instead of just on the about page
 
@@ -187,10 +198,6 @@
 
 * Q: how to handle special characters in names? 
 	* e.g. https://stackoverflow.com/questions/517923/what-is-the-best-way-to-remove-accents-in-a-python-unicode-string
-
-* Q: use this for front-end search?
-	* https://gregbrown.co/projects/django-simple-search
-	* https://github.com/gregplaysguitar/django-simple-search
 
 * Q: switch email content from formatted string in a mgmt cmd to html template?
 
@@ -429,6 +436,9 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 		* done in apps.py
 	* add post-save method to trigger `buildwatson`
 		* done in models.py
+	* Q: use this for front-end search?
+		* https://gregbrown.co/projects/django-simple-search
+		* https://github.com/gregplaysguitar/django-simple-search
 
 * add recaptcha to contact form
 
