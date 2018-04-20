@@ -69,7 +69,7 @@ class PersonAdmin(admin.ModelAdmin):
         if not obj.created:
             ## associate the Person being created with the User who created them
             current_user = request.user
-            obj.created_by = current_user
+            # obj.created_by = current_user
             ## set the status
             if current_user.is_superuser == True:
                 status = 'added_by_admin'
