@@ -47,7 +47,7 @@ class IndexView(View):
 
 
 class ConfirmView(View):
-    """ trigger mgmt cmd or, ideally, just the related function or just put the code here! """
+    """ confirmation URL for a user approving themself """
 
     def get(self, request, uidb64, token):
         try:
@@ -55,23 +55,32 @@ class ConfirmView(View):
             user = User.objects.get(pk=uid)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
-        if user is not None and account_confirmation_token.check_token(user, token):
+
+        person = Person.objects.get(email_address=user.email)
+        already_approved = person.approved_by_user
+
+        if already_approved:
+            message = _('You\'ve alrady been approved.')
+        elif user is not None and account_confirmation_token.check_token(user, token):
             ## set the Person to being approved
-            person = Person.objects.get(email_address=user.email)
             person.approved_by_user = True
             person.save()
             # user.is_active = True
             # user.save()
             # login(request, user)
             # return redirect('home')
-            output = _('Thank you for confirming your source profile.')
-            return HttpResponse(output) # Now you can view the live entry {}.').format(live_url)
+            message = _('Thank you for confirming your source profile.')
         else:
-            output = _('Confirmation link is invalid!')
-            return HttpResponse(output)
+            message = _('Confirmation link is invalid.')
+
+        context = {
+            'request': request,
+            'message': message,
+            # 'user': request.user
+        }
 
         ## see which token the user matches
-        return render(request, 'confirmation.html', context)
+        return render(request, 'confirm.html', context)
 
 
 class ContactView(FormView):
