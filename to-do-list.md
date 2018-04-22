@@ -19,6 +19,7 @@
 	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
 
 * upgrade to Django 2.0
+	* ran into some issues, so probably best to do this in a separate repo first
 
 * add a "Testimonials" style page with success stories instead of just on the about page
 
@@ -453,4 +454,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add plus sign to template `person_detail.html` for timezone
 
 * update "return to database" to be a "return to results" if coming from a search result page
+
+* update `ConfirmView` and add `confirm.html` template to improve the confirmation experience
 
