@@ -61,6 +61,7 @@ class ConfirmView(View):
 
         if already_approved:
             message = _('You\'ve alrady been approved.')
+            success = True
         elif user is not None and account_confirmation_token.check_token(user, token):
             ## set the Person to being approved
             person.approved_by_user = True
@@ -70,12 +71,15 @@ class ConfirmView(View):
             # login(request, user)
             # return redirect('home')
             message = _('Thank you for confirming your source profile.')
+            success = True
         else:
             message = _('Confirmation link is invalid.')
+            success = False
 
         context = {
             'request': request,
             'message': message,
+            'success': success,
             # 'user': request.user
         }
 

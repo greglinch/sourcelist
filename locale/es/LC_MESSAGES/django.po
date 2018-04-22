@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 21:06-0400\n"
+"POT-Creation-Date: 2018-04-22 19:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,13 +269,19 @@ msgstr "Fuente para periodistas"
 msgid "Sources for journalists"
 msgstr "Fuentes para periodistas"
 
-#: sources/views.py:67
+#: sources/views.py:63
+msgid "You've alrady been approved."
+msgstr "Ya ha sido aprobado."
+
+#: sources/views.py:73
 msgid "Thank you for confirming your source profile."
 msgstr "Gracias por confirmar su perfil de Fuentes Diversas."
 
-#: sources/views.py:70
-msgid "Confirmation link is invalid!"
-msgstr "¡El enlace de confirmación no es válido!"
+#: sources/views.py:76
+#, fuzzy
+#| msgid "Confirmation link is invalid!"
+msgid "Confirmation link is invalid."
+msgstr "El enlace de confirmación no es válido."
 
 #: templates/404.html:6
 msgid "Page Not Found"
@@ -347,6 +353,14 @@ msgstr ""
 "Fuentes Diversas | Expertos en ciencias, salud y medio ambiente disponibles "
 "en la fecha límite"
 
+#: templates/confirm.html:8
+msgid "Thanks for joining!"
+msgstr "Gracias por unirse!"
+
+#: templates/confirm.html:10
+msgid "Well, that did not work as expected..."
+msgstr "No funcionó como se esperaba..."
+
 #: templates/contact.html:6
 msgid "Contact Us"
 msgstr "Contáctenos"
@@ -373,7 +387,7 @@ msgstr ""
 "enviar su mensaje.\n"
 "            "
 
-#: templates/contact.html:25 templates/join.html:67
+#: templates/contact.html:25 templates/join.html:39
 msgid " value=\"Submit\" "
 msgstr " value=\"Enviar\" "
 
@@ -381,7 +395,7 @@ msgstr " value=\"Enviar\" "
 msgid "Diverse Sources"
 msgstr "Fuentes Diversas"
 
-#: templates/join.html:46
+#: templates/join.html:18
 #, fuzzy
 #| msgid ""
 #| "Are you experienced or interested in being a source for the following "
@@ -393,11 +407,11 @@ msgstr ""
 "¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
 "tipo de medios?"
 
-#: templates/join.html:57
+#: templates/join.html:29
 msgid "Join the Database"
 msgstr "Participe en la base de datos"
 
-#: templates/join.html:58
+#: templates/join.html:30
 msgid ""
 "Science, health and environment news stories need a broader set of "
 "perspectives. Sign up to be a source for reporters on deadline in this "
@@ -407,7 +421,7 @@ msgstr ""
 "Regístrese en este base de datos pública para ayudar reporteros en fecha "
 "límite."
 
-#: templates/join.html:62
+#: templates/join.html:34
 msgid "Required fields are marked with an asterisk (*)."
 msgstr "Los campos obligatorios están marcados con un asterisco (*)."
 
