@@ -4,6 +4,8 @@
 
 # To-do for development
 
+* FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
+
 * more detailed “about” on home page?
 
 * fix confirmation link issues
@@ -33,8 +35,10 @@
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
-* BUG: hamburger menu doesn't collapse for responsive view `results.html` 
+* FIX BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
+
+* if someone has submitted and gets the "your profile already exists" prompt, give them a button to "Send me link to edit my profile"
 
 * move css to external file under static
 	* also move all inlines styles there (e.g. image width for about)
@@ -78,11 +82,6 @@
 	* offensive
 	* other (explain)
 
-* (v2?) send user a message with their profile and link to update if someone tries to submit a new version
-	* would that be spamming? make them click a link to send that message?
-
-* (v2?) include a confirmation link in `email_user` for admin to approve 
-
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
 
@@ -91,11 +90,6 @@
 	* added directly on the person or added in their own model and then you choose a user to attach it to?
 	* ManyToManyField? (only show ones added by that user)
 	* use a mgmt cmd to calculate?
-
-* Point domain to the static files
-	* needs to be the same exact URL structure as dynamic app
-
-* switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -119,26 +113,7 @@
 	* and I could add validation to make sure `email_address` doesn't already exist
 	* overall, might still be easier to just use `id`
 
-* search form/page
-	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
-	* https://select2.org/getting-started/basic-usage
-	* https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/
-
-* switch city, state, country, timezone, etc to FK fields?
-	* advantage: filters wouldn't show all choices for country -- just the ones available
-	* NOTE: be sure to save them on self
-
-* in admin, hide person objects from everyone unless they 
-	* approved by user
-	* approved by admin
-	* added the person
-	* are the person (based on logged in user email)
-	* are a journalist
-
 * for `person_detail`, find a way to loop thru the keys and values that have been limited by `.values()` and ordered a specific way
-
-* set up auth for Facebook
-	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 * dynamically-generated xml sitemap
 	* https://github.com/xaralis/django-static-sitemaps
@@ -162,6 +137,8 @@
 * Django bakery to make static files?
 	* better to simply use nginx to see caching?
 	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
+	* then point domain to the static files
+	* needs to be the same exact URL structure as dynamic app
 
 * email analytics?
 
@@ -229,6 +206,28 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* model inheritance? 
 
 * if we do front-end edit urls, change edit link from admin url to live url
+
+* include a confirmation link in `email_user` for admin to approve
+	* probably won't do bc admin must vet the user
+
+* search form/page
+	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
+	* https://select2.org/getting-started/basic-usage
+	* https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/
+
+* switch city, state, country, timezone, etc to FK fields?
+	* advantage: filters wouldn't show all choices for country -- just the ones available
+	* NOTE: be sure to save them on self
+
+* in admin, hide person objects from everyone unless they 
+	* approved by user
+	* approved by admin
+	* added the person
+	* are the person (based on logged in user email)
+	* are a journalist
+
+* set up auth for Facebook
+	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 # COMPLETED
 
@@ -456,4 +455,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * update "return to database" to be a "return to results" if coming from a search result page
 
 * update `ConfirmView` and add `confirm.html` template to improve the confirmation experience
+
+* WONT DO: send user a message with their profile and link to update if someone tries to submit a new version
+	* would that be spamming? make them click a link to send that message?
+	* have a better, more purposeful and less spammy solution above
 
