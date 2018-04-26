@@ -15,18 +15,20 @@ def timezone_format(value):
 
 
 @register.filter
-def reformat_email(value):
+def convert_special_characters_to_html_entities(value):
     """ encode special characters HTML encoding to make it a little harder to scrape """
+    CONVERSION_MAPPING = [
+        ('@', '&#64;'),
+        ('.', '&#46;'),
+        ('_', '&#95;'),
+        ('-', '&#45;'),
+        ('(', '&#40;'),
+        (')', '&#41;'),
+        ('+', '&#43;'),
+    ]
     try:
-        value = value.replace('@', '&#64;')
-    except:
-        pass
-    try:
-        value = value.replace('.', '&#46;')
-    except:
-        pass
-    try:
-        value = value.replace('_', '&#95;')
+        for code in CONVERSION_MAPPING:
+            value = value.replace(code[0], code[1])
     except:
         pass
     return value
