@@ -73,7 +73,7 @@ class ConfirmView(View):
             message = _('Thank you for confirming your source profile.')
             success = True
         else:
-            message = _('Confirmation link is invalid.')
+            message = _('Confirmation link is invalid.') ## add --> Please <a href="/contact">contact us</a> so we can get you approved.
             success = False
 
         context = {
