@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load sources_extras %}
 
 {% block main %}
 
@@ -99,7 +100,7 @@
         {% if person.email_address %}
         <tr>
             <td class="detail-label">{% trans 'Email address' %}</td>
-            <td class="value"><a href="mailto:{{ person.email_address }}">{{ person.email_address }}</a></td>
+            <td class="value">{{ person.email_address|reformat_email|safe }}</a></td>
         </tr>
         {% endif %}
         {% if person.phone_number_primary %}
