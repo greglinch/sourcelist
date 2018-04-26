@@ -460,3 +460,4 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* would that be spamming? make them click a link to send that message?
 	* have a better, more purposeful and less spammy solution above
 
+* add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
