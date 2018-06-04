@@ -1,4 +1,5 @@
 from django import template
+from sourcelist.settings import EMAIL_HOST_USER, PROJECT_NAME, SITE_URL
 
 
 register = template.Library()
@@ -32,3 +33,21 @@ def convert_special_characters_to_html_entities(value):
     except:
         pass
     return value
+
+
+@register.simple_tag(takes_context=False)
+def invite_bcc(value):
+    return EMAIL_HOST_USER
+
+
+@register.simple_tag(takes_context=False)
+def invite_subject(value):
+    subject = 'You\'re invited to join Diverse Sources'.replace(' ', '%20')
+    return subject
+
+
+@register.simple_tag(takes_context=False)
+def invite_body(value):
+    body = 'Hi, you\'re invited to join {}. Register at {}'.format(PROJECT_NAME, SITE_URL).replace(' ', '%20')
+    return body
+
