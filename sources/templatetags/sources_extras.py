@@ -42,17 +42,18 @@ def invite_bcc(value):
 
 @register.simple_tag(takes_context=False)
 def invite_subject(value):
-    subject = 'Let\'s make news stories more inclusive: Join {}'.format(PROJECT_NAME).replace(' ', '%20')
+    subject = 'Make news more inclusive: Join {}'.format(PROJECT_NAME).replace(' ', '%20')
     return subject
 
 
 @register.simple_tag(takes_context=False)
 def invite_body(value):
     project_formatted = PROJECT_NAME.replace(' ', '')
-    join_url = SITE_URL + '/join'
-    body = 'Hi, you\'re invited to join {project}. Register at <br>\
+    join_url = SITE_URL + '/join?utm_source=referral&utm_medium=email&utm_campaign=invite'
+    body = 'Hi,<br>\
+You\'re invited to join {project}. Register at <br>\
 <br>\
-{join_url}<br>\
+<a href="{join_url}">{SITE_URL}/join</a><br>\
 <br>\
 {project} is {description}.<br>\
 <br>\
