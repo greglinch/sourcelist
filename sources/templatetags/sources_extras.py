@@ -42,27 +42,36 @@ def invite_bcc(value):
 
 @register.simple_tag(takes_context=False)
 def invite_subject(value):
-    subject = 'Let\'s make news stories more inclusive!: Join {}'.format(PROJECT_NAME).replace(' ', '%20')
+    subject = 'Let\'s make news stories more inclusive: Join {}'.format(PROJECT_NAME).replace(' ', '%20')
     return subject
 
 
 @register.simple_tag(takes_context=False)
 def invite_body(value):
+    project_formatted = PROJECT_NAME.replace(' ', '')
     join_url = SITE_URL + '/join'
-    body = 'Hi, you\'re invited to join {}. Register at <br>\
+    body = 'Hi, you\'re invited to join {project}. Register at <br>\
 <br>\
-{}<br>\
+{join_url}<br>\
 <br>\
-Diverse Sources is a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented and is willing to respond to journalists on deadline is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.).<br>\
+{project} is {description}.<br>\
 <br>\
-Let\'s make change together! Please add yourself and forward to your colleagues.<br>\
+Let\'s make change together! Please sign up and forward to your colleagues.<br>\
 <br>\
 Thank you,<br>\
-Mollie Bloudoff-Indelicato<br>\
-Co-Founder<br>\
+{signature}<br>\
+{title}<br>\
 <br>\
-Email: DiverseSources@gmail.com<br>\
-Twitter: @DiverseSources<br>\
-Facebook: DiverseSources'.format(PROJECT_NAME, join_url).replace(' ', '%20').replace('<br>', '%0D%0A')
+Email: {project_formatted}@gmail.com<br>\
+Twitter: @{project_formatted}<br>\
+Facebook: {project_formatted}\
+'.format(
+    project=PROJECT_NAME,
+    project_formatted=project_formatted,
+    join_url=join_url,
+    description='a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented and is willing to respond to journalists on deadline is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.)',
+    signature='Mollie Bloudoff-Indelicato',
+    title='Co-Founder'
+).replace(' ', '%20').replace('<br>', '%0D%0A')
     return body
 
