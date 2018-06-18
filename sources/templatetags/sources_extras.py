@@ -48,12 +48,13 @@ def invite_subject(value):
 
 @register.simple_tag(takes_context=False)
 def invite_body(value):
-    project_formatted = PROJECT_NAME.replace(' ', '')
-    join_url = SITE_URL + '/join?utm_source=referral&utm_medium=email&utm_campaign=invite'
-    body = 'Hi,<br>\
-You\'re invited to join {project}. Register at <br>\
+    project_no_space = PROJECT_NAME.replace(' ', '')
+    join_url = SITE_URL + '/join'
+    body_raw = 'Hi,<br>\
 <br>\
-<a href="{join_url}">{SITE_URL}/join</a><br>\
+You\'re invited to join {project}. Register here:<br>\
+<br>\
+{join_url}<br>\
 <br>\
 {project} is {description}.<br>\
 <br>\
@@ -63,16 +64,23 @@ Thank you,<br>\
 {signature}<br>\
 {title}<br>\
 <br>\
-Email: {project_formatted}@gmail.com<br>\
-Twitter: @{project_formatted}<br>\
-Facebook: {project_formatted}\
+Email: {project_no_space}@gmail.com<br>\
+Twitter: @{project_no_space}<br>\
+Facebook: {project_no_space}\
 '.format(
     project=PROJECT_NAME,
-    project_formatted=project_formatted,
+    project_no_space=project_no_space,
     join_url=join_url,
     description='a searchable database of underrepresented experts in the areas of science, health and the environment. Anyone who considers themselves underrepresented and is willing to respond to journalists on deadline is encouraged to join (including but not limited to appearance, ethnicity, gender expression, gender identity, language, mental health experience, nationality, physical abilities, race, religion, sex, sexual orientation, etc.)',
     signature='Mollie Bloudoff-Indelicato',
     title='Co-Founder'
-).replace(' ', '%20').replace('<br>', '%0D%0A')
+)
+    replacements = {
+        ' ': '%20',
+        '&': '%26',
+        '<br>': '%0D%0A'
+    }
+    for old, new in replacements.items():
+        body = body_raw.replace(old, new)
     return body
 
