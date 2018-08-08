@@ -4,6 +4,18 @@
 
 # To-do for development
 
+* (in progress) Invite Sources: Link that sends emails to invite others to join
+	* Use Facebook? Twitter? Just email?
+
+* add a "Testimonials" style page with success stories instead of just on the about page
+
+* ??? add Patreon https://www.patreon.com/diversesources
+
+* social media display inspiration: https://www.genderavenger.com/
+	* for our FB, Tw, IG accounts
+
+* finish Spanish translation of About page
+
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
 
 * more detailed “about” on home page?
@@ -22,8 +34,6 @@
 
 * upgrade to Django 2.0
 	* ran into some issues, so probably best to do this in a separate repo first
-
-* add a "Testimonials" style page with success stories instead of just on the about page
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
@@ -460,3 +470,4 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* would that be spamming? make them click a link to send that message?
 	* have a better, more purposeful and less spammy solution above
 
+* add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
