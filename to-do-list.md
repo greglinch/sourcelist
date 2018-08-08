@@ -11,6 +11,11 @@
 
 * ??? add Patreon https://www.patreon.com/diversesources
 
+* social media display inspiration: https://www.genderavenger.com/
+	* for our FB, Tw, IG accounts
+
+* finish Spanish translation of About page
+
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
 
 * more detailed “about” on home page?
