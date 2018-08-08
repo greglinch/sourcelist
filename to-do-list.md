@@ -4,6 +4,13 @@
 
 # To-do for development
 
+* (in progress) Invite Sources: Link that sends emails to invite others to join
+	* Use Facebook? Twitter? Just email?
+
+* add a "Testimonials" style page with success stories instead of just on the about page
+
+* ??? add Patreon https://www.patreon.com/diversesources
+
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
 
 * more detailed “about” on home page?
@@ -22,8 +29,6 @@
 
 * upgrade to Django 2.0
 	* ran into some issues, so probably best to do this in a separate repo first
-
-* add a "Testimonials" style page with success stories instead of just on the about page
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
