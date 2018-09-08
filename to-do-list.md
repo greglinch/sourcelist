@@ -4,6 +4,8 @@
 
 # To-do for development
 
+* fix or (temporarily) disable filter
+
 * (in progress) Invite Sources: Link that sends emails to invite others to join
 	* Use Facebook? Twitter? Just email?
 
@@ -17,6 +19,9 @@
 * finish Spanish translation of About page
 
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
+
+* change redirect after social login
+	* requires adding a step to the pipeline —- doesn't work just with logic in the template bc it doesn't know whether you're a superuser at that point
 
 * more detailed “about” on home page?
 
@@ -471,3 +476,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* have a better, more purposeful and less spammy solution above
 
 * add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
+
+* update Twitter help text
+
+* fix "back to results" button for pagination
+	- solution: `stateSave: true,` uses local storage
