@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-22 19:18-0400\n"
+"POT-Creation-Date: 2018-09-07 23:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgid "Full name"
 msgstr "Nombre completo"
 
 #: sources/forms.py:29 sources/models.py:74
-#: templates/sources/person_detail.html:101
+#: templates/sources/person_detail.html:102
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
@@ -92,15 +92,15 @@ msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
 #: sources/models.py:27 sources/models.py:77 templates/results.html:55
-#: templates/results.html:95 templates/sources/person_detail.html:95
+#: templates/results.html:95 templates/sources/person_detail.html:96
 msgid "Expertise"
 msgstr "Área de especialización"
 
-#: sources/models.py:71 templates/sources/person_detail.html:149
+#: sources/models.py:71 templates/sources/person_detail.html:150
 msgid "City"
 msgstr "Ciudad"
 
-#: sources/models.py:72 templates/sources/person_detail.html:161
+#: sources/models.py:72 templates/sources/person_detail.html:162
 msgid "Country"
 msgstr "País"
 
@@ -136,7 +136,7 @@ msgstr "Video/TV"
 msgid "Middle name"
 msgstr "Segundo nombre"
 
-#: sources/models.py:85 templates/sources/person_detail.html:131
+#: sources/models.py:85 templates/sources/person_detail.html:132
 msgid "Language"
 msgstr "Idioma"
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Organization"
 msgstr "Organización"
 
-#: sources/models.py:91 templates/sources/person_detail.html:107
+#: sources/models.py:91 templates/sources/person_detail.html:108
 msgid "Primary phone number"
 msgstr "Número de teléfono principal"
 
@@ -164,7 +164,7 @@ msgstr "Número de teléfono principal"
 msgid "Ideally a cell phone"
 msgstr "Idealmente un teléfono celular"
 
-#: sources/models.py:92 templates/sources/person_detail.html:113
+#: sources/models.py:92 templates/sources/person_detail.html:114
 msgid "Secondary phone number"
 msgstr "Número de teléfono secundario"
 
@@ -176,7 +176,7 @@ msgstr "Título"
 msgid "e.g. she/her, they/their, etc."
 msgstr "por ejemplo ella, etc."
 
-#: sources/models.py:94 templates/sources/person_detail.html:77
+#: sources/models.py:94 templates/sources/person_detail.html:78
 msgid "Pronouns"
 msgstr "Pronombres"
 
@@ -192,7 +192,7 @@ msgstr "Promedio de clasificación"
 msgid "Role"
 msgstr "Papel en el sistema"
 
-#: sources/models.py:98 templates/sources/person_detail.html:119
+#: sources/models.py:98 templates/sources/person_detail.html:120
 msgid "Skype username"
 msgstr "Nombre de usuario de Skype"
 
@@ -213,10 +213,12 @@ msgid "-4, 10, etc."
 msgstr "-4, 10, etc."
 
 #: sources/models.py:104
-msgid "Please do not include the @ symbol"
-msgstr "Por favor no incluya el símbolo @"
+msgid ""
+"Please do not include the @ symbol. Be sure to include this so we can "
+"promote you on Twitter."
+msgstr "Por favor no incluya el símbolo @. Usamos su nombre de usuario para promocionarse en Twitter."
 
-#: sources/models.py:104 templates/sources/person_detail.html:125
+#: sources/models.py:104 templates/sources/person_detail.html:126
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -225,7 +227,7 @@ msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
 #: sources/models.py:105 templates/results.html:54 templates/results.html:94
-#: templates/sources/person_detail.html:83
+#: templates/sources/person_detail.html:84
 msgid "Type of expert"
 msgstr "Especialidad principal"
 
@@ -233,7 +235,7 @@ msgstr "Especialidad principal"
 msgid "Please include http:// at the beginning."
 msgstr "Por favor incluya http:// al comienzo."
 
-#: sources/models.py:107 templates/sources/person_detail.html:89
+#: sources/models.py:107 templates/sources/person_detail.html:90
 msgid "Website"
 msgstr "Sitio web"
 
@@ -468,7 +470,7 @@ msgid "Language(s)"
 msgstr "Idioma(s)"
 
 #: templates/results.html:58 templates/results.html:98
-#: templates/sources/person_detail.html:137
+#: templates/sources/person_detail.html:138
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
 
@@ -486,7 +488,7 @@ msgstr "Volver a la base de datos"
 msgid "Search"
 msgstr "Buscar"
 
-#: templates/sources/person_detail.html:50
+#: templates/sources/person_detail.html:51
 msgid ""
 "Are you experienced or interested in being a source for the following type "
 "of media?"
@@ -494,15 +496,15 @@ msgstr ""
 "¿Tiene experiencia o está interesado en ser una fuente para el siguiente "
 "tipo de medios?"
 
-#: templates/sources/person_detail.html:155
+#: templates/sources/person_detail.html:156
 msgid "State"
 msgstr "Estado/provincia"
 
-#: templates/sources/person_detail.html:167
+#: templates/sources/person_detail.html:168
 msgid "Notes"
 msgstr "Notas"
 
-#: templates/sources/person_detail.html:173
+#: templates/sources/person_detail.html:174
 msgid "Available for the following media"
 msgstr "Disponible para estos tipos de medios"
 
@@ -526,6 +528,9 @@ msgstr ""
 "Su perfil ya existe. Si necesita cambiar algún detalle, busque en su correo "
 "electrónico el mensaje inicial y haga clic en el enlace para actualizar el "
 "perfil."
+
+#~ msgid "Please do not include the @ symbol"
+#~ msgstr "Por favor no incluya el símbolo @"
 
 #, fuzzy
 #~| msgid "Sources for journalists"

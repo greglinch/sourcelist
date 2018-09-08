@@ -101,7 +101,7 @@ class Person(BasicInfo):
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title'))
     timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name=_('Time zone offset from GMT'), help_text=_('-4, 10, etc.')) ## lookup based on city/state/county combo?
-    twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol'), verbose_name=_('Twitter'))
+    twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol. Be sure to include this so we can promote you on Twitter.'), verbose_name=_('Twitter'))
     type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text=_('e.g. Biologist, Engineer, Mathematician, Sociologist, etc.'), verbose_name=_('Type of expert'))
     # underrepresented = models.BooleanField(default=False, verbose_name=_('Do you identify as a member of an underrepresented group?'))
     website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include http:// at the beginning."), verbose_name=_('Website'))
