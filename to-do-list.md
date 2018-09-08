@@ -4,6 +4,11 @@
 
 # To-do for development
 
+* upgrade Django
+
+* refactor to make code better
+	* switch all URLs to use reverse()
+
 * fix or (temporarily) disable filter
 
 * (in progress) Invite Sources: Link that sends emails to invite others to join
