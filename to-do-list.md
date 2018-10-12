@@ -13,6 +13,7 @@
 
 * (in progress) Invite Sources: Link that sends emails to invite others to join
 	* Use Facebook? Twitter? Just email?
+	* store the information as a draft source object and pre-populate join form?
 
 * add a "Testimonials" style page with success stories instead of just on the about page
 
