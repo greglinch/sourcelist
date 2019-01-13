@@ -1,5 +1,6 @@
 certifi==2017.7.27.1
 chardet==3.0.4
+defusedxml==0.5.0
 Django==1.11.3
 django-debug-toolbar==1.8
 django-sesame==1.2
@@ -15,11 +16,12 @@ pysolr==3.7.0
 python-gettext==3.0
 python-openid==2.2.5
 python-social-auth==0.3.6
+python3-openid==3.1.0
 pytz==2017.2
-requests==2.18.3
+requests==2.21.0
 requests-oauthlib==0.8.0
 six==1.10.0
 social-auth-app-django==1.2.0
 social-auth-core==1.4.0
 sqlparse==0.2.3
-urllib3==1.22
+urllib3==1.24.1
