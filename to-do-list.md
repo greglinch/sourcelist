@@ -9,8 +9,6 @@
 * refactor to make code better
 	* switch all URLs to use reverse()
 
-* fix or (temporarily) disable filter
-
 * (in progress) Invite Sources: Link that sends emails to invite others to join
 	* Use Facebook? Twitter? Just email?
 	* store the information as a draft source object and pre-populate join form?
@@ -85,9 +83,11 @@
 	* explore adding stacked view on mobile 
 
 * abstract the column list in `results.html`, such as:
-```{% for field in field_list %}
+```
+{% for field in field_list %}
     <th>{{ field }}</th>
-{% endfor %}```
+{% endfor %}
+```
 
 * add to base.html? but make sure you can override first (e.g. with specific pages titles)
 
@@ -482,11 +482,10 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* have a better, more purposeful and less spammy solution above
 
 * add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
-<<<<<<< HEAD
-=======
 
 * update Twitter help text
 
 * fix "back to results" button for pagination
 	- solution: `stateSave: true,` uses local storage
->>>>>>> develop
+
+* fix datatables filter

@@ -312,6 +312,8 @@ Run this command to compil the translation:
 
 ## Deploy steps
 
+In the virtualenv:
+
 1. `git checkout master`
 
 2. `git pull origin master`
