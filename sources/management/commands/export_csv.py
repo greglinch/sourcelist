@@ -11,16 +11,18 @@ from django.forms.models import model_to_dict
 
 def export_csv():
 # def export_csv(csv_path):
+    newline = '\n'
+    tab = '\t'
     ## start
     start_time = datetime.now()
-    start_message = f'\nStarted export:\t {start_time}\n'
+    start_message = f'{newline}Started export:{tab} {start_time}{newline}'
     message = start_message
     print(message)
 
     # get the data to export
     all_people = Person.objects.all()
     export_count = all_people.count()
-    message = f'We will be exporting {export_count} records.\n'
+    message = f'We will be exporting {export_count} records.{newline}'
     print(message)
 
     ## TO-DO: add ability to override via an argument
@@ -43,11 +45,11 @@ def export_csv():
 
     ## end
     end_time = datetime.now()
-    end_message = f'\nFinished export:\t {end_time} \n'
+    end_message = f'{newline}Finished export:{tab} {end_time} {newline}'
     export_length = end_time - start_time
     message = end_message
     print(message)
-    message = f'Export length:\t\t {export_length} \n'
+    message = f'Export length:{tab}{tab} {export_length} {newline}'
     print(message)
 
     # get row count of the finished csv
