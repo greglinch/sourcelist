@@ -6,3 +6,4 @@ Pipfile*
 settings_private*
 sources/migrations*
 static/
+latest_export.csv
