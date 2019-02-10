@@ -7,9 +7,10 @@ from datetime import datetime
 import sys
 import csv
 
+from django.forms.models import model_to_dict
 
-# def export_csv():
-def export_csv(csv_path):    
+def export_csv():
+# def export_csv(csv_path):
     ## start
     start_time = datetime.now()
     start_message = f'\nStarted export:\t {start_time}\n'
@@ -27,22 +28,17 @@ def export_csv(csv_path):
 
     ## write csv
     with open(export_filename, 'w') as csvfile:
-        csv_writer = csv.writer(csvfile)
-
         # header row prep
-        model_fields = Person._meta.fields
-        header_row = ''
-        for field in model_fields:
-            # construct the 
-            header_row += f'{field},'
-        # write the header row
-        csv_writer.writerow(header_row)
+        field_names = [f.name for f in Person._meta.get_fields()]
+
+        csv_writer = csv.DictWriter(csvfile, fieldnames=field_names)
+
+        # add the header row
+        csv_writer.writeheader()
 
         # go thru all the people
         for person in all_people:
-            # construct the data row
-            data_row += getattr(obj, field.name) + ","
-            # add the row
+            data_row = model_to_dict(person)
             csv_writer.writerow(data_row)
 
     ## end
@@ -58,7 +54,8 @@ def export_csv(csv_path):
     with open(export_filename, 'r') as finished_file:
         reader = csv.reader(finished_file, delimiter = ',')
         data = list(reader)
-        row_count = len(data)
+        # subtract 1 for header
+        row_count = len(data) - 1
 
     # check if the numbers match
     if row_count == export_count:
@@ -96,6 +93,6 @@ class Command(BaseCommand):
         # csv_path = options['file']
 
         ## call the function
-        # export_csv()
-        export_csv(csv_path)
+        export_csv()
+        # export_csv(csv_path)
 
