@@ -14,8 +14,8 @@ urlpatterns = [
     ## social auth
     url(r'^accounts/login/$', auth_views.LoginView.as_view()),
     # url('', include('social.apps.django_app.urls', namespace='social')),
-    url('', include('social_django.urls', namespace='social')),
-    url('', include('django.contrib.auth.urls', namespace='auth')),
+    url('', include(('social_django.urls', 'social_django'), namespace='social')),
+    url('', include(('django.contrib.auth.urls', 'django'), namespace='auth')),
 ]
 
 # urlpatterns += i18n_patterns(
