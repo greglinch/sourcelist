@@ -7,22 +7,19 @@ from datetime import datetime
 import sys
 import csv
 
-from django.forms.models import model_to_dict
 
 def export_csv():
 # def export_csv(csv_path):
-    newline = '\n'
-    tab = '\t'
     ## start
     start_time = datetime.now()
-    start_message = f'{newline}Started export:{tab} {start_time}{newline}'
+    start_message = '\nStarted export:\t {}\n'.format(start_time)
     message = start_message
     print(message)
 
     # get the data to export
     all_people = Person.objects.all()
     export_count = all_people.count()
-    message = f'We will be exporting {export_count} records.{newline}'
+    message = 'We will be exporting {} records.\n'.format(export_count)
     print(message)
 
     ## TO-DO: add ability to override via an argument
@@ -45,11 +42,11 @@ def export_csv():
 
     ## end
     end_time = datetime.now()
-    end_message = f'{newline}Finished export:{tab} {end_time} {newline}'
+    end_message = '\nFinished export:\t {} \n'.format(end_time)
     export_length = end_time - start_time
     message = end_message
     print(message)
-    message = f'Export length:{tab}{tab} {export_length} {newline}'
+    message = 'Export length:\t\t {} \n'.format(export_length)
     print(message)
 
     # get row count of the finished csv
@@ -66,7 +63,7 @@ def export_csv():
         note = 'INCOMPLETE'
 
     # let us know if numbers match
-    message = f'{note}: Created {row_count} of {export_count} records'
+    message = '{}: Created {} of {} records'.format(note, row_count, export_count)
     print(message)
     # message = '{} rows failed'.format(failed_rows)
     # print(message)
