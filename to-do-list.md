@@ -493,3 +493,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * fix datatables filter
 
 * upgrade Django
+
+* fix django-magic-link
+	- removed django from reqs bc it was 1.10.x
+	- didn't work properly with Django 2.1 until upgrading django-seasame from 2.1 to 2.4 in the sourcelist reqs
+

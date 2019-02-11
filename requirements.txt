@@ -3,7 +3,7 @@ chardet==3.0.4
 defusedxml==0.5.0
 Django==2.1.5
 django-debug-toolbar==1.8
-django-sesame==1.2
+django-sesame==1.4
 django-watson==1.5.1
 future==0.16.0
 idna==2.5
