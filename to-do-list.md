@@ -4,7 +4,9 @@
 
 # To-do for development
 
-* upgrade Django
+* write migration to create necessary user groups
+	* name: change source and add related
+	* perms: can change person
 
 * refactor to make code better
 	* switch all URLs to use reverse()
@@ -489,3 +491,5 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	- solution: `stateSave: true,` uses local storage
 
 * fix datatables filter
+
+* upgrade Django
