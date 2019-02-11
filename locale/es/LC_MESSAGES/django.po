@@ -272,7 +272,7 @@ msgid "Sources for journalists"
 msgstr "Fuentes para periodistas"
 
 #: sources/views.py:63
-msgid "You've alrady been approved."
+msgid "You've already been approved."
 msgstr "Ya ha sido aprobado."
 
 #: sources/views.py:73

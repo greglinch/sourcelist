@@ -60,7 +60,7 @@ class ConfirmView(View):
         already_approved = person.approved_by_user
 
         if already_approved:
-            message = _('You\'ve alrady been approved.')
+            message = _('You\'ve already been approved.')
             success = True
         elif user is not None and account_confirmation_token.check_token(user, token):
             ## set the Person to being approved
