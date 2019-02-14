@@ -62,12 +62,19 @@ def import_csv(csv_file):
             for row in reader:
                 row_as_dict = dict(row)
                 now = str(timezone.now())
+                if row_as_dict['related_user']:
+                    # TODO: reassess this; intended to avoid error bc the related person doesn't yet exist
+                    row_as_dict.pop('related_user')
                 if row_as_dict['created'] == '':
                     row_as_dict['created'] = now
                 if row_as_dict['updated'] == '':
                     row_as_dict['updated'] = now
                 if row_as_dict['timezone'] == '':
                     row_as_dict.pop('timezone')
+                if row_as_dict['rating'] == '':
+                    row_as_dict.pop('rating')
+                if row_as_dict['rating_avg'] == '':
+                    row_as_dict.pop('rating_avg')
                 # import pdb; pdb.set_trace()
                 create_person(counter, failed_rows, row_as_dict)
     else:
