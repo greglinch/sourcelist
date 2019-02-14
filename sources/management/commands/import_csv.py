@@ -56,6 +56,7 @@ def import_csv(csv_file):
     counter = 0
     failed_rows = 0
 
+    # TODO: make this less hacky/kludgy and improve error handling + reporting
     if 'latest_export.csv' in csv_file:
         with open(csv_file, 'r') as file:
             reader = csv.DictReader(file)
