@@ -1,11 +1,14 @@
+import csv
+import sys
+
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management import call_command
 from django.contrib.auth.models import User, Group
+from django.forms.models import model_to_dict
+
 from sources.models import Person
 from sourcelist.settings import TEST_ENV
 from datetime import datetime
-import sys
-import csv
 
 
 def export_csv():
