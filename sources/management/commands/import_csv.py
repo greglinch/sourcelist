@@ -11,6 +11,7 @@ import csv
 
 ## create the source Person
 def create_person(counter, failed_rows, data_dict):
+    email_address = data_dict['email_address']
     # check if the person already exists:
     try:
         exists = Person.objects.get(email_address=email_address)
@@ -20,7 +21,7 @@ def create_person(counter, failed_rows, data_dict):
             obj, created = Person.objects.update_or_create(**data_dict)
         except Exception as e:
             failed_rows += 1
-            message = f'Row {counter}: {e}\n'
+            message = f'Row {counter} for {email_address}: {e}\n'
             print(message)
     # except:
         # failed_rows.append(counter)
@@ -61,11 +62,12 @@ def import_csv(csv_file):
         with open(csv_file, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
+                counter += 1
                 row_as_dict = dict(row)
                 now = str(timezone.now())
-                if row_as_dict['related_user']:
-                    # TODO: reassess this; intended to avoid error bc the related person doesn't yet exist
-                    row_as_dict.pop('related_user')
+                # we never want to use the old related user id bc a new one needs to be made
+                row_as_dict.pop('related_user')
+                # adjust the following as needed before import
                 if row_as_dict['created'] == '':
                     row_as_dict['created'] = now
                 if row_as_dict['updated'] == '':
@@ -76,8 +78,12 @@ def import_csv(csv_file):
                     row_as_dict.pop('rating')
                 if row_as_dict['rating_avg'] == '':
                     row_as_dict.pop('rating_avg')
-                # import pdb; pdb.set_trace()
-                create_person(counter, failed_rows, row_as_dict)
+                try:
+                    create_person(counter, failed_rows, row_as_dict)
+                except:
+                    email_address = row_as_dict['email_address']
+                    message = f'Failed to create a person for {email_address}. \nException: {str(sys.exc_info())}'
+                    print(message)
     else:
         with open(csv_file) as file:
             csv_reader = csv.DictReader(file)
