@@ -11,8 +11,11 @@ from sourcelist.settings import TEST_ENV
 from sources.models import Person
 
 
-## create the source Person
 def create_person(counter, failed_rows, data_dict):
+    """
+    Create a Person in the system as part of the import process. Works for
+    both import file types.
+    """
     email_address = data_dict['email_address']
     # check if the person already exists:
     try:
@@ -45,7 +48,7 @@ def create_person(counter, failed_rows, data_dict):
         #     message = 'Email user:' + str(sys.exc_info())
         #     print(message)
 
-# def import_csv():
+
 def import_csv(csv_file):
     ## start
     start_time = datetime.now()
@@ -145,6 +148,7 @@ def import_csv(csv_file):
     message = '{} rows failed'.format(failed_rows)
     print(message)
 
+
 class Command(BaseCommand):
     help = 'Import sources from a csv file.'
 
@@ -154,20 +158,10 @@ class Command(BaseCommand):
             help='Specify the CSV file.'
         )
 
-        ## optional
-        # parser.add_argument('-f' '--file',
-        #     action='store_true',
-        #     # type=str,
-        #     dest='file',
-        #     default=False,
-        #     help='Specify the file'
-        # )
-
     def handle(self, *args, **options):
         ## unpack args
         csv_file = options['file']
 
         ## call the function
-        # import_csv()
         import_csv(csv_file)
 
