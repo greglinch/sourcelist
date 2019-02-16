@@ -139,7 +139,7 @@ class Person(BasicInfo):
     #     return person_dict
 
     def get_absolute_url(self):
-        """ preferred/abstract way to defin the URL """
+        """ preferred/abstract way to define the URL """
         return reverse('source', args=[self.slug])
 
     def save(self, *args, **kwargs):
@@ -202,7 +202,7 @@ def build_watson_search_index(sender, instance, **kwargs):
 
 
 class Rating(BasicInfo):
-    """ a Journalist can rate a Source each time """
+    """ a Journalist can rate a Source each time they contact one """
     # notes = models.TextField(null=True, blank=True, help_text=_('Optional'))
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
     ## these are FK to allow for multiples -- not just one
@@ -219,7 +219,7 @@ class Rating(BasicInfo):
 
 
 # class Journalist(Person):
-#     """ people who use the Sources """
+#     """ people who contact the Sources """
 
 #     class Meta:
 #         proxy = True
