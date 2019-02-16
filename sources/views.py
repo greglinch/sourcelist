@@ -192,7 +192,27 @@ class JoinView(View):
                 ## set the related user and email the source
                 call_command('set_related_user', email_address)
                 call_command('email_user', email_address, 'added')
-                # redirect to thank you page:
+                ## TK wrap in try/except and setup relevant notififcations
+                # try:
+                    # call_command('set_related_user', email_address)
+                # except:
+                    # set_related_user_failed = True
+                # try:
+                    # call_command('email_user', email_address, 'added')
+                # except:
+                    # email_user_failed = True
+                ## let admin know what failed
+                # if set_related_user_failed and email_user_failed:
+                    # fail_type = 'both'
+                # elif not set_related_user_failed and email_user_failed:
+                    # fail_type = 'related_user'
+                # elif set_related_user_failed not email_user_failed:
+                    # fail_type = 'email_user'
+                ## redirect to regular thank you page if it succeeded
+                # if set_related_user_failed or email_user_failed:
+                    # return HttpResponseRedirect('/thank-you/?previous=join&failed={fail_type}')
+                ## otherwise redirect to thank you page with message explaning
+                # else:
                 return HttpResponseRedirect('/thank-you/?previous=join')
             else:
                 return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
