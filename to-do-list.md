@@ -4,6 +4,9 @@
 
 # To-do for development
 
+* add ID to url to avoid duplicate or same name issues
+	* with redirect
+
 * write migration to create necessary user groups
 	* name: change source and add related
 	* perms: can change person
