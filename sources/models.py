@@ -140,7 +140,11 @@ class Person(BasicInfo):
 
     def get_absolute_url(self):
         """ preferred/abstract way to define the URL """
-        return reverse('source', args=[self.slug])
+        return reverse('source', kwargs={
+                'pk': self.id,
+                'slug': self.slug,
+            }
+        )
 
     def save(self, *args, **kwargs):
     #     ## avg of all ratings

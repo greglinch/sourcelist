@@ -4,7 +4,7 @@
 
 # To-do for development
 
-* FIX issue with duplicates and redirects
+* FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
 	* kamens
 	* nanjappa
 	* steltzer
@@ -526,3 +526,8 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* SOMEWHAT DONE: messed up name goes to canonical
 	* DONE: old urls go to canonical
 	* DONE: /sources goes to homepage
+
+* FIX: 500 error when trying to "view on site" in any model
+	* update get_absolute_ur? 
+		* reverse('source', args=[self.slug, self.id])
+	* solution: change it to kwargs like in the recent view updates
