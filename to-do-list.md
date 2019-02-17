@@ -4,6 +4,11 @@
 
 # To-do for development
 
+* FIX issue with duplicates and redirects
+	* kamens
+	* nanjappa
+	* steltzer
+	* hayhoe
 
 * write migration to create necessary user groups
 	* name: change source and add related
@@ -87,9 +92,12 @@
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
 
 * Q: worth fixing edge case URL problems that break?
+	* if /sources/ is missing
+		* it's redundant anyway, so can probably just remove
 	* missing id, but still has extral slash: e.g. /sources//first-last
-	* hyphen params: e.g. /sources/first-last/?thank-you=true
-		* only breaks when ID is missing, fine when ID is there and slug is broken/missing
+	* url params with missing ID: e.g. /sources/first-last/?thank-you=true
+		* only breaks when ID is missing (e.g. /sources//first-last or /sources/first-last), fine when ID is there and slug is broken/missing
+		* https://diversesources.org/sources/580/rocio-acuna-hidalgo//sources/580/rocio-acuna-hidalgo/?social=true
 
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
