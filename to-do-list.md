@@ -30,6 +30,8 @@
 
 * finish Spanish translation of About page
 
+* fix? user is able to see a live page when clicking "view on site" on their person page using the magic link, even if that page doesn't exist
+
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
 
 * change redirect after social login
