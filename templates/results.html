@@ -103,12 +103,12 @@
                     {% for result in results %}
                         <tr>
                             <td>
-                                <a href="{% url 'source' slug=result.slug %}">
+                                <a href="{% url 'source' slug=result.slug pk=result.id %}">
                                     {{ result.first_name }}
                                 </a>
                             </td>
                             <td>
-                                <a href="{% url 'source' slug=result.slug %}">
+                                <a href="{% url 'source' slug=result.slug pk=result.id %}">
                                     {{ result.last_name }}
                                 </a>
                             </td>

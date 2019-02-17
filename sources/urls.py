@@ -1,5 +1,17 @@
 from django.conf.urls import url, include
-from sources.views import ConfirmView, ContactView, DetailView, IndexView, JoinView, PageView, RedirectSourcesURL, ResultsView, ThankYouView, SitemapView
+from django.urls import path
+
+from sources.views import (
+    ConfirmView,
+    ContactView,
+    DetailView,
+    JoinView,
+    PageView,
+    RedirectSourcesURL,
+    ResultsView,
+    SitemapView,
+    ThankYouView,
+)
 from sources.helpers import search_customizations
 
 
@@ -15,8 +27,10 @@ urlpatterns = [
     url(r'^contact/$', ContactView.as_view()),
     url(r'^search/', include('watson.urls', namespace='watson'), search_customizations),
     url(r'^sources/$', RedirectSourcesURL),
-    url(r'^(?P<slug>[-\w]+)/$', PageView.as_view()),
-    url(r'^sources/(?P<slug>[-\w]+)/$', DetailView.as_view(), name='source'),
+    path('<slug:slug>/', PageView.as_view()),
+    path('sources/<int:pk>/', DetailView.as_view()),
+    path('sources/<slug:slug>/', DetailView.as_view()),
+    path('sources/<int:pk>/<slug:slug>/', DetailView.as_view(), name='source'),
     url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
 

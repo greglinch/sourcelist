@@ -4,19 +4,24 @@ import urllib
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.management import call_command
-from django.http import HttpResponse, HttpResponseRedirect#, Http404
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
 from django.urls import reverse
 from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode, urlencode
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
-from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, EMAIL_HOST_USER, GOOGLE_RECAPTCHA_SECRET_KEY
+from sourcelist.settings import (
+    PROJECT_NAME,
+    EMAIL_SENDER,
+    EMAIL_HOST_USER,
+    GOOGLE_RECAPTCHA_SECRET_KEY,
+)
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
@@ -28,15 +33,15 @@ from sources.tokens import account_confirmation_token
 # from django.core.mail import EmailMessage
 
 
-class IndexView(View):
-    """ index page """
+# class IndexView(View):
+#     """ index page """
 
-    def get(self, request):
-        context = {
-            'request': request,
-            'user': request.user
-        }
-        return render(request, 'index.html', context)
+#     def get(self, request):
+#         context = {
+#             'request': request,
+#             'user': request.user
+#         }
+#         return render(request, 'index.html', context)
 
 
 # class AboutView(View):
@@ -149,29 +154,63 @@ class DetailView(DetailView):
     """ details of the Person results"""
 
     model = Person
-    # context_object_name = 'person'
 
-    def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context_object_name = 'person'
-        # context['now'] = timezone.now()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(DetailView, self).get_context_data(**kwargs)
+    #     context_object_name = 'person'
+    #     return context
 
-    # def get_queryset(self):
-    #     queryset = Person.objects.filter(slug=self.slug)
-    #     return queryset
+    def get(self, request, *args, **kwargs):
+        try:
+            source = get_object_or_404(Person, id=kwargs['pk'])
+        except KeyError:
+            source = get_object_or_404(Person, slug=kwargs['slug'])
+        try:
+            url_slug = kwargs['slug']
+            source_slug = source.slug
+        except KeyError:
+            url_slug = False
+        try:
+            url_id = kwargs['pk']
+        except:
+            url_id = False
 
-    # def get(self, request):
+        # if there's no slug or if slug doesn't match the person slug, we'll fix
+        if not url_slug or url_slug != source_slug:
+            new_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            if len(request.GET) > 0:
+                params = urlencode(request.GET.items())
+                new_url = f'{new_url}?{params}'
+            return HttpResponsePermanentRedirect(new_url)
+        # if there's no pk/ID in the URL, we'll fix
+        elif not url_id:
+            new_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            if len(request.GET) > 0:
+                params = urlencode(request.GET.items())
+                new_url += f'{new_url}?{params}'
+            return HttpResponsePermanentRedirect(new_url)
+        else:
+            ## if it's the canonical URL
+            from django.template import loader
 
-    #     person = Person.objects.filter(
-    #         slug=slug
-    #     ).values()
-
-    #     context = {
-    #         'person': person
-    #     }
-
-    #     return render(request, 'detail.html', context) # , {'form': form})
+            template = loader.get_template('sources/person_detail.html')
+            context = {
+                'person': source,
+            }
+            same_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            return HttpResponse(template.render(context, request))
 
 
 class JoinView(View):
@@ -179,7 +218,6 @@ class JoinView(View):
 
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
-    # if request.method == 'POST':
         form = SubmitForm(request.POST)
         ## check whether it's valid:
         if form.is_valid():

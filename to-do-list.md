@@ -4,13 +4,12 @@
 
 # To-do for development
 
-* add ID to url to avoid duplicate or same name issues; with redirect ...
-	* messed up name
-	* old urls
 
 * write migration to create necessary user groups
 	* name: change source and add related
 	* perms: can change person
+
+* unless it breaks auto-setup of things in Django, rename DetailView to not conflict with the class it inherits
 
 * refactor to make code better
 	* switch all URLs to use reverse()
@@ -86,6 +85,11 @@
 
 * translating URL patterns
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
+
+* Q: worth fixing edge case URL problems that break?
+	* missing id, but still has extral slash: e.g. /sources//first-last
+	* hyphen params: e.g. /sources/first-last/?thank-you=true
+		* only breaks when ID is missing, fine when ID is there and slug is broken/missing
 
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
@@ -510,3 +514,7 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	- removed django from reqs bc it was 1.10.x
 	- didn't work properly with Django 2.1 until upgrading django-seasame from 2.1 to 2.4 in the sourcelist reqs
 
+* add ID to url to avoid duplicate or same name issues; with redirects for...
+	* SOMEWHAT DONE: messed up name goes to canonical
+	* DONE: old urls go to canonical
+	* DONE: /sources goes to homepage
