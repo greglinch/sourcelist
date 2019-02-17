@@ -1,22 +1,26 @@
+import json
+import urllib
+
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.management import call_command
 from django.http import HttpResponse, HttpResponseRedirect#, Http404
-from django.shortcuts import render # , redirect
+from django.shortcuts import render, redirect
 from django.template.context import RequestContext
+from django.urls import reverse
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 from django.views import View
-from django.views.generic.detail import DetailView #, ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
+
 from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, EMAIL_HOST_USER, GOOGLE_RECAPTCHA_SECRET_KEY
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
-import json
-import urllib
+
 # from django.contrib.auth import login, authenticate
 # from django.contrib.sites.shortcuts import get_current_site
 # from django.template.loader import render_to_string
@@ -224,7 +228,6 @@ class JoinView(View):
 
 
 class ResultsView(View):
-# class ResultsView(ListView):
     """ search and display results"""
 
     def get(self, request):
@@ -289,3 +292,6 @@ class PageView(DetailView):
         context_object_name = 'page'
         # context['now'] = timezone.now()
         return context
+
+def RedirectSourcesURL(request):
+    return redirect(reverse('index'), permanent=True)

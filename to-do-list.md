@@ -4,8 +4,9 @@
 
 # To-do for development
 
-* add ID to url to avoid duplicate or same name issues
-	* with redirect
+* add ID to url to avoid duplicate or same name issues; with redirect ...
+	* messed up name
+	* old urls
 
 * write migration to create necessary user groups
 	* name: change source and add related
