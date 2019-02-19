@@ -2,7 +2,7 @@ db.sqlite3
 *.pyc
 *.pyo
 .DS_Store
-ignore/
+misc/
 Pipfile*
 settings_private*
 sources/migrations*
