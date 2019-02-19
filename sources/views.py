@@ -150,15 +150,10 @@ class ContactView(FormView):
         return super().form_valid(form)
 
 
-class DetailView(DetailView):
+class PersonDetailView(DetailView):
     """ details of the Person results"""
 
     model = Person
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(DetailView, self).get_context_data(**kwargs)
-    #     context_object_name = 'person'
-    #     return context
 
     def get(self, request, *args, **kwargs):
         try:
@@ -326,7 +321,7 @@ class PageView(DetailView):
     model = Page
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(PageView, self).get_context_data(**kwargs)
         context_object_name = 'page'
         # context['now'] = timezone.now()
         return context

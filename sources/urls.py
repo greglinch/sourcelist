@@ -4,7 +4,7 @@ from django.urls import path
 from sources.views import (
     ConfirmView,
     ContactView,
-    DetailView,
+    PersonDetailView,
     JoinView,
     PageView,
     RedirectSourcesURL,
@@ -28,9 +28,9 @@ urlpatterns = [
     url(r'^search/', include('watson.urls', namespace='watson'), search_customizations),
     url(r'^sources/$', RedirectSourcesURL),
     path('<slug:slug>/', PageView.as_view()),
-    path('sources/<int:pk>/', DetailView.as_view()),
-    path('sources/<slug:slug>/', DetailView.as_view()),
-    path('sources/<int:pk>/<slug:slug>/', DetailView.as_view(), name='source'),
+    path('sources/<int:pk>/', PersonDetailView.as_view()),
+    path('sources/<slug:slug>/', PersonDetailView.as_view()),
+    path('sources/<int:pk>/<slug:slug>/', PersonDetailView.as_view(), name='source'),
     url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
 
