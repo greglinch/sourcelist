@@ -5,10 +5,7 @@
 # To-do for development
 
 * FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
-	* kamens
-	* nanjappa
-	* steltzer
-	* hayhoe
+	* see work started on add-id-to-urls-with-redirect branch
 
 * write migration to create necessary user groups
 	* name: change source and add related
