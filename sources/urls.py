@@ -33,5 +33,3 @@ urlpatterns = [
     path('sources/<int:pk>/<slug:slug>/', PersonDetailView.as_view(), name='source'),
     url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
-
-handler404 = 'sources.views.ErrorView'
