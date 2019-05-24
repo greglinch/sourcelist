@@ -308,11 +308,9 @@ class ThankYouView(View):
         return render(request, 'thank-you.html', context)
 
 
-class ErrorView(View):
-    """ 404 page """
-
-    def get(self, request):
-        return render(request, '404.html', context)
+def response_error_handler(request, exception):
+    return render(request, '404.html', context)
+handler404 = response_error_handler
 
 
 class PageView(DetailView):
