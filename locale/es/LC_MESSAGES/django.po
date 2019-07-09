@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-08 20:42-0400\n"
+"POT-Creation-Date: 2019-07-08 21:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -426,8 +426,6 @@ msgstr ""
 "límite."
 
 #: templates/join.html:34
-#, fuzzy
-#| msgid "Required fields are marked with an asterisk (*)."
 msgid ""
 "Required fields are marked with an asterisk (*). All information will be "
 "public."
