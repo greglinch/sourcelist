@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-07 23:34-0400\n"
+"POT-Creation-Date: 2019-07-08 20:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Greg Linch <greglinch@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,8 +91,8 @@ msgstr "Actualizado en el sistema"
 msgid "This is when the item was updated in the system."
 msgstr "Cuando se actualizó en el sistema."
 
-#: sources/models.py:27 sources/models.py:77 templates/results.html:55
-#: templates/results.html:95 templates/sources/person_detail.html:96
+#: sources/models.py:27 sources/models.py:77 templates/results.html:56
+#: templates/results.html:96 templates/sources/person_detail.html:96
 msgid "Expertise"
 msgstr "Área de especialización"
 
@@ -112,11 +112,11 @@ msgstr "Rechazado"
 msgid "Comma-separated list"
 msgstr "Lista separada por comas"
 
-#: sources/models.py:79 templates/results.html:52 templates/results.html:92
+#: sources/models.py:79 templates/results.html:53 templates/results.html:93
 msgid "First name"
 msgstr "Nombre"
 
-#: sources/models.py:80 templates/results.html:53 templates/results.html:93
+#: sources/models.py:80 templates/results.html:54 templates/results.html:94
 msgid "Last name"
 msgstr "Apellido(s)"
 
@@ -152,7 +152,7 @@ msgstr ""
 "Si desea compartir los grupos subrepresentados con los que se identifica, "
 "puede incluirlos aquí."
 
-#: sources/models.py:89 templates/results.html:56 templates/results.html:96
+#: sources/models.py:89 templates/results.html:57 templates/results.html:97
 msgid "Organization"
 msgstr "Organización"
 
@@ -180,7 +180,7 @@ msgstr "por ejemplo ella, etc."
 msgid "Pronouns"
 msgstr "Pronombres"
 
-#: sources/models.py:95 sources/models.py:216
+#: sources/models.py:95 sources/models.py:201
 msgid "Rating"
 msgstr "Clasificación"
 
@@ -216,7 +216,9 @@ msgstr "-4, 10, etc."
 msgid ""
 "Please do not include the @ symbol. Be sure to include this so we can "
 "promote you on Twitter."
-msgstr "Por favor no incluya el símbolo @. Usamos su nombre de usuario para promocionarse en Twitter."
+msgstr ""
+"Por favor no incluya el símbolo @. Usamos su nombre de usuario para "
+"promocionarse en Twitter."
 
 #: sources/models.py:104 templates/sources/person_detail.html:126
 msgid "Twitter"
@@ -226,7 +228,7 @@ msgstr "Twitter"
 msgid "e.g. Biologist, Engineer, Mathematician, Sociologist, etc."
 msgstr "por ejemplo Biólogo, Ingeniero, Matemático, Sociólogo, etc."
 
-#: sources/models.py:105 templates/results.html:54 templates/results.html:94
+#: sources/models.py:105 templates/results.html:55 templates/results.html:95
 #: templates/sources/person_detail.html:84
 msgid "Type of expert"
 msgstr "Especialidad principal"
@@ -243,43 +245,43 @@ msgstr "Sitio web"
 msgid "Name"
 msgstr "Por favor incluya http:// al comienzo."
 
-#: sources/models.py:176
+#: sources/models.py:180
 msgid "Person"
 msgstr "Persona"
 
-#: sources/models.py:177
+#: sources/models.py:181
 msgid "People"
 msgstr "Personas"
 
-#: sources/models.py:217
+#: sources/models.py:202
 msgid "Ratings"
 msgstr "Calificaciones"
 
-#: sources/models.py:236
+#: sources/models.py:221
 msgid "Source for admins"
 msgstr "Fuente para administradores"
 
-#: sources/models.py:237
+#: sources/models.py:222
 msgid "Sources for admins"
 msgstr "Fuente para administradores"
 
-#: sources/models.py:257
+#: sources/models.py:242
 msgid "Source for journalists"
 msgstr "Fuente para periodistas"
 
-#: sources/models.py:258
+#: sources/models.py:243
 msgid "Sources for journalists"
 msgstr "Fuentes para periodistas"
 
-#: sources/views.py:63
+#: sources/views.py:72
 msgid "You've already been approved."
 msgstr "Ya ha sido aprobado."
 
-#: sources/views.py:73
+#: sources/views.py:82
 msgid "Thank you for confirming your source profile."
 msgstr "Gracias por confirmar su perfil de Fuentes Diversas."
 
-#: sources/views.py:76
+#: sources/views.py:85
 #, fuzzy
 #| msgid "Confirmation link is invalid!"
 msgid "Confirmation link is invalid."
@@ -424,8 +426,14 @@ msgstr ""
 "límite."
 
 #: templates/join.html:34
-msgid "Required fields are marked with an asterisk (*)."
-msgstr "Los campos obligatorios están marcados con un asterisco (*)."
+#, fuzzy
+#| msgid "Required fields are marked with an asterisk (*)."
+msgid ""
+"Required fields are marked with an asterisk (*). All information will be "
+"public."
+msgstr ""
+"Las preguntas obligatorias están marcadas con un asterisco (*). Todos sus "
+"respuestos serán públicos."
 
 #: templates/navbar.html:7
 msgid "Toggle navigation"
@@ -443,11 +451,11 @@ msgstr "Este proyecto"
 msgid "Contact"
 msgstr "Contáctenos"
 
-#: templates/results.html:35
+#: templates/results.html:36
 msgid "Find Sources"
 msgstr "Encontrar Fuentes"
 
-#: templates/results.html:37
+#: templates/results.html:38
 msgid ""
 "\n"
 "            Search or <a href=\"/join\">join</a> this database of experts to "
@@ -461,15 +469,15 @@ msgstr ""
 "historias de ciencia, salud y ambiente en la fecha límite.\n"
 "        "
 
-#: templates/results.html:43
+#: templates/results.html:44
 msgid "Sources coming soon!"
 msgstr "Fuente para administradores"
 
-#: templates/results.html:57 templates/results.html:97
+#: templates/results.html:58 templates/results.html:98
 msgid "Language(s)"
 msgstr "Idioma(s)"
 
-#: templates/results.html:58 templates/results.html:98
+#: templates/results.html:59 templates/results.html:99
 #: templates/sources/person_detail.html:138
 msgid "Time zone"
 msgstr "Diferencia de zona horaria"
