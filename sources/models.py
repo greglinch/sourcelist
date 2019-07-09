@@ -74,7 +74,7 @@ class Person(BasicInfo):
     email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
-    expertise = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
+    expertise = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('First name'))
     last_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Last name'))
@@ -99,7 +99,7 @@ class Person(BasicInfo):
     slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('State/province'))
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title'))
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Title'))
     timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name=_('Time zone offset from GMT'), help_text=_('-4, 10, etc.')) ## lookup based on city/state/county combo?
     twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol. Be sure to include this so we can promote you on Twitter.'), verbose_name=_('Twitter'))
     type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text=_('e.g. Biologist, Engineer, Mathematician, Sociologist, etc.'), verbose_name=_('Type of expert'))
