@@ -306,7 +306,7 @@ Run this command to generate or re-generate the translation file:
 
 	python3 manage.py makemessages -l es
 
-Run this command to compil the translation:
+Run this command to compile the translation:
 
 	python3 manage.py compilemessages
 
