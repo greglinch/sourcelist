@@ -16,6 +16,9 @@ urlpatterns = [
     # url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include(('social_django.urls', 'social_django'), namespace='social')),
     url('', include(('django.contrib.auth.urls', 'django'), namespace='auth')),
+    # url('', include('social_django.urls')),
+    # url('', include('django.contrib.auth.urls')),
+
 ]
 
 # urlpatterns += i18n_patterns(

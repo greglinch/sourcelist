@@ -22,7 +22,7 @@ from sourcelist.settings import (
     EMAIL_HOST_USER,
     GOOGLE_RECAPTCHA_SECRET_KEY,
 )
-from sources.forms import ContactForm, SubmitForm
+from sources.forms import ContactForm, ReportOutdatedForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 
@@ -324,5 +324,38 @@ class PageView(DetailView):
         # context['now'] = timezone.now()
         return context
 
+
 def RedirectSourcesURL(request):
     return redirect(reverse('index'), permanent=True)
+
+
+class ReportOutdatedView(View):
+    """ Report outdated profile information """
+    form_class = ReportOutdatedForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # TODO submit an email to admin
+            return HttpResponseRedirect('/thank-you/?previous=report-outdated')
+
+    def get(self, request, *args, **kwargs):
+        referral_url = self.request.META['HTTP_REFERER']
+        profile_id = referral_url # .split('/')[]
+        initial_values = {'profile_id': profile_id}
+        form = self.form_class(initial=initial_values)
+        # form = self.form_class()
+        return render(request, 'contact.html', {'form': form})
+
+class ReportUpdateView(View):
+    """ Report and update your own profile """
+
+    def get(self, request):
+        """
+        NOTES/OPTIONS
+            - it will send a magic link to the user
+            - it will provide the join form with the existing data prefilled, which they can then update and submit
+                - the problem then is how we store it separately from the live one
+                - e.g. subclass model to hold it then, if approved, push the changes to the original?
+        """
+        return render(request, 'join.html', context)

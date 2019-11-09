@@ -15,6 +15,17 @@
 
 * refactor to make code better
 	* switch all URLs to use reverse()
+<<<<<<< HEAD
+=======
+		* TODO: make sure email_user mgmt cmd works
+
+* Host datatables files ourselves (on app server or static server?
+	https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
+	https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js
+	https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.10/datatables.min.js
+
+* Update results.html to point to the new location
+>>>>>>> invite-sources
 
 * update view for setting related user and emailing the user
 	* wrap both calls in try/except
@@ -121,10 +132,20 @@
 ```
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
-	* inaccurate
-	* imposter
-	* offensive
-	* other (explain)
+	* reasons
+		* inaccurate
+		* imposter
+		* offensive
+		* other (explain)
+	* types (open in a menu?)
+		* someone else, so let us know what's out date and/or submitted updated info
+			* also include a link to the other type in case they ended up in the wrong place?
+			* prepopulate profile id when they come from a profile
+				* make that readonly or editable?
+		* me, so send magic link to update profile
+
+* ? Create images with Python PIL and Pillow and write text on them ?
+	https://code-maven.com/create-images-with-python-pil-pillow
 
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group

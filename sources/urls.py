@@ -8,6 +8,8 @@ from sources.views import (
     JoinView,
     PageView,
     RedirectSourcesURL,
+    ReportOutdatedView,
+    ReportUpdateView,
     ResultsView,
     SitemapView,
     ThankYouView,
@@ -25,6 +27,8 @@ urlpatterns = [
     ## main pages
     url(r'^$', ResultsView.as_view(), name='index'),
     url(r'^contact/$', ContactView.as_view()),
+    url(r'^report-outdated/$', ReportOutdatedView.as_view()),
+    url(r'^report-update/$', ReportUpdateView.as_view()),
     url(r'^search/', include('watson.urls', namespace='watson'), search_customizations),
     url(r'^sources/$', RedirectSourcesURL),
     path('<slug:slug>/', PageView.as_view()),
