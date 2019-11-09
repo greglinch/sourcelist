@@ -1,9 +1,12 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+
 from sesame import utils
+
 from sources.models import Person
 from sources.forms import FIELDS_PUBLIC
 from sources.tokens import account_confirmation_token
@@ -35,13 +38,14 @@ def email_user(email_address, status):
                 )
     person_info += '</table>'
 
-    admin_url = '{}/admin/sources/person/{}/change/'.format(SITE_URL, person_id)
+    admin_path = reverse('admin:sources_person_change', args=(person_id,))
 
     ## django-sesame bits for magic link
     user = User.objects.get(email=email_address)
     # login_token = utils.get_query_string(user) ## using their URL
     login_token = utils.get_parameters(user) ## making your own URL
-    login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token']) ## change from admin url to live url?
+    # the following doesn't need a / bc reverse includes it
+    login_link = f'{SITE_URL}{admin_path}?method=magic&url_auth_token={login_token['url_auth_token']}'
 
     ## confirmation url (for both user and admin?)
     confirm_token = account_confirmation_token.make_token(user)
