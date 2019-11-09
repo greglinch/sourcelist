@@ -4,7 +4,51 @@
 
 # To-do for development
 
+* FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
+	* see work started on add-id-to-urls-with-redirect branch
+
+* write migration to create necessary user groups
+	* name: change source and add related
+	* perms: can change person
+
+* unless it breaks auto-setup of things in Django, rename DetailView to not conflict with the class it inherits
+
+* refactor to make code better
+	* switch all URLs to use reverse()
+		* TODO: make sure email_user mgmt cmd works
+
+* Host datatables files ourselves (on app server or static server?
+	https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
+	https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js
+	https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.10/datatables.min.js
+
+* Update results.html to point to the new location
+
+* update view for setting related user and emailing the user
+	* wrap both calls in try/except
+	* notify admin if either or both fail: single email for both
+	* see commented out code for starting point
+	* need to update thank-you template to handle more advanced messaging depending on fail_type
+
+* (in progress) Invite Sources: Link that sends emails to invite others to join
+	* Use Facebook? Twitter? Just email?
+	* store the information as a draft source object and pre-populate join form?
+
+* add a "Testimonials" style page with success stories instead of just on the about page
+
+* ??? add Patreon https://www.patreon.com/diversesources
+
+* social media display inspiration: https://www.genderavenger.com/
+	* for our FB, Tw, IG accounts
+
+* finish Spanish translation of About page
+
+* fix? user is able to see a live page when clicking "view on site" on their person page using the magic link, even if that page doesn't exist
+
 * FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
+
+* change redirect after social login
+	* requires adding a step to the pipeline —- doesn't work just with logic in the template bc it doesn't know whether you're a superuser at that point
 
 * more detailed “about” on home page?
 
@@ -22,8 +66,6 @@
 
 * upgrade to Django 2.0
 	* ran into some issues, so probably best to do this in a separate repo first
-
-* add a "Testimonials" style page with success stories instead of just on the about page
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
@@ -54,6 +96,14 @@
 * translating URL patterns
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
 
+* Q: worth fixing edge case URL problems that break?
+	* if /sources/ is missing
+		* it's redundant anyway, so can probably just remove
+	* missing id, but still has extral slash: e.g. /sources//first-last
+	* url params with missing ID: e.g. /sources/first-last/?thank-you=true
+		* only breaks when ID is missing (e.g. /sources//first-last or /sources/first-last), fine when ID is there and slug is broken/missing
+		* https://diversesources.org/sources/580/rocio-acuna-hidalgo//sources/580/rocio-acuna-hidalgo/?social=true
+
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
@@ -64,9 +114,11 @@
 	* explore adding stacked view on mobile 
 
 * abstract the column list in `results.html`, such as:
-```{% for field in field_list %}
+```
+{% for field in field_list %}
     <th>{{ field }}</th>
-{% endfor %}```
+{% endfor %}
+```
 
 * add to base.html? but make sure you can override first (e.g. with specific pages titles)
 
@@ -77,10 +129,20 @@
 ```
 
 * (v2?) add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
-	* inaccurate
-	* imposter
-	* offensive
-	* other (explain)
+	* reasons
+		* inaccurate
+		* imposter
+		* offensive
+		* other (explain)
+	* types (open in a menu?)
+		* someone else, so let us know what's out date and/or submitted updated info
+			* also include a link to the other type in case they ended up in the wrong place?
+			* prepopulate profile id when they come from a profile
+				* make that readonly or editable?
+		* me, so send magic link to update profile
+
+* ? Create images with Python PIL and Pillow and write text on them ?
+	https://code-maven.com/create-images-with-python-pil-pillow
 
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
@@ -461,3 +523,26 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* have a better, more purposeful and less spammy solution above
 
 * add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
+
+* update Twitter help text
+
+* fix "back to results" button for pagination
+	- solution: `stateSave: true,` uses local storage
+
+* fix datatables filter
+
+* upgrade Django
+
+* fix django-magic-link
+	- removed django from reqs bc it was 1.10.x
+	- didn't work properly with Django 2.1 until upgrading django-seasame from 2.1 to 2.4 in the sourcelist reqs
+
+* add ID to url to avoid duplicate or same name issues; with redirects for...
+	* SOMEWHAT DONE: messed up name goes to canonical
+	* DONE: old urls go to canonical
+	* DONE: /sources goes to homepage
+
+* FIX: 500 error when trying to "view on site" in any model
+	* update get_absolute_ur? 
+		* reverse('source', args=[self.slug, self.id])
+	* solution: change it to kwargs like in the recent view updates

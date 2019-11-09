@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from sources.views import ConfirmView, ContactView, DetailView, IndexView, JoinView, PageView, ResultsView, ThankYouView, SitemapView # AboutView, 
+from sources.views import ConfirmView, ContactView, DetailView, ErrorView, IndexView, JoinView, PageView, ReportOutdatedView, ReportUpdateView, ResultsView, ThankYouView, SitemapView # AboutView,
 from sources.helpers import search_customizations
 
 
@@ -14,6 +14,8 @@ urlpatterns = [
     # url(r'^index$', ResultsView.as_view()),
     # url(r'^about$', AboutView.as_view()),
     url(r'^contact/$', ContactView.as_view()),
+    url(r'^report-outdated/$', ReportOutdatedView.as_view()),
+    url(r'^report-update/$', ReportUpdateView.as_view()),
     url(r'^search/', include('watson.urls', namespace='watson'), search_customizations),
     url(r'^(?P<slug>[-\w]+)/$', PageView.as_view()),
     # url(r'^results$', ResultsView.as_view()),
@@ -21,4 +23,4 @@ urlpatterns = [
     url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
 
-handler404 = 'sources.views.ErrorView'
+handler404 = ErrorView.as_view()
