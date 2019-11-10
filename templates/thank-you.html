@@ -5,7 +5,7 @@
 
     <p>{% trans 'Thanks for your submission!' %}</p>
 
-    {% if previous == 'report-outdated' %}
+    {% if 'report' in previous %}
         <p>{% trans 'We will will review your report as soon as possible and contact you if we have any follow up questions.' %}</p>
     {% elif previous == 'join' %}
         <p>{% trans 'Please check your email and confirm your profile for it to appear on the site.' %}</p>
