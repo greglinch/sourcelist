@@ -54,7 +54,7 @@ class ReportOutdatedForm(ContactForm):
         # widget=forms.TextInput(attrs={'readonly':'readonly'}),
         widget=forms.HiddenInput()
     )
-    link = forms.URLField(label=_('Link to source'), help_text='This will help us verify the details.')
+    link = forms.URLField(label=_('Link to current information'), help_text='This will help us confirm the details.')
     notes = forms.CharField(widget=forms.Textarea, label=_('Notes'), help_text='Any additional information you would like to share.')
     # public fields
     prefix = forms.BooleanField(label=_('prefix'))
