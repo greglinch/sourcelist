@@ -143,6 +143,9 @@
 	* TODO fix styling
 		* horizontal alignment of "return to db" and "report"
 		* "report button" dropdown missing example styling
+		* input checkboxes should appear to the right of the label
+	* TODO handle when there's no REFERRER
+		* currently throws an exception, yikes!
 
 * ? Create images with Python PIL and Pillow and write text on them ?
 	https://code-maven.com/create-images-with-python-pil-pillow
