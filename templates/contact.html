@@ -2,6 +2,11 @@
 {% load i18n %}
 
 {% block main %}
+
+{% if 'report' in request.path %}
+    {% include 'return_links.html' with profile_id=person.id %}
+{% endif %}
+
 <div class="jumbotron">
     {% if 'contact' in request.path %}
         <h1 class="display-3">{% trans 'Contact Us' %}</h1>

@@ -15,7 +15,9 @@
 <div class="grouping">
     <div class="return-to-db">
         <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            {% if '?' in request.META.HTTP_REFERER %}
+            {% if 'report' in request.path %}
+                <a href="{{ request.META.HTTP_REFERER }}"> {% trans 'Return to profile' %}</a>
+            {% elif '?' in request.META.HTTP_REFERER %}
                 <a href="{{ request.META.HTTP_REFERER }}"> {% trans 'Return to results' %}</a>
             {% else %}
                 <a href="/"> {% trans 'Return to database' %}</a>
@@ -24,7 +26,11 @@
     </div>
     <div class="report-outdated dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {% trans 'Report outdated profile' %}
+        {% if 'report' in request.path %}
+            {% trans 'Choose a different report' %}
+        {% else %}
+            {% trans 'Report outdated profile' %}
+        {% endif %}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="/report-outdated?id={{ profile_id }}">{% trans 'Submit outdated fields' %}</a>
