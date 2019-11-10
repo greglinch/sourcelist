@@ -25,8 +25,8 @@ ROLE_CHOICES = (
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(required=True, label=_('Full name'))
-    email = forms.EmailField(required=True, label=_('Email address'))
+    name = forms.CharField(required=True, label=_('Your full name'))
+    email = forms.EmailField(required=True, label=_('Your email address'))
     message_type = forms.ChoiceField(
         choices=MESSAGE_CHOICES,
         required=True,
@@ -45,17 +45,25 @@ class ContactForm(forms.Form):
         label=_('Message')
     )
 
-class ReportOutdatedForm(ContactForm):
+
+class GeneralInfoForm(forms.Form):
     # additional info
     # profile_id = forms.CharField(label=_('Profile ID'), help_text='Must be a number.')  # TODO update to integer after ID + parsing fixed
-    profile_id = forms.CharField(
+    profile_id = forms.IntegerField(
         label=_('Profile ID'),
         help_text='Read-only',
         # widget=forms.TextInput(attrs={'readonly':'readonly'}),
         widget=forms.HiddenInput()
     )
     link = forms.URLField(label=_('Link to current information'), help_text='This will help us confirm the details.')
-    notes = forms.CharField(widget=forms.Textarea, label=_('Notes'), help_text='Any additional information you would like to share.')
+    explanation = forms.CharField(widget=forms.Textarea, label=_('Explanation/notes'), help_text='Any additional information you would like to share.')
+
+
+class ReportOutdatedForm(GeneralInfoForm, ContactForm):
+    # remove these from ContactForm
+    message = None
+    message_type = None
+    role = None
     # public fields
     prefix = forms.BooleanField(label=_('Prefix'))
     pronouns = forms.BooleanField(label=_('Pronouns'))
@@ -82,12 +90,6 @@ class ReportOutdatedForm(ContactForm):
     media_text = forms.BooleanField(label=_('Media text'))
     media_video = forms.BooleanField(label=_('Media video'))
 
-    def __init__(self, *args, **kwargs):
-        super(ReportOutdatedForm, self).__init__(*args, **kwargs)
-        self.fields.pop('message')
-        self.fields.pop('message_type')
-        self.fields.pop('role')
-
 
 class SubmitForm(forms.ModelForm):
     # media_field = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=MEDIA_CHOICES) #, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.')
@@ -98,4 +100,20 @@ class SubmitForm(forms.ModelForm):
         # fields_to_use.pop(-1)
         # fields_to_use.append('media_field')
         fields = FIELDS_PUBLIC
-        
+
+class ReportUpdateForm(ContactForm, GeneralInfoForm, SubmitForm):
+    # remove these from ContactForm
+    # message = None
+    # message_type = None
+    # role = None
+
+    class Meta(SubmitForm.Meta):
+        fields = list(ContactForm().fields.keys()) \
+            + list(GeneralInfoForm().fields.keys()) \
+            + SubmitForm.Meta.fields
+
+    def __init__(self, *args, **kwargs):
+        super(ReportUpdateForm, self).__init__(*args, **kwargs)
+        self.fields.pop('message')
+        self.fields.pop('message_type')
+        self.fields.pop('role')
