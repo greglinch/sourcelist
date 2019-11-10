@@ -24,7 +24,7 @@ from sourcelist.settings import (
     GOOGLE_RECAPTCHA_SECRET_KEY,
     SITE_URL,
 )
-from sources.forms import ContactForm, ReportOutdatedForm, SubmitForm
+from sources.forms import ContactForm, ReportOutdatedForm, ReportUpdateForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 
@@ -348,22 +348,46 @@ class ReportOutdatedView(View):
         person = Person.objects.get(id=profile_id)
         initial_values = {'profile_id': profile_id}
         form = self.form_class(initial=initial_values)
-        # form = self.form_class()
         context = {
             'form': form,
             'person': person,
         }
         return render(request, 'contact.html', context)
 
-class ReportUpdateView(View):
+class ReportUpdateMineView(View):
     """ Report and update your own profile """
 
     def get(self, request):
         """
         NOTES/OPTIONS
-            - it will send a magic link to the user
-            - it will provide the join form with the existing data prefilled, which they can then update and submit
+            - send a magic link to the user
+            OR
+            - provide the join form with the existing data prefilled, which they can then update and submit
                 - the problem then is how we store it separately from the live one
                 - e.g. subclass model to hold it then, if approved, push the changes to the original?
         """
-        return render(request, 'join.html', context)
+        return render(request, 'contact.html')
+
+
+class ReportUpdateView(View):
+    """ Report update profile information for someone else """
+    form_class = ReportUpdateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # TODO submit an email to admin
+            return HttpResponseRedirect('/thank-you/?previous=report-update')
+
+    def get(self, request, *args, **kwargs):
+        referral_url = self.request.META['HTTP_REFERER']
+        url_path = referral_url.replace(SITE_URL, '')
+        profile_id = re.search(r'\d+', url_path).group()  # extract first digit
+        person = Person.objects.get(id=profile_id)
+        initial_values = {'profile_id': profile_id}
+        form = self.form_class(initial=initial_values)
+        context = {
+            'form': form,
+            'person': person,
+        }
+        return render(request, 'contact.html', context)
