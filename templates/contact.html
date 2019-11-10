@@ -7,13 +7,17 @@
         <h1 class="display-3">{% trans 'Contact Us' %}</h1>
         <p class="lead">{% trans 'Have a question about this project? Want to help? Let us know!' %}</p>
     {% elif 'report' in request.path %}
-        <h1 class="display-3">{% trans 'Report Profile' %}</h1>
+        <h1 class="display-3">{% trans 'Report Outdated Profile' %}</h1>
         <p class="lead">{% trans 'Please submit the following information to help us keep the database updated and helpful.' %}</p>
     {% endif %}
 </div>
 <div class="main-content lead">
     {% if not 'report' in request.path %}
         <p class="explanation">{% trans 'All fields required.' %}</p>
+    {% else %}
+        {% if person %}
+            <p>Submitting for <a href="{% url 'source' pk=person.id slug=person.slug %}">{{ person }}</a>'s profile</p>
+        {% endif %}
     {% endif %}
     <form action="" method="POST">
         {% csrf_token %}
