@@ -1,5 +1,6 @@
 import json
 import urllib
+import re
 
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -21,6 +22,7 @@ from sourcelist.settings import (
     EMAIL_SENDER,
     EMAIL_HOST_USER,
     GOOGLE_RECAPTCHA_SECRET_KEY,
+    SITE_URL,
 )
 from sources.forms import ContactForm, ReportOutdatedForm, SubmitForm
 from sources.models import Page, Person
@@ -341,11 +343,17 @@ class ReportOutdatedView(View):
 
     def get(self, request, *args, **kwargs):
         referral_url = self.request.META['HTTP_REFERER']
-        profile_id = referral_url # .split('/')[]
+        url_path = referral_url.replace(SITE_URL, '')
+        profile_id = re.search(r'\d+', url_path).group()  # extract first digit
+        person = Person.objects.get(id=profile_id)
         initial_values = {'profile_id': profile_id}
         form = self.form_class(initial=initial_values)
         # form = self.form_class()
-        return render(request, 'contact.html', {'form': form})
+        context = {
+            'form': form,
+            'person': person,
+        }
+        return render(request, 'contact.html', context)
 
 class ReportUpdateView(View):
     """ Report and update your own profile """
