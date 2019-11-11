@@ -54,7 +54,7 @@
     });
 </script>
 
-{% include "return_links.html" with profile_id=person.id %}
+{% include "return_links.html" with person=person profile_id=person.id %}
 
 <div class="jumbotron">
     <h1>{{ person }}</h1>
@@ -193,5 +193,5 @@
         {% endif %}
     </table>
 </div>
-{% include "return_links.html" with profile_id=person.id %}
+{% include "return_links.html" with person=person profile_id=person.id %}
 {% endblock %}
