@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^thank-you', ThankYouView.as_view()),
     ## main pages
     url(r'^$', ResultsView.as_view(), name='index'),
-    url(r'^contact/$', ContactView.as_view()),
+    url(r'^contact/$', ContactView.as_view(), name='contact'),
     url(r'^report-outdated/$', ReportOutdatedView.as_view()),
     url(r'^report-update-mine/$', ReportUpdateMineView.as_view()),
     url(r'^report-update/$', ReportUpdateView.as_view()),
