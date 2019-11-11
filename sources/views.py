@@ -366,7 +366,7 @@ class ReportUpdateMineView(View):
                 - the problem then is how we store it separately from the live one
                 - e.g. subclass model to hold it then, if approved, push the changes to the original?
         """
-        return render(request, 'contact.html')
+        return render(request, 'thank-you.html')
 
 
 class ReportUpdateView(View):
