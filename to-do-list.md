@@ -136,9 +136,9 @@
 		* other (explain)
 	* types (open in a menu?)
 		* someone else, so let us know what's out date and/or submitted updated info
-			* also include a link to the other type in case they ended up in the wrong place?
-			* prepopulate profile id when they come from a profile
-				* make that readonly or editable?
+			* DONE also include a link to the other type in case they ended up in the wrong place
+			* DONE prepopulate profile id when they come from a profile
+				* make that readonly or editable? hide ID, show name
 		* me, so send magic link to update profile
 	* TODO fix styling
 		* horizontal alignment of "return to db" and "report"
