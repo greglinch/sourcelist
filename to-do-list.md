@@ -4,8 +4,34 @@
 
 # To-do for development
 
+* make language mandatory
+
+* flag outdated profiles
+	* on a profile, click to report outdated
+	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
+
+* how to handle ratings?
+	* require Journalist profile
+		* they'll need to confirm their email
+		* admin then vets them like a source
+	* added directly on the person or added in their own model and then you choose a user to attach it to?
+		* it will be an option (within 1 hour, within 6 hours, within 12 hour, within 1 day, more than 1 day)
+	* ManyToManyField? (only show ones added by that user)
+	* use a mgmt cmd to calculate?
+
+* donate link to Patreon
+	* Mollie will set up the page
+	* add link to main menu
+
 * FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
 	* see work started on add-id-to-urls-with-redirect branch
+
+* FIX: Diverse Sources 500 error if contact form functionality doesn't work
+	* wrap in try/except
+	* use a backup account?
+
+* updates for security
+	* set up app-specific password for the settings_private
 
 * write migration to create necessary user groups
 	* name: change source and add related
@@ -128,12 +154,6 @@
 
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
-
-* how to handle ratings? 
-	* require Journalist profile?
-	* added directly on the person or added in their own model and then you choose a user to attach it to?
-	* ManyToManyField? (only show ones added by that user)
-	* use a mgmt cmd to calculate?
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -528,3 +548,5 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* update get_absolute_ur? 
 		* reverse('source', args=[self.slug, self.id])
 	* solution: change it to kwargs like in the recent view updates
+
+* DONE: set up two-factor for the gmail account
