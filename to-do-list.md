@@ -6,6 +6,8 @@
 
 * make language mandatory
 
+* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
+
 * flag outdated profiles
 	* on a profile, click to report outdated
 	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
