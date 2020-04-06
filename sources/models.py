@@ -82,7 +82,7 @@ class Person(BasicInfo):
     media_text = models.BooleanField(default=False, verbose_name=_('Text/print'))
     media_video = models.BooleanField(default=False, verbose_name=_('Video/TV'))
     middle_name = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Middle name'))
-    language = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Language'))
+    language = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Language'))
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
     notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here.'))
