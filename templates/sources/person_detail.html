@@ -48,9 +48,9 @@
 
 <script>
     $(function(){
-        var text = {% trans 'Are you experienced or interested in being a source for the following type of media?' %};
+        var text = {% blocktrans %} "Are you experienced or interested in being a source for the following type of media?}" {% endblocktrans %};
         var html = '<p>' + text + '</p>';
-        $(".mediaicon i.'fa']").hover(html);
+        $(".mediaicon").hover(html);
     });
 </script>
 
@@ -70,6 +70,8 @@
             {% endif %}
         </p>
 </div>
+
+{% include 'report_update.html' %}
 
 <div class="main-content lead">
     <table>
@@ -193,5 +195,6 @@
         {% endif %}
     </table>
 </div>
+{% include 'report_update.html' %}
 {% include "return_links.html" with person=person profile_id=person.id %}
 {% endblock %}

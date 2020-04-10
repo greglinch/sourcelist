@@ -1,17 +1,5 @@
 {% load i18n %}
 
-<style>
-    .grouping {
-        height: 35px;
-    }
-    .return-to-db {
-        float: left;
-    }
-    .report-outdated {
-        float: right;
-    }
-</style>
-
 <div class="grouping">
     <div class="return-to-db">
         <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -23,19 +11,5 @@
                 <a href="/"> {% trans 'Return to database' %}</a>
             {% endif %}
         </p>
-    </div>
-    <div class="report-outdated dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {% if 'report' in request.path %}
-            {% trans 'Choose a different report' %}
-        {% else %}
-            {% trans 'Report outdated profile' %}
-        {% endif %}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/report-update-mine?id={{ profile_id }}">{% trans 'Update your profile' %}</a>
-        <a class="dropdown-item" href="/report-update?id={{ profile_id }}">{% trans "Update someone else's profile" %}</a>
-        <a class="dropdown-item" href="/report-outdated?id={{ profile_id }}">{% trans 'Report outdated information' %}</a>
-      </div>
     </div>
 </div>
