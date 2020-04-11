@@ -30,8 +30,8 @@ def email_admin():
 
         subject = '[{}] {} sources pending approval'.format(PROJECT_NAME, unapproved_count)
         message = ''
-        sender = 'greglinch@gmail.com' # EMAIL_SENDER
-        recipients = ['diversesources@gmail.com']
+        sender = EMAIL_SENDER
+        recipients = [EMAIL_SENDER]
         html_message = '<p>The following source{} need to be reviewed:</p>{}'.format(plural, source_list_items)
 
         send_mail(
