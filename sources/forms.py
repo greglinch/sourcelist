@@ -55,8 +55,8 @@ class GeneralInfoForm(forms.Form):
         # widget=forms.TextInput(attrs={'readonly':'readonly'}),
         widget=forms.HiddenInput()
     )
-    link = forms.URLField(label=_('Link to current information'), help_text='This will help us confirm the details.')
-    explanation = forms.CharField(widget=forms.Textarea, label=_('Explanation/notes'), help_text='Any additional information you would like to share.')
+    link = forms.URLField(label=_('Link to current information'), help_text='This will help us confirm the details.', required=False)
+    explanation = forms.CharField(widget=forms.Textarea, label=_('Explanation/notes'), help_text='What are the updated details?', required=False)
 
 
 class ReportOutdatedForm(GeneralInfoForm, ContactForm):
@@ -65,55 +65,56 @@ class ReportOutdatedForm(GeneralInfoForm, ContactForm):
     message_type = None
     role = None
     # public fields
-    prefix = forms.BooleanField(label=_('Prefix'))
-    pronouns = forms.BooleanField(label=_('Pronouns'))
-    first_name = forms.BooleanField(label=_('First name'))
-    middle_name = forms.BooleanField(label=_('Middle name'))
-    last_name = forms.BooleanField(label=_('Last name'))
-    type_of_expert = forms.BooleanField(label=_('Type of expert'))
-    title = forms.BooleanField(label=_('Title'))
-    organization = forms.BooleanField(label=_('Organization'))
-    website = forms.BooleanField(label=_('Website'))
-    expertise = forms.BooleanField(label=_('Expertise'))
-    email_address = forms.BooleanField(label=_('Email address'))
-    phone_number_primary = forms.BooleanField(label=_('Phone number primary'))
-    phone_number_secondary = forms.BooleanField(label=_('Phone number secondary'))
-    skype = forms.BooleanField(label=_('Skype'))
-    twitter = forms.BooleanField(label=_('Twitter'))
-    language = forms.BooleanField(label=_('Language'))
-    timezone = forms.BooleanField(label=_('Timezone'))
-    city = forms.BooleanField(label=_('City'))
-    state = forms.BooleanField(label=_('State'))
-    country = forms.BooleanField(label=_('Country'))
-    notes = forms.BooleanField(label=_('Notes'))
-    media_audio = forms.BooleanField(label=_('Media audio'))
-    media_text = forms.BooleanField(label=_('Media text'))
-    media_video = forms.BooleanField(label=_('Media video'))
+    prefix = forms.BooleanField(label=_('Prefix'), required=False)
+    pronouns = forms.BooleanField(label=_('Pronouns'), required=False)
+    first_name = forms.BooleanField(label=_('First name'), required=False)
+    middle_name = forms.BooleanField(label=_('Middle name'), required=False)
+    last_name = forms.BooleanField(label=_('Last name'), required=False)
+    type_of_expert = forms.BooleanField(label=_('Type of expert'), required=False)
+    title = forms.BooleanField(label=_('Title'), required=False)
+    organization = forms.BooleanField(label=_('Organization'), required=False)
+    website = forms.BooleanField(label=_('Website'), required=False)
+    expertise = forms.BooleanField(label=_('Expertise'), required=False)
+    email_address = forms.BooleanField(label=_('Email address'), required=False)
+    phone_number_primary = forms.BooleanField(label=_('Phone number primary'), required=False)
+    phone_number_secondary = forms.BooleanField(label=_('Phone number secondary'), required=False)
+    skype = forms.BooleanField(label=_('Skype'), required=False)
+    twitter = forms.BooleanField(label=_('Twitter'), required=False)
+    language = forms.BooleanField(label=_('Language'), required=False)
+    timezone = forms.BooleanField(label=_('Timezone'), required=False)
+    city = forms.BooleanField(label=_('City'), required=False)
+    state = forms.BooleanField(label=_('State'), required=False)
+    country = forms.BooleanField(label=_('Country'), required=False)
+    notes = forms.BooleanField(label=_('Notes'), required=False)
+    media_audio = forms.BooleanField(label=_('Media audio'), required=False)
+    media_text = forms.BooleanField(label=_('Media text'), required=False)
+    media_video = forms.BooleanField(label=_('Media video'), required=False)
 
 
-class SubmitForm(forms.ModelForm):
-    # media_field = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=MEDIA_CHOICES) #, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.')
+# class SubmitForm(forms.ModelForm):
+#     # media_field = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=MEDIA_CHOICES) #, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.')
 
-    class Meta:
-        model = Person
-        # fields_to_use = FIELDS_PUBLIC
-        # fields_to_use.pop(-1)
-        # fields_to_use.append('media_field')
-        fields = FIELDS_PUBLIC
+#     class Meta:
+#         model = Person
+#         # fields_to_use = FIELDS_PUBLIC
+#         # fields_to_use.pop(-1)
+#         # fields_to_use.append('media_field')
+#         fields = FIELDS_PUBLIC
 
-class ReportUpdateForm(ContactForm, GeneralInfoForm, SubmitForm):
+class ReportUpdateForm(GeneralInfoForm, ContactForm):
     # remove these from ContactForm
-    # message = None
-    # message_type = None
-    # role = None
+    message = None
+    message_type = None
+    role = None
 
-    class Meta(SubmitForm.Meta):
-        fields = list(ContactForm().fields.keys()) \
-            + list(GeneralInfoForm().fields.keys()) \
-            + SubmitForm.Meta.fields
+    # class Meta:
+    #     contact_fields = list(ContactForm().fields.keys())
+    #     general_fields = list(GeneralInfoForm().fields.keys())
+    #     # import pdb; pdb.set_trace()
+    #     fields = contact_fields + general_fields
 
-    def __init__(self, *args, **kwargs):
-        super(ReportUpdateForm, self).__init__(*args, **kwargs)
-        self.fields.pop('message')
-        self.fields.pop('message_type')
-        self.fields.pop('role')
+    # def __init__(self, *args, **kwargs):
+        # super(ReportUpdateForm, self).__init__(*args, **kwargs)
+        # self.fields.pop('message')
+        # self.fields.pop('message_type')
+        # self.fields.pop('role')
