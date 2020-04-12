@@ -24,7 +24,7 @@ from sourcelist.settings import (
     GOOGLE_RECAPTCHA_SECRET_KEY,
     SITE_URL,
 )
-from sources.forms import ContactForm, ReportOutdatedForm, ReportUpdateForm
+from sources.forms import ContactForm, ReportUpdateForm, SubmitForm # ReportOutdatedForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 
@@ -215,7 +215,8 @@ class JoinView(View):
 
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
-        form = ReportUpdateForm(request.POST)
+        form = SubmitForm(request.POST)
+        import pdb; pdb.set_trace()
         ## check whether it's valid:
         if form.is_valid():
             ## extract the necessary values for sending emails
@@ -255,6 +256,9 @@ class JoinView(View):
                 return HttpResponseRedirect('/thank-you/?previous=join')
             else:
                 return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
+        # TODO fix this!!!
+        # elif:
+        #     form.errors
 
     # create a blank form
     def get(self, request, *args, **kwargs):
@@ -331,29 +335,64 @@ def RedirectSourcesURL(request):
     return redirect(reverse('index'), permanent=True)
 
 
-class ReportOutdatedView(View):
-    """ Report outdated profile information """
-    form_class = ReportOutdatedForm
+def email_admin_update_info(form_data, form_type):
+    submitter_name = form_data['name']
+    person_id = form_data['profile_id']
+    person = Person.objects.get(id=person_id)
+    person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
+    person_admin_full_url = SITE_URL + person_admin_edit_path
+    if form_type == 'checkboxes':
+        person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id' or value == True]
+        import pdb; pdb.set_trace()
+    else:
+        person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id']
+    person_info_html_string = ''.join(person_info_dict)
+    person_info_html_string += f'<p><strong>Update profile:</strong> {person_admin_full_url}</p>'
+    plain_message = None
+    send_mail(
+        'Request for update: {} from {}'.format(person, submitter_name),
+        plain_message,
+        EMAIL_SENDER,
+        [EMAIL_HOST_USER],
+        html_message=person_info_html_string,
+    )
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            # submit an email to admin
-            # TODO add modified version of ReportUpdateView
-            return HttpResponseRedirect('/thank-you/?previous=report-outdated')
-
-    def get(self, request, *args, **kwargs):
-        referral_url = self.request.META['HTTP_REFERER']
-        url_path = referral_url.replace(SITE_URL, '')
-        profile_id = re.search(r'\d+', url_path).group()  # extract first digit
-        person = Person.objects.get(id=profile_id)
-        initial_values = {'profile_id': profile_id}
-        form = self.form_class(initial=initial_values)
-        context = {
+def get_context_data_update_form(self):
+    # referral
+    try:
+        url = self.request.META['HTTP_REFERER']
+        url_path = url.replace(SITE_URL, '')
+    # direct
+    except:
+        url_path = str(self.request.get_full_path)
+    profile_id = re.search(r'\d+', url_path).group()  # extract first digit
+    person = Person.objects.get(id=profile_id)
+    initial_values = {'profile_id': profile_id}
+    form = self.form_class(initial=initial_values)
+    context = {
             'form': form,
             'person': person,
         }
-        return render(request, 'contact.html', context)
+
+    return context
+
+
+# NOTE: We' re scraping this approach for now because it's not helpful for admin
+# class ReportOutdatedView(View):
+#     """ Report outdated profile information with checkboxes """
+#     form_class = ReportOutdatedForm
+
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST)
+#         if form.is_valid():
+#             # submit an email to admin
+#             email_admin_update_info(form.cleaned_data, 'checkboxes')
+#             return HttpResponseRedirect('/thank-you/?previous=report-outdated')
+
+#     def get(self, request, *args, **kwargs):
+#         context = get_context_data_update_form(self)
+#         return render(request, 'contact.html', context)
+
 
 class ReportUpdateMineView(View):
     """ Report and update your own profile """
@@ -367,36 +406,8 @@ class ReportUpdateMineView(View):
                 - the problem then is how we store it separately from the live one
                 - e.g. subclass model to hold it then, if approved, push the changes to the original?
         """
-        return render(request, 'thank-you.html')
+        from sesame import utils
 
-
-class ReportUpdateView(View):
-    """ Report update profile information for someone else """
-    form_class = ReportUpdateForm
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form_data = form.cleaned_data
-            submitter_name = form_data['name']
-            person_id = form_data['profile_id']
-            person = Person.objects.get(id=person_id)
-            person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
-            person_admin_full_url = SITE_URL + person_admin_edit_path
-            person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id']
-            person_info_html_string = ''.join(person_info_dict)
-            person_info_html_string += f'<p><strong>Update profile:</strong> {person_admin_full_url}</p>'
-            plain_message = None
-            send_mail(
-                'Request for update: {} from {}'.format(person, submitter_name),
-                plain_message,
-                EMAIL_SENDER,
-                [EMAIL_HOST_USER],
-                html_message=person_info_html_string,
-            )
-            return HttpResponseRedirect('/thank-you/?previous=report-update')
-
-    def get(self, request, *args, **kwargs):
         # referral
         try:
             url = self.request.META['HTTP_REFERER']
@@ -406,10 +417,25 @@ class ReportUpdateView(View):
             url_path = str(self.request.get_full_path)
         profile_id = re.search(r'\d+', url_path).group()  # extract first digit
         person = Person.objects.get(id=profile_id)
-        initial_values = {'profile_id': profile_id}
-        form = self.form_class(initial=initial_values)
-        context = {
-            'form': form,
-            'person': person,
-        }
+        ## django-sesame bits for magic link
+        # user = User.objects.get(email=email_address)
+        # login_token = utils.get_query_string(user) ## using their URL
+        login_token = utils.get_parameters(person) ## making your own URL
+        login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token'])
+        import pdb; pdb.set_trace()
+        return HttpResponseRedirect('/thank-you/?previous=report-update-mine')
+
+
+class ReportUpdateView(View):
+    """ Report update profile information for someone else """
+    form_class = ReportUpdateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email_admin_update_info(form.cleaned_data)
+            return HttpResponseRedirect('/thank-you/?previous=report-update')
+
+    def get(self, request, *args, **kwargs):
+        context = get_context_data_update_form(self)
         return render(request, 'contact.html', context)
