@@ -48,7 +48,7 @@ def email_user(email_address, status):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     confirm_url = '{}/confirmation/{}/{}'.format(
         SITE_URL,
-        uid.decode(),
+        uid,
         confirm_token
     )
 
