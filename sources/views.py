@@ -24,7 +24,7 @@ from sourcelist.settings import (
     GOOGLE_RECAPTCHA_SECRET_KEY,
     SITE_URL,
 )
-from sources.forms import ContactForm, ReportOutdatedForm, ReportUpdateForm, SubmitForm
+from sources.forms import ContactForm, ReportOutdatedForm, ReportUpdateForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 
@@ -215,7 +215,7 @@ class JoinView(View):
 
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
-        form = SubmitForm(request.POST)
+        form = ReportUpdateForm(request.POST)
         ## check whether it's valid:
         if form.is_valid():
             ## extract the necessary values for sending emails
@@ -338,7 +338,8 @@ class ReportOutdatedView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # TODO submit an email to admin
+            # submit an email to admin
+            # TODO add modified version of ReportUpdateView
             return HttpResponseRedirect('/thank-you/?previous=report-outdated')
 
     def get(self, request, *args, **kwargs):
@@ -376,12 +377,33 @@ class ReportUpdateView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # TODO submit an email to admin
+            form_data = form.cleaned_data
+            submitter_name = form_data['name']
+            person_id = form_data['profile_id']
+            person = Person.objects.get(id=person_id)
+            person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
+            person_admin_full_url = SITE_URL + person_admin_edit_path
+            person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id']
+            person_info_html_string = ''.join(person_info_dict)
+            person_info_html_string += f'<p><strong>Update profile:</strong> {person_admin_full_url}</p>'
+            plain_message = None
+            send_mail(
+                'Request for update: {} from {}'.format(person, submitter_name),
+                plain_message,
+                EMAIL_SENDER,
+                [EMAIL_HOST_USER],
+                html_message=person_info_html_string,
+            )
             return HttpResponseRedirect('/thank-you/?previous=report-update')
 
     def get(self, request, *args, **kwargs):
-        referral_url = self.request.META['HTTP_REFERER']
-        url_path = referral_url.replace(SITE_URL, '')
+        # referral
+        try:
+            url = self.request.META['HTTP_REFERER']
+            url_path = url.replace(SITE_URL, '')
+        # direct
+        except:
+            url_path = str(self.request.get_full_path)
         profile_id = re.search(r'\d+', url_path).group()  # extract first digit
         person = Person.objects.get(id=profile_id)
         initial_values = {'profile_id': profile_id}
