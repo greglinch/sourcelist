@@ -147,6 +147,9 @@
 	* TODO handle when there's no REFERRER
 		* currently throws an exception, yikes!
 
+* report updated profile: allow admin to click a url w/ params in it to update the admin change form
+	* will likely need to override the default view so it grabs params from the URL, such as https://stackoverflow.com/a/49463287/217955
+
 * ? Create images with Python PIL and Pillow and write text on them ?
 	https://code-maven.com/create-images-with-python-pil-pillow
 
