@@ -4,6 +4,28 @@
 
 # To-do for development
 
+* add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
+	* reasons
+		* inaccurate
+		* imposter
+		* offensive
+		* other (explain)
+	* DONE types (open in a menu?)
+		* someone else, so let us know what's out date and/or submitted updated info
+			* DONE also include a link to the other type in case they ended up in the wrong place
+			* DONE prepopulate profile id when they come from a profile
+				* make that readonly or editable? hide ID, show name
+		* me, so send magic link to update profile
+	* DONE fix styling
+		* horizontal alignment of "return to db" and "report"
+		* "report button" dropdown missing example styling
+		* input checkboxes should appear to the right of the label
+	* DONE handle when there's no REFERRER
+		* currently throws an exception, yikes!
+
+* report updated profile: allow admin to click a url w/ params in it to update the admin change form
+	* will likely need to override the default view so it grabs params from the URL, such as https://stackoverflow.com/a/49463287/217955
+
 * FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
 	* see work started on add-id-to-urls-with-redirect branch
 
@@ -127,28 +149,6 @@
 
 {% endblock %}
 ```
-
-* (v2?) add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
-	* reasons
-		* inaccurate
-		* imposter
-		* offensive
-		* other (explain)
-	* types (open in a menu?)
-		* someone else, so let us know what's out date and/or submitted updated info
-			* DONE also include a link to the other type in case they ended up in the wrong place
-			* DONE prepopulate profile id when they come from a profile
-				* make that readonly or editable? hide ID, show name
-		* me, so send magic link to update profile
-	* TODO fix styling
-		* horizontal alignment of "return to db" and "report"
-		* "report button" dropdown missing example styling
-		* input checkboxes should appear to the right of the label
-	* TODO handle when there's no REFERRER
-		* currently throws an exception, yikes!
-
-* report updated profile: allow admin to click a url w/ params in it to update the admin change form
-	* will likely need to override the default view so it grabs params from the URL, such as https://stackoverflow.com/a/49463287/217955
 
 * ? Create images with Python PIL and Pillow and write text on them ?
 	https://code-maven.com/create-images-with-python-pil-pillow
