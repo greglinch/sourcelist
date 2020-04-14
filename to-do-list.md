@@ -4,7 +4,8 @@
 
 # To-do for development
 
-* make language mandatory
+* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
+	* This is helpful for journalists who are searching for specific people to interview.
 
 * flag outdated profiles
 	* on a profile, click to report outdated
@@ -550,3 +551,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* solution: change it to kwargs like in the recent view updates
 
 * DONE: set up two-factor for the gmail account
+
+* make language mandatory
+

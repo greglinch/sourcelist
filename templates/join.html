@@ -13,15 +13,10 @@
 
 <script>
     $(function(){
-
         // media type field
         var text = {% blocktrans %} "Are you experienced or interested in being a source for the following type of media?" {% endblocktrans %};
         var html = '<h3>' + text + '</h3>';
         $("label[for*='id_media_audio']").before(html);
-
-        // add asterisk for required fields
-        $("input:required").prev().append(" *");
-
     });
 </script>
 
@@ -34,8 +29,17 @@
     <p class="explanation">{% trans 'Required fields are marked with an asterisk (*). All information will be public. Questions? <a href="faqs">Read our FAQs</a>.' %}</p>
     <form action="" method="POST">
         {% csrf_token %}
-        <!-- {{ form.errors }} -->
-        {{ form }}
+        {% if form.errors %}
+            <p>Please correct the following errors below:</p>
+            <ul class="errorlist top">
+                {% for error in form.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-fields">
+            {{ form }}
+        </div>
         <input class="btn btn-primary" type="submit" {% blocktrans %} value="Submit" {% endblocktrans %} />
     </form>
 </div>
