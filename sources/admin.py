@@ -110,7 +110,7 @@ class SourceForJournalistAdmin(admin.ModelAdmin):
 
 
 class SourceForAdminAdmin(admin.ModelAdmin):
-    fields = ['approved_by_admin', 'approved_by_user', 'declined_by_admin', 'role', 'prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'twitter', 'skype', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'entry_method', 'entry_type']
+    fields = ['approved_by_admin', 'approved_by_user', 'declined_by_admin', 'role', 'prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'twitter', 'skype', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'media_audio', 'media_text', 'media_video', 'entry_method', 'entry_type']
     list_display = ['last_name', 'first_name', 'updated', 'entry_method', 'entry_type', 'approved_by_user', 'approved_by_admin', 'declined_by_admin', 'role' ]
     list_editable = ['approved_by_admin', 'declined_by_admin']
     list_filter = ['created', 'updated', 'approved_by_user', 'approved_by_admin', 'declined_by_admin', 'entry_method', 'entry_type'] # PersonAdmin.list_filter
