@@ -216,7 +216,7 @@ class JoinView(View):
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
         form = SubmitForm(request.POST)
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         ## check whether it's valid:
         if form.is_valid():
             ## extract the necessary values for sending emails
@@ -343,7 +343,6 @@ def email_admin_update_info(form_data, form_type):
     person_admin_full_url = SITE_URL + person_admin_edit_path
     if form_type == 'checkboxes':
         person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id' or value == True]
-        import pdb; pdb.set_trace()
     else:
         person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id']
     person_info_html_string = ''.join(person_info_dict)
@@ -358,12 +357,12 @@ def email_admin_update_info(form_data, form_type):
     )
 
 def get_context_data_update_form(self):
-    # referral
     try:
+        # referral
         url = self.request.META['HTTP_REFERER']
         url_path = url.replace(SITE_URL, '')
-    # direct
     except:
+        # direct
         url_path = str(self.request.get_full_path)
     profile_id = re.search(r'\d+', url_path).group()  # extract first digit
     person = Person.objects.get(id=profile_id)
@@ -408,12 +407,12 @@ class ReportUpdateMineView(View):
         """
         from sesame import utils
 
-        # referral
         try:
+            # referral
             url = self.request.META['HTTP_REFERER']
             url_path = url.replace(SITE_URL, '')
-        # direct
         except:
+            # direct
             url_path = str(self.request.get_full_path)
         profile_id = re.search(r'\d+', url_path).group()  # extract first digit
         person = Person.objects.get(id=profile_id)
@@ -422,7 +421,7 @@ class ReportUpdateMineView(View):
         # login_token = utils.get_query_string(user) ## using their URL
         login_token = utils.get_parameters(person) ## making your own URL
         login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token'])
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         return HttpResponseRedirect('/thank-you/?previous=report-update-mine')
 
 
