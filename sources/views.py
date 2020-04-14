@@ -253,6 +253,8 @@ class JoinView(View):
                 return HttpResponseRedirect('/thank-you/?previous=join')
             else:
                 return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
+        else:
+            return render(request, 'join.html', {'form': form})
 
     # create a blank form
     def get(self, request, *args, **kwargs):
