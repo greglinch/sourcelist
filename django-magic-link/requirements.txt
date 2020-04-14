@@ -1,2 +1,1 @@
-Django==1.10.3
-django-sesame==1.2
+django-sesame==1.4

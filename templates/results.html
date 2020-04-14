@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
 
-<script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.10/datatables.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 
@@ -17,7 +17,11 @@
         $("#sources").DataTable({
             responsive: true, 
             details: true,
-            "order": [[ 1, "asc" ]]
+            "order": [[ 1, "asc" ]],
+            stateSave: true,
+            "language": {
+                "search": "Filter results:"
+            }
             // "columns":
             //     { "width": "20%" },
             //     null,
@@ -26,9 +30,6 @@
             //     null
             // ]
         });
-        /* replace 'search' with 'filter' */
-        var search_label = $("#sources_filter label");
-        search_label.html(search_label.html().replace("Search", "Filter results"));
     });
 </script>
 <div class="jumbotron">
@@ -102,12 +103,12 @@
                     {% for result in results %}
                         <tr>
                             <td>
-                                <a href="{% url 'source' slug=result.slug %}">
+                                <a href="{% url 'source' slug=result.slug pk=result.id %}">
                                     {{ result.first_name }}
                                 </a>
                             </td>
                             <td>
-                                <a href="{% url 'source' slug=result.slug %}">
+                                <a href="{% url 'source' slug=result.slug pk=result.id %}">
                                     {{ result.last_name }}
                                 </a>
                             </td>

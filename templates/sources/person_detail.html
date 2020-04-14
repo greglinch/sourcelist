@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load sources_extras %}
 
 {% block main %}
 
@@ -99,19 +100,19 @@
         {% if person.email_address %}
         <tr>
             <td class="detail-label">{% trans 'Email address' %}</td>
-            <td class="value"><a href="mailto:{{ person.email_address }}">{{ person.email_address }}</a></td>
+            <td class="value">{{ person.email_address|convert_special_characters_to_html_entities|safe }}</a></td>
         </tr>
         {% endif %}
         {% if person.phone_number_primary %}
         <tr>
             <td class="detail-label">{% trans 'Primary phone number' %}</td>
-            <td class="value">{{ person.phone_number_primary }}</td>
+            <td class="value">{{ person.phone_number_primary|convert_special_characters_to_html_entities|safe }}</td>
         </tr>
         {% endif %}
         {% if person.phone_number_secondary %}
         <tr>
             <td class="detail-label">{% trans 'Secondary phone number' %}</td>
-            <td class="value">{{ person.phone_number_secondary }}</td>
+            <td class="value">{{ person.phone_number_secondary|convert_special_characters_to_html_entities|safe }}</td>
         </tr>
         {% endif %}
         {% if person.skype %}

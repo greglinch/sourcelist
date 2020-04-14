@@ -4,7 +4,87 @@
 
 # To-do for development
 
+* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
+	* This is helpful for journalists who are searching for specific people to interview.
+
+* flag outdated profiles
+	* on a profile, click to report outdated
+	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
+
+* how to handle ratings?
+	* require Journalist profile
+		* they'll need to confirm their email
+		* admin then vets them like a source
+	* added directly on the person or added in their own model and then you choose a user to attach it to?
+		* it will be an option (within 1 hour, within 6 hours, within 12 hour, within 1 day, more than 1 day)
+	* ManyToManyField? (only show ones added by that user)
+	* use a mgmt cmd to calculate?
+
+* donate link to Patreon
+	* Mollie will set up the page
+	* add link to main menu
+
+* FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
+	* see work started on add-id-to-urls-with-redirect branch
+
+* FIX: Diverse Sources 500 error if contact form functionality doesn't work
+	* wrap in try/except
+	* use a backup account?
+
+* updates for security
+	* set up app-specific password for the settings_private
+
+* write migration to create necessary user groups
+	* name: change source and add related
+	* perms: can change person
+
+* unless it breaks auto-setup of things in Django, rename DetailView to not conflict with the class it inherits
+
+* refactor to make code better
+	* switch all URLs to use reverse()
+
+* update view for setting related user and emailing the user
+	* wrap both calls in try/except
+	* notify admin if either or both fail: single email for both
+	* see commented out code for starting point
+	* need to update thank-you template to handle more advanced messaging depending on fail_type
+
+* (in progress) Invite Sources: Link that sends emails to invite others to join
+	* Use Facebook? Twitter? Just email?
+	* store the information as a draft source object and pre-populate join form?
+
 * add a "Testimonials" style page with success stories instead of just on the about page
+
+* ??? add Patreon https://www.patreon.com/diversesources
+
+* social media display inspiration: https://www.genderavenger.com/
+	* for our FB, Tw, IG accounts
+
+* finish Spanish translation of About page
+
+* fix? user is able to see a live page when clicking "view on site" on their person page using the magic link, even if that page doesn't exist
+
+* FIX: search on mobile bc it's out of whack with social icons and hidden in the hamburger menu
+
+* change redirect after social login
+	* requires adding a step to the pipeline —- doesn't work just with logic in the template bc it doesn't know whether you're a superuser at that point
+
+* more detailed “about” on home page?
+
+* fix confirmation link issues
+	* add fields?
+		* confirmation_clicked
+		* confirmation_user_agent ???
+	* add confirm page instead of clicking link?
+	* how do TinyLetter and Mailchimp get around this? bc they just have single confirm links
+
+* IN PROGRESS:  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
+	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
+	* both in admin and on front-end forms
+	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
+
+* upgrade to Django 2.0
+	* ran into some issues, so probably best to do this in a separate repo first
 
 * FIX: width of content well of person_detail template runs over horizontally on mobile
 
@@ -16,8 +96,10 @@
 
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
-* BUG: hamburger menu doesn't collapse for responsive view `results.html` 
+* FIX BUG: hamburger menu doesn't collapse for responsive view `results.html` 
 	* work fine for all others, so probably a JS conflict
+
+* if someone has submitted and gets the "your profile already exists" prompt, give them a button to "Send me link to edit my profile"
 
 * move css to external file under static
 	* also move all inlines styles there (e.g. image width for about)
@@ -33,6 +115,14 @@
 * translating URL patterns
 	* https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#translating-url-patterns
 
+* Q: worth fixing edge case URL problems that break?
+	* if /sources/ is missing
+		* it's redundant anyway, so can probably just remove
+	* missing id, but still has extral slash: e.g. /sources//first-last
+	* url params with missing ID: e.g. /sources/first-last/?thank-you=true
+		* only breaks when ID is missing (e.g. /sources//first-last or /sources/first-last), fine when ID is there and slug is broken/missing
+		* https://diversesources.org/sources/580/rocio-acuna-hidalgo//sources/580/rocio-acuna-hidalgo/?social=true
+
 * Q: add `-e` flag for `import_csv` command to indicate whether to trigger `email_user`?
 	* DOESN'T MATTER bc mgmt cmds called in `post_save` for model
 
@@ -43,9 +133,11 @@
 	* explore adding stacked view on mobile 
 
 * abstract the column list in `results.html`, such as:
-```{% for field in field_list %}
+```
+{% for field in field_list %}
     <th>{{ field }}</th>
-{% endfor %}```
+{% endfor %}
+```
 
 * add to base.html? but make sure you can override first (e.g. with specific pages titles)
 
@@ -55,43 +147,18 @@
 {% endblock %}
 ```
 
-* (v2?) add "report this profile" link to send message on `person_detail` page template
+* (v2?) add "report this profile" link to send message on `person_detail` page template that includes the URL when sent
 	* inaccurate
 	* imposter
 	* offensive
 	* other (explain)
 
-* (v2?) send user a message with their profile and link to update if someone tries to submit a new version
-	* would that be spamming? make them click a link to send that message?
-
-* (v2?) include a confirmation link in `email_user` for admin to approve 
-
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
-
-* (v2?)  because of `post_save` and view logic, it can take a few seconds to save, so might be best to trigger a saving screen to let user know it's processing and so they don't do anything they're not supposed
-	* e.g. `$().submit()` load a screen overlay (using `z-index`?) so user can't do anything until it's done
-	* both in admin and on front-end forms
-	* NOTE: based on quick testing, it looks like we're ok because of logic to avoid duplicate emails; it just says your account is already created, check email (so not ideal but should be ok)
-
-* how to handle ratings? 
-	* require Journalist profile?
-	* added directly on the person or added in their own model and then you choose a user to attach it to?
-	* ManyToManyField? (only show ones added by that user)
-	* use a mgmt cmd to calculate?
-
-* Point domain to the static files
-	* needs to be the same exact URL structure as dynamic app
-
-* switch `ConfirmView` responses to `HttpResponseRedirect` to `\thank-you\` page with appropriate context
-
-* email analytics?
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
 	* or do those just not really matter bc will wants filters for TZ and then search whatever else?
-
-* save all the FK'ed fields on person model to flatten the data
 
 * front-end search should be additive, not start over
 	* e.g. if already one or more params, just append to query string (need to get that with JS?)
@@ -111,39 +178,7 @@
 	* and I could add validation to make sure `email_address` doesn't already exist
 	* overall, might still be easier to just use `id`
 
-* hide journo M2M fields from sources
-
-* log of which journalist has viewed a source
-
-* how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
-	* model inheritance? 
-
-* if we do front-end edit urls, change edit link from admin url to live url
-
-* Django bakery to make static files?
-	* better to simply use nginx to see caching?
-	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
-
-* search form/page
-	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
-	* https://select2.org/getting-started/basic-usage
-	* https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/
-
-* switch city, state, country, timezone, etc to FK fields?
-	* advantage: filters wouldn't show all choices for country -- just the ones available
-	* NOTE: be sure to save them on self
-
-* in admin, hide person objects from everyone unless they 
-	* approved by user
-	* approved by admin
-	* added the person
-	* are the person (based on logged in user email)
-	* are a journalist
-
 * for `person_detail`, find a way to loop thru the keys and values that have been limited by `.values()` and ordered a specific way
-
-* set up auth for Facebook
-	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 * dynamically-generated xml sitemap
 	* https://github.com/xaralis/django-static-sitemaps
@@ -158,10 +193,19 @@
 
 # QUESTIONS 
 
+* save all the FK'ed fields on person model to flatten the data?
 
 * add ('Prof.', 'Prof.'), to PREFIX_CHOICES, but then do we need all variations?
 
 * sync IDs across User and Person?
+
+* Django bakery to make static files?
+	* better to simply use nginx to see caching?
+	* https://django-bakery.readthedocs.io/en/latest/gettingstarted.html
+	* then point domain to the static files
+	* needs to be the same exact URL structure as dynamic app
+
+* email analytics?
 
 * Q: show a source the `Person` or `Source` model to edit their info?
 
@@ -198,10 +242,6 @@
 * Q: how to handle special characters in names? 
 	* e.g. https://stackoverflow.com/questions/517923/what-is-the-best-way-to-remove-accents-in-a-python-unicode-string
 
-* Q: use this for front-end search?
-	* https://gregbrown.co/projects/django-simple-search
-	* https://github.com/gregplaysguitar/django-simple-search
-
 * Q: switch email content from formatted string in a mgmt cmd to html template?
 
 * Q: add boolean to `User` list display view to indicate that they're tied to a `Person`?
@@ -222,6 +262,37 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * limit `status` choices displayed on ModelForm for `JoinView`
 	* field includes all, but we'd only want to include `added_by_self` and `added_by_other`
+
+* hide journo M2M fields from sources
+
+* log of which journalist has viewed a source
+
+* how to handle displaying `approved` (hiding for all but superuser) and `rating` (hiding to sources)?
+	* model inheritance? 
+
+* if we do front-end edit urls, change edit link from admin url to live url
+
+* include a confirmation link in `email_user` for admin to approve
+	* probably won't do bc admin must vet the user
+
+* search form/page
+	* https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
+	* https://select2.org/getting-started/basic-usage
+	* https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/
+
+* switch city, state, country, timezone, etc to FK fields?
+	* advantage: filters wouldn't show all choices for country -- just the ones available
+	* NOTE: be sure to save them on self
+
+* in admin, hide person objects from everyone unless they 
+	* approved by user
+	* approved by admin
+	* added the person
+	* are the person (based on logged in user email)
+	* are a journalist
+
+* set up auth for Facebook
+	* https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html#oauth2
 
 # COMPLETED
 
@@ -430,6 +501,9 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 		* done in apps.py
 	* add post-save method to trigger `buildwatson`
 		* done in models.py
+	* Q: use this for front-end search?
+		* https://gregbrown.co/projects/django-simple-search
+		* https://github.com/gregplaysguitar/django-simple-search
 
 * add recaptcha to contact form
 
@@ -444,4 +518,39 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 * add plus sign to template `person_detail.html` for timezone
 
 * update "return to database" to be a "return to results" if coming from a search result page
+
+* update `ConfirmView` and add `confirm.html` template to improve the confirmation experience
+
+* WONT DO: send user a message with their profile and link to update if someone tries to submit a new version
+	* would that be spamming? make them click a link to send that message?
+	* have a better, more purposeful and less spammy solution above
+
+* add custom filter for emails addresses and phone numbers to convert special characters to HTML entities as a countermeasure to simple scrapers looking for those patterns
+
+* update Twitter help text
+
+* fix "back to results" button for pagination
+	- solution: `stateSave: true,` uses local storage
+
+* fix datatables filter
+
+* upgrade Django
+
+* fix django-magic-link
+	- removed django from reqs bc it was 1.10.x
+	- didn't work properly with Django 2.1 until upgrading django-seasame from 2.1 to 2.4 in the sourcelist reqs
+
+* add ID to url to avoid duplicate or same name issues; with redirects for...
+	* SOMEWHAT DONE: messed up name goes to canonical
+	* DONE: old urls go to canonical
+	* DONE: /sources goes to homepage
+
+* FIX: 500 error when trying to "view on site" in any model
+	* update get_absolute_ur? 
+		* reverse('source', args=[self.slug, self.id])
+	* solution: change it to kwargs like in the recent view updates
+
+* DONE: set up two-factor for the gmail account
+
+* make language mandatory
 

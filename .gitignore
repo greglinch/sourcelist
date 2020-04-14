@@ -2,6 +2,9 @@ db.sqlite3
 *.pyc
 *.pyo
 .DS_Store
+misc/
+Pipfile*
 settings_private*
 sources/migrations*
 static/
+latest_export*

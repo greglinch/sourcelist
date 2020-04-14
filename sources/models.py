@@ -74,7 +74,7 @@ class Person(BasicInfo):
     email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
-    expertise = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
+    expertise = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
     # expertise = models.ManyToManyField(Expertise, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('First name'))
     last_name = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Last name'))
@@ -82,10 +82,10 @@ class Person(BasicInfo):
     media_text = models.BooleanField(default=False, verbose_name=_('Text/print'))
     media_video = models.BooleanField(default=False, verbose_name=_('Video/TV'))
     middle_name = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Middle name'))
-    language = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Language'))
+    language = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Language'))
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here.'))
+    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here. This is helpful for journalists who are searching for specific people to interview. It can also help make sure you get your unique perspective out into the world.'))
     organization = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Organization')) # , help_text=_('Comma-separated list'))
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
@@ -99,15 +99,15 @@ class Person(BasicInfo):
     slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('State/province'))
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title'))
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Title'))
     timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name=_('Time zone offset from GMT'), help_text=_('-4, 10, etc.')) ## lookup based on city/state/county combo?
-    twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol'), verbose_name=_('Twitter'))
+    twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol. Be sure to include this so we can promote you on Twitter.'), verbose_name=_('Twitter'))
     type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text=_('e.g. Biologist, Engineer, Mathematician, Sociologist, etc.'), verbose_name=_('Type of expert'))
     # underrepresented = models.BooleanField(default=False, verbose_name=_('Do you identify as a member of an underrepresented group?'))
     website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include http:// at the beginning."), verbose_name=_('Website'))
     # woman = models.BooleanField(default=False, verbose_name=_('Do you identify as a woman?''))
-    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person')
-    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person')
+    # created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person', on_delete=models.SET_NULL)
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person', on_delete=models.SET_NULL)
 
     def first_last_name(self):
         if self.middle_name:
@@ -139,8 +139,12 @@ class Person(BasicInfo):
     #     return person_dict
 
     def get_absolute_url(self):
-        """ preferred/abstract way to defin the URL """
-        return reverse('source', args=[self.slug])
+        """ preferred/abstract way to define the URL """
+        return reverse('source', kwargs={
+                'pk': self.id,
+                'slug': self.slug,
+            }
+        )
 
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
@@ -181,33 +185,14 @@ class Person(BasicInfo):
 def build_watson_search_index(sender, instance, **kwargs):
     call_command('buildwatson')
 
-# @receiver(post_save, sender=Person, dispatch_uid='send_user_added_email')
-# def send_user_added_email(sender, instance, **kwargs):
-#     ## trigger mgmt cmd to notify user they've been created and by whom
-#     email_address = instance.email_address
-#     status = instance.status
-
-#     status = instance.status
-#     status_type = status.split('_')[0]
-#     role = instance.role
-
-#     if role == 'source': # and instance.created == instance.updated:
-#         if status_type == 'added':
-#             call_command('set_related_user', email_address)
-#             if instance.entry_type == 'manual':
-#                 call_command('email_user', email_address, status)
-#         else:
-#             call_command('set_related_user', email_address)
-    ## TK TK: need a way to handle journalists role for this so it will update the User model, but not send too many emails
-
 
 class Rating(BasicInfo):
-    """ a Journalist can rate a Source each time """
+    """ a Journalist can rate a Source each time they contact one """
     # notes = models.TextField(null=True, blank=True, help_text=_('Optional'))
     rating = models.CharField(choices=RATING_CHOICES, null=True, blank=True, max_length=255)
     ## these are FK to allow for multiples -- not just one
-    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating')
-    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating')
+    created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_rating', on_delete=models.SET_NULL)
+    related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_rating', on_delete=models.SET_NULL)
 
     def __str__(self):
         return '{} {} {}'.format(self.prefix, self.first_name, self.last_name)
@@ -219,7 +204,7 @@ class Rating(BasicInfo):
 
 
 # class Journalist(Person):
-#     """ people who use the Sources """
+#     """ people who contact the Sources """
 
 #     class Meta:
 #         proxy = True

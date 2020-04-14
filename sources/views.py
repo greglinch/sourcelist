@@ -1,22 +1,31 @@
+import json
+import urllib
+
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.management import call_command
-from django.http import HttpResponse, HttpResponseRedirect#, Http404
-from django.shortcuts import render # , redirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
+from django.urls import reverse
 from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode, urlencode
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 from django.views import View
-from django.views.generic.detail import DetailView #, ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
-from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, EMAIL_HOST_USER, GOOGLE_RECAPTCHA_SECRET_KEY
+
+from sourcelist.settings import (
+    PROJECT_NAME,
+    EMAIL_SENDER,
+    EMAIL_HOST_USER,
+    GOOGLE_RECAPTCHA_SECRET_KEY,
+)
 from sources.forms import ContactForm, SubmitForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
-import json
-import urllib
+
 # from django.contrib.auth import login, authenticate
 # from django.contrib.sites.shortcuts import get_current_site
 # from django.template.loader import render_to_string
@@ -24,15 +33,15 @@ import urllib
 # from django.core.mail import EmailMessage
 
 
-class IndexView(View):
-    """ index page """
+# class IndexView(View):
+#     """ index page """
 
-    def get(self, request):
-        context = {
-            'request': request,
-            'user': request.user
-        }
-        return render(request, 'index.html', context)
+#     def get(self, request):
+#         context = {
+#             'request': request,
+#             'user': request.user
+#         }
+#         return render(request, 'index.html', context)
 
 
 # class AboutView(View):
@@ -47,7 +56,7 @@ class IndexView(View):
 
 
 class ConfirmView(View):
-    """ trigger mgmt cmd or, ideally, just the related function or just put the code here! """
+    """ confirmation URL for a user approving themself """
 
     def get(self, request, uidb64, token):
         try:
@@ -55,23 +64,36 @@ class ConfirmView(View):
             user = User.objects.get(pk=uid)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
-        if user is not None and account_confirmation_token.check_token(user, token):
+
+        person = Person.objects.get(email_address=user.email)
+        already_approved = person.approved_by_user
+
+        if already_approved:
+            message = _('You\'ve already been approved.')
+            success = True
+        elif user is not None and account_confirmation_token.check_token(user, token):
             ## set the Person to being approved
-            person = Person.objects.get(email_address=user.email)
             person.approved_by_user = True
             person.save()
             # user.is_active = True
             # user.save()
             # login(request, user)
             # return redirect('home')
-            output = _('Thank you for confirming your source profile.')
-            return HttpResponse(output) # Now you can view the live entry {}.').format(live_url)
+            message = _('Thank you for confirming your source profile.')
+            success = True
         else:
-            output = _('Confirmation link is invalid!')
-            return HttpResponse(output)
+            message = _('Confirmation link is invalid.') ## add --> Please <a href="/contact">contact us</a> so we can get you approved.
+            success = False
+
+        context = {
+            'request': request,
+            'message': message,
+            'success': success,
+            # 'user': request.user
+        }
 
         ## see which token the user matches
-        return render(request, 'confirmation.html', context)
+        return render(request, 'confirm.html', context)
 
 
 class ContactView(FormView):
@@ -128,33 +150,62 @@ class ContactView(FormView):
         return super().form_valid(form)
 
 
-class DetailView(DetailView):
+class PersonDetailView(DetailView):
     """ details of the Person results"""
 
     model = Person
-    # context_object_name = 'person'
 
-    def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context_object_name = 'person'
-        # context['now'] = timezone.now()
-        return context
+    def get(self, request, *args, **kwargs):
+        try:
+            source = get_object_or_404(Person, id=kwargs['pk'])
+        except KeyError:
+            source = get_object_or_404(Person, slug=kwargs['slug'])
+        try:
+            url_slug = kwargs['slug']
+            source_slug = source.slug
+        except KeyError:
+            url_slug = False
+        try:
+            url_id = kwargs['pk']
+        except:
+            url_id = False
 
-    # def get_queryset(self):
-    #     queryset = Person.objects.filter(slug=self.slug)
-    #     return queryset
+        # if there's no slug or if slug doesn't match the person slug, we'll fix
+        if not url_slug or url_slug != source_slug:
+            new_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            if len(request.GET) > 0:
+                params = urlencode(request.GET.items())
+                new_url = f'{new_url}?{params}'
+            return HttpResponsePermanentRedirect(new_url)
+        # if there's no pk/ID in the URL, we'll fix
+        elif not url_id:
+            new_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            if len(request.GET) > 0:
+                params = urlencode(request.GET.items())
+                new_url += f'{new_url}?{params}'
+            return HttpResponsePermanentRedirect(new_url)
+        else:
+            ## if it's the canonical URL
+            from django.template import loader
 
-    # def get(self, request):
-
-    #     person = Person.objects.filter(
-    #         slug=slug
-    #     ).values()
-
-    #     context = {
-    #         'person': person
-    #     }
-
-    #     return render(request, 'detail.html', context) # , {'form': form})
+            template = loader.get_template('sources/person_detail.html')
+            context = {
+                'person': source,
+            }
+            same_url = reverse('source', kwargs={
+                    'pk': source.id,
+                    'slug': source.slug,
+                },
+            )
+            return HttpResponse(template.render(context, request))
 
 
 class JoinView(View):
@@ -162,7 +213,6 @@ class JoinView(View):
 
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
-    # if request.method == 'POST':
         form = SubmitForm(request.POST)
         ## check whether it's valid:
         if form.is_valid():
@@ -179,7 +229,27 @@ class JoinView(View):
                 ## set the related user and email the source
                 call_command('set_related_user', email_address)
                 call_command('email_user', email_address, 'added')
-                # redirect to thank you page:
+                ## TK wrap in try/except and setup relevant notififcations
+                # try:
+                    # call_command('set_related_user', email_address)
+                # except:
+                    # set_related_user_failed = True
+                # try:
+                    # call_command('email_user', email_address, 'added')
+                # except:
+                    # email_user_failed = True
+                ## let admin know what failed
+                # if set_related_user_failed and email_user_failed:
+                    # fail_type = 'both'
+                # elif not set_related_user_failed and email_user_failed:
+                    # fail_type = 'related_user'
+                # elif set_related_user_failed not email_user_failed:
+                    # fail_type = 'email_user'
+                ## redirect to regular thank you page if it succeeded
+                # if set_related_user_failed or email_user_failed:
+                    # return HttpResponseRedirect('/thank-you/?previous=join&failed={fail_type}')
+                ## otherwise redirect to thank you page with message explaning
+                # else:
                 return HttpResponseRedirect('/thank-you/?previous=join')
             else:
                 return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
@@ -191,7 +261,6 @@ class JoinView(View):
 
 
 class ResultsView(View):
-# class ResultsView(ListView):
     """ search and display results"""
 
     def get(self, request):
@@ -239,11 +308,9 @@ class ThankYouView(View):
         return render(request, 'thank-you.html', context)
 
 
-class ErrorView(View):
-    """ 404 page """
-
-    def get(self, request):
-        return render(request, '404.html', context)
+def response_error_handler(request, exception):
+    return render(request, '404.html', context)
+handler404 = response_error_handler
 
 
 class PageView(DetailView):
@@ -252,7 +319,10 @@ class PageView(DetailView):
     model = Page
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(PageView, self).get_context_data(**kwargs)
         context_object_name = 'page'
         # context['now'] = timezone.now()
         return context
+
+def RedirectSourcesURL(request):
+    return redirect(reverse('index'), permanent=True)

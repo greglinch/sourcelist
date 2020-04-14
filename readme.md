@@ -306,6 +306,24 @@ Run this command to generate or re-generate the translation file:
 
 	python3 manage.py makemessages -l es
 
-Run this command to compil the translation:
+Run this command to compile the translation:
 
 	python3 manage.py compilemessages
+
+## Deploy steps
+
+In the virtualenv:
+
+1. `git checkout master`
+
+2. `git pull origin master`
+
+3. `pip3 install -r requirements.txt`
+
+4. `python3 manage.py makemigrations`
+
+5. `python3 manage.py migrate`
+
+6. `python3 manage.py buildwatson`
+
+7. `sudo systemctl restart uwsgi`

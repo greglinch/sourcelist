@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main %}
+
+<div class="jumbotron">
+    {% if success %}
+        <h1 class="display-3">{% trans 'Thanks for joining!' %}</h1>
+    {% else %}
+        <h1 class="display-3">{% trans 'Well, that did not work as expected...' %}</h1>
+    {% endif %}
+</div>
+<div class="main-content lead">
+    <p>{{ message }}</p>
+</div>
+
+{% endblock %}
