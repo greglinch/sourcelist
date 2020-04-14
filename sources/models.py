@@ -85,7 +85,7 @@ class Person(BasicInfo):
     language = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Language'))
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here.'))
+    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here. This is helpful for journalists who are searching for specific people to interview. It can also help make sure you get your unique perspective out into the world.'))
     organization = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Organization')) # , help_text=_('Comma-separated list'))
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
