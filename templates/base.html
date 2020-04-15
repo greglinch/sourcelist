@@ -85,6 +85,15 @@
               display: none;
           }
 
+          /*
+          .error-list .top li {
+
+          }*/
+          .form-fields ul.error-list li {
+              color: red;
+              /*list-style-type: none;*/
+          }
+
           .g-recaptcha {
               margin-top: 15px;
           }
@@ -113,6 +122,10 @@
 
           .navbar-brand sup {
             font-size: 50%;
+          }
+
+          .required::after {
+            content: " *";
           }
 
         </style>
