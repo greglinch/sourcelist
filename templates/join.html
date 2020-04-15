@@ -16,8 +16,8 @@
         border: 16px solid #f3f3f3; /* Light grey */
         border-top: 16px solid #3498db; /* Blue */
         border-radius: 50%;
-        width: 120px;
-        height: 120px;
+        width: 50px;
+        height: 50px;
         animation: spin 2s linear infinite;
         display: none;
     }
@@ -32,13 +32,13 @@
 <script>
     $(function(){
         // submit loader
-        $("#submit-source").click(function() {
-            $("input#submit-source").hide();
+        $("#submit-source").click(function(event) {
+            $("#submit-source").val("Submitting...");
             $(".loader").show();
             setTimeout(function(){
                 $(".loader").fadeOut();
                 $("input#submit-source").fadeIn();
-            }, 5000);
+            }, 10000);
         });
 
         // media type field
@@ -68,7 +68,8 @@
         <div class="form-fields">
             {{ form }}
         </div>
-        <input class="btn btn-primary" id="submit-source" type="submit" {% blocktrans %} value="Submit" {% endblocktrans %} />
+        <input class="btn btn-primary" id="submit-source" {% blocktrans %} value="Submit" {% endblocktrans %} />
+        {# <input class="btn btn-primary" {% blocktrans %} type="submit" value="Submit" {% endblocktrans %} /> #}
         <div class="loader"></div>
     </form>
 </div>
