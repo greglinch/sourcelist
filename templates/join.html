@@ -30,7 +30,11 @@
     <form action="" method="POST">
         {% csrf_token %}
         {% if form.errors %}
-            <p>Please correct the following errors below:</p>
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Please correct the following errors below.
+            </div>
             <ul class="errorlist top">
                 {% for error in form.errors %}
                     <li>{{ error }}</li>
