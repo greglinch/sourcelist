@@ -226,6 +226,16 @@ class JoinView(View):
             if not existing:
                 ## save the form data
                 form.save()
+                # from django.db import IntegrityError
+                # ## save the form data
+                # try:
+                #     form.save()
+                # except IntegrityError as integrity_error:
+                #     # the cases I've seen have been duplicate key and duplicate username
+                #     message = f'The following error occurred: {integrity_error}.<br>{form}'
+                # finally:
+                #     # notify the admin
+                #     send_mail()
                 ## set the related user and email the source
                 call_command('set_related_user', email_address)
                 call_command('email_user', email_address, 'added')
