@@ -17,6 +17,9 @@
         <li><a href="/join">{% trans 'Join' %}</a></li>
         <li><a href="/about">{% trans 'About' %}</a></li>
         <li><a href="/contact">{% trans 'Contact' %}</a></li>
+      {% if donate_url %}
+        <li><a href="{{ donate_url }}" target="_blank">{% trans 'Donate' %}</a></li>
+      {% endif %}
       </ul>
     <div class="nav navbar-nav navbar-right">
       <ul class="nav navbar-nav" style="float:left;">

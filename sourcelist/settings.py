@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sources.context_processor.add_global_vars',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
