@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
@@ -6,7 +7,7 @@ import random
 
 
 def set_related_user(email_address): # , person_id, user_existing
-    person = Person.personects.get(email_address=email_address) # (id=person_id)
+    person = Person.objects.get(email_address=email_address) # (id=person_id)
     # try:
     #     user_existing = User.objects.get(email=person.email_address)
     # except:
@@ -20,10 +21,11 @@ def set_related_user(email_address): # , person_id, user_existing
         user.save()
     else:
         username = '{}{}'.format(person.first_name, person.last_name).lower().replace('-','').replace('\'','').replace(' ', '')
-        user = User.objects.get(username=username) || False
-        if user:
-            # append to the string to make it unique
-            username += person.id
+        # see if someone else already has this username
+        username_exists = User.objects.filter(username=username).exists()
+        # if the username exists, append person id to make it unique
+        if username_exists:
+            username += str(person.id)
         choices = 'abcdefghijklmnopqrstuvwxyz0123456789'
         middle_choices = choices + '!@#$%^&*(-_=+)'
         password = \
