@@ -105,6 +105,7 @@ def import_csv(csv_file):
                 ## map fields from csv to Person model
                 csv_to_model_dict = {
                     'role': row['role'],
+                    'pronouns': row['pronouns'],
                     'first_name': row['first_name'],
                     'last_name': row['last_name'],
                     'type_of_expert': row['type_of_expert'],
@@ -114,21 +115,25 @@ def import_csv(csv_file):
                     'city': row['city'],
                     'state': row['state'],
                     'country': row['country'],
-                    'phone_number_primary': row['phone_primary'],
-                    'phone_number_secondary': row['phone_secondary'],
+                    'phone_number_primary': row['phone_number_primary'],
+                    'phone_number_secondary': row['phone_number_secondary'],
                     'twitter': row['twitter'],
                     'notes': row['notes'],
-                    # 'website': row['website'],
+                    'website': row['website'],
                     'prefix': row['prefix'],
-                    # 'middle_name': '',
-                    # 'language': 'English', ## m2mfield
-                    'approved_by_admin': True,
-                    'approved_by_user': True,
+                    'middle_name': row['middle_name'],
+                    'language': row['language'], ## m2mfield
+                    'approved_by_admin': False,
+                    'approved_by_user': False,
                     'entry_method': 'import',
                     'entry_type': 'automated',
                     'email_address': email_address,
                     'status': status,
                     'timezone': timezone_value,
+                    'skype': row['skype'],
+                    'media_audio': row['media_audio'],
+                    'media_text': row['media_text'],
+                    'media_video': row['media_video'],
                 }
                 create_person(csv_to_model_dict)
         # message = '\nThe following rows failed: \n\n {}'.format(failed_rows)
