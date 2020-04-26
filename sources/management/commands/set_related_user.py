@@ -6,20 +6,25 @@ import random
 
 
 def set_related_user(email_address): # , person_id, user_existing
-    obj = Person.objects.get(email_address=email_address) # (id=person_id)
+    person = Person.objects.get(email_address=email_address) # (id=person_id)
     # try:
-    #     user_existing = User.objects.get(email=obj.email_address)
+    #     user_existing = User.objects.get(email=person.email_address)
     # except:
     #     user_existing = False
-    user = obj.related_user
+    user = person.related_user
     if user:
         ## update User fields based on the Person
-        user.email = obj.email_address
-        user.first_name = obj.first_name
-        user.last_name = obj.last_name
+        user.email = person.email_address
+        user.first_name = person.first_name
+        user.last_name = person.last_name
         user.save()
     else:
-        username = '{}{}'.format(obj.first_name, obj.last_name).lower().replace('-','').replace('\'','')
+        username = '{}{}'.format(person.first_name, person.last_name).lower().replace('-','').replace('\'','').replace(' ', '')
+        # see if someone else already has this username
+        username_exists = User.objects.filter(username=username).exists()
+        # if the username exists, append person id to make it unique
+        if username_exists:
+            username += str(person.id)
         choices = 'abcdefghijklmnopqrstuvwxyz0123456789'
         middle_choices = choices + '!@#$%^&*(-_=+)'
         password = \
@@ -27,9 +32,9 @@ def set_related_user(email_address): # , person_id, user_existing
             ''.join([random.SystemRandom().choice(middle_choices) for i in range(23)]) + \
             ''.join([random.SystemRandom().choice(choices) for i in range(1)])
         user = User.objects.create_user(username, password=password)
-        user.email = obj.email_address
-        user.first_name = obj.first_name
-        user.last_name = obj.last_name
+        user.email = person.email_address
+        user.first_name = person.first_name
+        user.last_name = person.last_name
         user.save()
         ## add new User to a group
         # try:
@@ -46,10 +51,10 @@ def set_related_user(email_address): # , person_id, user_existing
             ## email to admin?
         ## associate the new User with the new Person
         # try:
-        obj.related_user = user
-        obj.save()
+        person.related_user = user
+        person.save()
         # except:
-        #     message = 'unable to associate {} with {}'.format(user_existing, obj)
+        #     message = 'unable to associate {} with {}'.format(user_existing, person)
             ## email to admin?
 
 class Command(BaseCommand):
