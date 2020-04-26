@@ -4,12 +4,21 @@
 
 # To-do for development
 
-* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
-	* This is helpful for journalists who are searching for specific people to interview.
+* Update thank you page language
+	* Currently: 
+		* Your profile already exists. If you need to change any details, search your email for the initial message and click on the link to update the profile.
+	* Future:
+		* Give them a link to click that sends a link to update their profile. 
+		(or say)
+		* We've alerted the site admin that you have updated profile information.
 
 * flag outdated profiles
 	* on a profile, click to report outdated
 	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
+
+* avoid failures for longer-running tasks
+	* e.g. add task queue (Django celery), multithread or subprocess, etc.
+	* use for join submissions, sending emails to user and admin, search engine update, etc
 
 * how to handle ratings?
 	* require Journalist profile
@@ -545,12 +554,14 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* DONE: old urls go to canonical
 	* DONE: /sources goes to homepage
 
-* FIX: 500 error when trying to "view on site" in any model
+* fix 500 error when trying to "view on site" in any model
 	* update get_absolute_ur? 
 		* reverse('source', args=[self.slug, self.id])
 	* solution: change it to kwargs like in the recent view updates
 
-* DONE: set up two-factor for the gmail account
+* set up two-factor for the gmail account
 
 * make language mandatory
 
+* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
+	* This is helpful for journalists who are searching for specific people to interview.
