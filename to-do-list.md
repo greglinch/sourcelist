@@ -103,6 +103,10 @@
 
 * automatically send nudge message to user after X days to remind them they need to confirm their profile
 
+* automatically message source (one year after joining?) to make any updates to their profile if needed
+
+* add multi-faceted filters for source criteria
+
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
 * FIX BUG: hamburger menu doesn't collapse for responsive view `results.html` 
