@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.urls import path
 
+from sourcelist.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 from sources.views import (
     ConfirmView,
     ContactView,
@@ -33,3 +35,8 @@ urlpatterns = [
     path('sources/<int:pk>/<slug:slug>/', PersonDetailView.as_view(), name='source'),
     url(r'^sitemap\.xml$', SitemapView.as_view()),
 ]
+
+if DEBUG:
+    urlpatterns.extend(
+        static(MEDIA_URL, document_root=MEDIA_ROOT)
+    )
