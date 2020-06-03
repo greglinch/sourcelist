@@ -137,15 +137,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_ROOT_PATH
-MEDIA_URL = '/media/'
-MEDIA_ROOT = MEDIA_ROOT_PATH
 
-# STATICFILES_DIRS = (
-#     # Put strings here, like "/home/html/static" or "C:/www/django/static".
-#     # Don't forget to use absolute paths, not relative paths.
-#     MEDIA_ROOT_PATH,
-# )
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Don't forget to use absolute paths, not relative paths.
+    STATIC_ROOT_PATH,
+)
 
 # Python social auth 
 AUTHENTICATION_BACKENDS = (

@@ -182,9 +182,9 @@ class Person(BasicInfo):
             image_location = generate_image_from_text(
                 self.id,
                 self.email_address,
-                'email'
+                'email_address'
             )
-            self.email_address_image = image_location
+            # self.email_address_image = image_location
         # PHONE NUMBER PRIMARY IMAGE
         phone_number_primary_doesnt_match = self.__original_phone_number_primary != self.phone_number_primary
         phone_number_primary_exists_without_image = self.phone_number_primary and not self.phone_number_primary_image
@@ -192,19 +192,19 @@ class Person(BasicInfo):
             image_location = generate_image_from_text(
                 self.id,
                 self.phone_number_primary,
-                'phon1'
+                'phone_number_primary'
             )
-            self.phone_number_primary_image = image_location
+            # self.phone_number_primary_image = image_location
         # PHONE NUMBER SECONDARD IMAGE
         phone_number_secondary_doesnt_match = self.__original_phone_number_primary != self.phone_number_primary
-        phone_number_secondary_exists_without_image = self.phone_number_primary and not self.phone_number_primary_image
+        phone_number_secondary_exists_without_image = self.phone_number_secondary and not self.phone_number_primary_image
         if phone_number_secondary_doesnt_match or phone_number_secondary_exists_without_image:
             image_location = generate_image_from_text(
                 self.id,
                 self.phone_number_secondary,
-                'phone2'
+                'phone_number_secondary'
             )
-            self.phone_number_secondary_image = image_location
+            # self.phone_number_secondary_image = image_location
         return super(Person, self).save(*args, **kwargs)
 
     def __str__(self):
