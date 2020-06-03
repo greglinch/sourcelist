@@ -75,7 +75,7 @@ class Person(BasicInfo):
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True, blank=False, verbose_name=_('Country'))
     declined_by_admin = models.BooleanField(default=False, verbose_name=_('Declined'))
     email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
-    email_address_image = models.ImageField(null=True, blank=True, upload_to='images/email/')
+    email_address_image = models.CharField(null=True, blank=True, max_length=255)
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
     expertise = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
@@ -93,9 +93,9 @@ class Person(BasicInfo):
     organization = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Organization')) # , help_text=_('Comma-separated list'))
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
-    phone_number_primary_image = models.ImageField(null=True, blank=True, upload_to='images/phone1/')
+    phone_number_primary_image = models.CharField(null=True, blank=True, max_length=255)
     phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name=_('Secondary phone number'))
-    phone_number_secondary_image = models.ImageField(null=True, blank=True, upload_to='images/phone2/')
+    phone_number_secondary_image = models.CharField(null=True, blank=True, max_length=255)
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True, verbose_name=_('Prefix'))
     pronouns = models.CharField(null=True, blank=True, max_length=255, help_text=_('e.g. she/her, they/their, etc.'), verbose_name=_('Pronouns')) ## switch to ManyToManyField? # help_text=_('Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.))
     rating = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Rating')) ## switch rating to ManyToManyField?
@@ -184,7 +184,7 @@ class Person(BasicInfo):
                 self.email_address,
                 'email_address'
             )
-            # self.email_address_image = image_location
+            self.email_address_image = image_location
         # PHONE NUMBER PRIMARY IMAGE
         phone_number_primary_doesnt_match = self.__original_phone_number_primary != self.phone_number_primary
         phone_number_primary_exists_without_image = self.phone_number_primary and not self.phone_number_primary_image
@@ -194,7 +194,7 @@ class Person(BasicInfo):
                 self.phone_number_primary,
                 'phone_number_primary'
             )
-            # self.phone_number_primary_image = image_location
+            self.phone_number_primary_image = image_location
         # PHONE NUMBER SECONDARD IMAGE
         phone_number_secondary_doesnt_match = self.__original_phone_number_primary != self.phone_number_primary
         phone_number_secondary_exists_without_image = self.phone_number_secondary and not self.phone_number_primary_image
@@ -204,7 +204,7 @@ class Person(BasicInfo):
                 self.phone_number_secondary,
                 'phone_number_secondary'
             )
-            # self.phone_number_secondary_image = image_location
+            self.phone_number_secondary_image = image_location
         return super(Person, self).save(*args, **kwargs)
 
     def __str__(self):
