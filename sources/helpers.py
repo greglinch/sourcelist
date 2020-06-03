@@ -36,6 +36,6 @@ def generate_image_from_text(source_id, text_content, field_name):
     image.save(image_location)
 
     # only the part we want
-    image_location = image_location.split('/static/')[1]
+    image_location = image_location.replace(STATIC_ROOT_PATH, '')
 
     return image_location
