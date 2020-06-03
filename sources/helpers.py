@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 
-from sourcelist.settings import MEDIA_ROOT
+from sourcelist.settings import STATIC_ROOT
 
 
 search_customizations = {
@@ -31,7 +31,8 @@ def generate_image_from_text(source_id, text_content, field_name):
     font = ImageFont.truetype('/System/Library/Fonts/Helvetica.ttc', 21)
     drawn_image = ImageDraw.Draw(image)
     drawn_image.text((0,0), text_content, font=font, fill=(0,0,0))
-    image_location = f'{MEDIA_ROOT}images/{field_name}/{source_id}.png'
+    # STATIC_ROOT includes a trailing slash
+    image_location = f'{STATIC_ROOT}images/{field_name}/{source_id}.png'
     image.save(image_location)
 
     return image_location
