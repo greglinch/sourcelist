@@ -4,6 +4,9 @@
 
 # To-do for development
 
+* double click (or clip copy icon) to copy phone number / email address
+	* calls a GET request for this so it's not on the page?
+
 * Update thank you page language
 	* Currently: 
 		* Your profile already exists. If you need to change any details, search your email for the initial message and click on the link to update the profile.
