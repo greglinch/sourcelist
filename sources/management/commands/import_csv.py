@@ -54,9 +54,9 @@ def import_csv(csv_file):
     message = start_message
     print(message)
 
-    row_count = sum(1 for row in csv_reader)
-    message = 'Total number of rows: {}\t'.format(row_count)
-    print(message)
+    # row_count = sum(1 for row in csv_reader) # need to assign this
+    # message = 'Total number of rows: {}\t'.format(row_count)
+    # print(message)
     successful_rows = 0
     failed_rows = 0
 
