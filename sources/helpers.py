@@ -1,3 +1,8 @@
+from PIL import Image, ImageDraw, ImageFont
+
+from sourcelist.settings import SITE_FONT_PATH, STATIC_ROOT_PATH
+
+
 search_customizations = {
     ## The name of the variable to contain the list of results (default 'search_results')
     # 'context_object_name': '',
@@ -18,3 +23,19 @@ search_customizations = {
     ## The name of the template used to render the search results (default 'watson/search_results.html')
     'template_name': 'results.html',
 }
+
+
+def generate_image_from_text(source_id, text_content, field_name):
+    # 250 for phone numbers is probably enough
+    image = Image.new('RGB', (500, 25), color=(255,255,255))
+    font = ImageFont.truetype(SITE_FONT_PATH, 21)
+    drawn_image = ImageDraw.Draw(image)
+    drawn_image.text((0,0), text_content, font=font, fill=(0,0,0))
+    # STATIC_ROOT_PATH includes a trailing slash
+    image_location = f'{STATIC_ROOT_PATH}images/{field_name}/{source_id}.png'
+    image.save(image_location)
+
+    # only the part we want
+    image_location = image_location.replace(STATIC_ROOT_PATH, '')
+
+    return image_location
