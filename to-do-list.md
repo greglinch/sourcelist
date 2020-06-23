@@ -4,6 +4,11 @@
 
 # To-do for development
 
+* fix timezone import issue
+	* it doesn't work as expected given the current logic re: isinstance()
+
+* insert call command for set_related_user when a source is created in the admin
+
 * double click (or clip copy icon) to copy phone number / email address
 	* calls a GET request for this so it's not on the page?
 
@@ -18,6 +23,8 @@
 * flag outdated profiles
 	* on a profile, click to report outdated
 	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
+
+* add prompt in import_csv asking whether you want to send confirmation email
 
 * avoid failures for longer-running tasks
 	* e.g. add task queue (Django celery), multithread or subprocess, etc.
@@ -572,3 +579,6 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
 	* This is helpful for journalists who are searching for specific people to interview.
+
+* add a prompt to check if import_csv mgmt cmd should send user confirmation email
+

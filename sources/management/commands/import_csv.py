@@ -38,13 +38,16 @@ def create_person(row_num, failed_rows, data_dict):
         call_command('set_related_user', email_address)
     except:
         message = 'Set related user: ' + str(sys.exc_info())
-    #     print(message)
-    # if not TEST_ENV:
-        # try:
-        #     call_command('email_user', email_address, status)
-        # except:
-        #     message = 'Email user:' + str(sys.exc_info())
-        #     print(message)
+        print(message)
+    if TEST_ENV:
+        send_user_email = input('Do you want to send user confirmation email? T/F ')
+        if 'T' in send_user_email:
+            try:
+                print('This is when it would send')
+                # call_command('email_user', email_address, status)
+            except:
+                message = 'Email user:' + str(sys.exc_info())
+                print(message)
 
 
 def import_csv(csv_file):
