@@ -312,11 +312,13 @@ Run this command to compile the translation:
 
 ## Deploy steps
 
+TODO: Write a fabric script to do this.
+
 In the virtualenv:
 
-1. `git checkout master`
+1. `git checkout main`
 
-2. `git pull origin master`
+2. `git pull origin main`
 
 3. `pip3 install -r requirements.txt`
 
