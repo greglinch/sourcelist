@@ -383,11 +383,10 @@ def get_context_data_update_form(self):
             'form': form,
             'person': person,
         }
-
     return context
 
 
-# NOTE: We' re scraping this approach for now because it's not helpful for admin
+# NOTE: We' re scrapping this approach for now because it's not helpful for admin
 # class ReportOutdatedView(View):
 #     """ Report outdated profile information with checkboxes """
 #     form_class = ReportOutdatedForm
@@ -409,12 +408,7 @@ class ReportUpdateMineView(View):
 
     def get(self, request):
         """
-        NOTES/OPTIONS
-            - send a magic link to the user
-            OR
-            - provide the join form with the existing data prefilled, which they can then update and submit
-                - the problem then is how we store it separately from the live one
-                - e.g. subclass model to hold it then, if approved, push the changes to the original?
+        Send via email a magic link to the user
         """
         from sesame import utils
 
@@ -429,10 +423,9 @@ class ReportUpdateMineView(View):
         person = Person.objects.get(id=profile_id)
         person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
         ## django-sesame bits for magic link
-        # user = User.objects.get(email=email_address)
         user = person.related_user
         # login_token = utils.get_query_string(user) ## using their URL
-        login_token = utils.get_parameters(user) ## making your own URL
+        login_token = utils.get_parameters(user) ## making our own URL
         login_link = '{}{}?method=magic&url_auth_token={}'.format(
             SITE_URL,
             person_admin_edit_path,
