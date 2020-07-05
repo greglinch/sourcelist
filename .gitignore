@@ -1,10 +1,11 @@
 db.sqlite3
+*.csv
 *.pyc
 *.pyo
 .DS_Store
 misc/
 Pipfile*
-settings_private*
+settings_private.py
 sources/migrations*
 static/
 latest_export*
