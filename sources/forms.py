@@ -1,7 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from sources.models import Person
-# from sources.choices import MEDIA_CHOICES
 
 
 FIELDS_PUBLIC = ['prefix', 'pronouns', 'first_name', 'middle_name', 'last_name', 'type_of_expert', 'title', 'organization', 'website', 'expertise', 'email_address', 'phone_number_primary', 'phone_number_secondary', 'skype', 'twitter', 'language', 'timezone', 'city', 'state', 'country', 'notes', 'media_audio', 'media_text', 'media_video']
@@ -21,6 +20,14 @@ ROLE_CHOICES = (
     ('source', _('Expert')),
     ('journalist', _('Journalist')),
     ('other', _('Other')),
+)
+
+REASON_CHOICES = (
+    (None, '------'),
+    ('inaccurate', 'Inaccurate'),
+    ('imposter', 'Imposter'),
+    ('offensive', 'Offensive'),
+    ('other', 'Other'),
 )
 
 
@@ -57,6 +64,7 @@ class GeneralInfoForm(forms.Form):
     )
     link = forms.URLField(label=_('Link to current information'), help_text='This will help us confirm the details.', required=False)
     explanation = forms.CharField(widget=forms.Textarea, label=_('Explanation/notes'), help_text='What are the updated details?', required=False)
+    reason = forms.ChoiceField(choices=REASON_CHOICES)
 
 
 # class ReportOutdatedForm(GeneralInfoForm, ContactForm):
@@ -107,6 +115,8 @@ class ReportUpdateForm(GeneralInfoForm, ContactForm):
     message = None
     message_type = None
     role = None
+
+    field_order = ['reason', 'name', 'email', 'link', 'explanation', 'profile_id']
 
     # class Meta:
     #     contact_fields = list(ContactForm().fields.keys())
