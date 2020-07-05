@@ -416,12 +416,29 @@ class ReportUpdateMineView(View):
             url_path = str(self.request.get_full_path)
         profile_id = re.search(r'\d+', url_path).group()  # extract first digit
         person = Person.objects.get(id=profile_id)
+        person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
         ## django-sesame bits for magic link
         # user = User.objects.get(email=email_address)
+        user = person.related_user
         # login_token = utils.get_query_string(user) ## using their URL
-        login_token = utils.get_parameters(person) ## making your own URL
-        login_link = '{}?method=magic&url_auth_token={}'.format(admin_url, login_token['url_auth_token'])
-        # import pdb; pdb.set_trace()
+        login_token = utils.get_parameters(user) ## making your own URL
+        login_link = '{}{}?method=magic&url_auth_token={}'.format(
+            SITE_URL,
+            person_admin_edit_path,
+            login_token['url_auth_token']
+        )
+        # send email
+        html_message = '''
+            <p>Thank you for requesting to update your profile on {project}. Click this link to make any changes (and be sure to click "save" when you're finished):</p>
+            <p><a href="{link}">{link}<a></p>
+        '''.format(project=PROJECT_NAME, link=login_link)
+        send_mail(
+            '[{}] Link to update your profile'.format(PROJECT_NAME),
+            '', # plain message
+            EMAIL_SENDER,
+            [person.email_address],
+            html_message=html_message,
+        )
         return HttpResponseRedirect('/thank-you/?previous=report-update-mine')
 
 
@@ -432,7 +449,7 @@ class ReportUpdateView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            email_admin_update_info(form.cleaned_data)
+            email_admin_update_info(form.cleaned_data, 'text')
             return HttpResponseRedirect('/thank-you/?previous=report-update')
 
     def get(self, request, *args, **kwargs):
