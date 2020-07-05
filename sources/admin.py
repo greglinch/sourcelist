@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from sourcelist.settings import SITE_URL
+from django.urls import reverse
+
+from sourcelist.settings import SITE_URL, EMAIL_HOST_USER, EMAIL_SENDER
 from .models import Expertise, Person, Language, Organization, SourceForJournalist, SourceForAdmin, Page # Location,
 
 
@@ -80,6 +82,24 @@ class PersonAdmin(admin.ModelAdmin):
             if not obj.entry_method:
                 obj.entry_method = 'admin-form'
         # obj.status = status
+        if request.user == obj.related_user:
+            from django.core.mail import send_mail
+
+            admin_url = reverse('admin:sources_sourceforadmin_change', args=(obj.id,))
+            full_url = SITE_URL + admin_url
+
+            html_message = '''
+                <p>The following profile has been updated. Please review it:</p>
+                <p><a href="{url}">{url}</a></p>
+            '''.format(url=full_url)
+
+            send_mail(
+                '[Updated profile notice] {} has updated their data'.format(obj),
+                '', # plain message
+                EMAIL_SENDER,
+                [EMAIL_HOST_USER],
+                html_message=html_message
+            )
 
         ## save
         super(PersonAdmin, self).save_model(request, obj, form, change)
