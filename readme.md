@@ -77,67 +77,9 @@ Install the requirements
 
 	pip3 install -r requirements.txt
 
-Add the private settings file
+Create the private settings file and fill in the vars with "UPDATE" comments
 
-	vim sourcelist/settings_private.py
-
-Paste the following (and fill all the `UPDATE` vars)
-
-	## private settings
-
-	SECRET_KEY = '' # UPDATE
-
-	ALLOWED_HOSTS = [
-	    # local
-	    '127.0.0.1',
-	    # prod
-	    '', # UPDATE
-	    # test
-	    '', # UPDATE
-	]
-	INTERNAL_IPS = ['127.0.0.1']
-
-	## for local and test servers
-	TEST_ENV = True
-	## for prod server
-	# TEST_ENV = False
-
-	## project info
-
-	PROJECT_NAME = '' # UPDATE
-	EMAIL_SENDER = '' # UPDATE
-	SITE_URL = '' # UPDATE
-
-	## database
-	db_engine = ''  # UPDATE
-	db_name = '' # UPDATE
-	db_user = '' # UPDATE
-	db_password = '' # UPDATE
-	db_host = '' # UPDATE
-	db_port = '' # UPDATE
-
-	## email
-	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-	EMAIL_HOST = # UPDATE
-	EMAIL_PORT = # UPDATE
-	EMAIL_HOST_USER = '' # UPDATE
-	EMAIL_HOST_PASSWORD = '' # UPDATE
-	EMAIL_USE_TLS = True
-	DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-	## social auth
-	SOCIAL_AUTH_PASSWORDLESS = True
-	SOCIAL_AUTH_ALWAYS_ASSOCIATE = True
-
-	SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '' # UPDATE
-	SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '' # UPDATE
-
-	SOCIAL_AUTH_TWITTER_KEY = '' # UPDATE 
-	SOCIAL_AUTH_TWITTER_SECRET = '' # UPDATE
-
-	# SOCIAL_AUTH_FACEBOOK_KEY = '' # UPDATE
-	# SOCIAL_AUTH_FACEBOOK_SECRET = '' # UPDATE
-	# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+	mv sourcelist/settings_private.py.dev sourcelist/settings_private.py
 
 Initial migration for admin tables
 
@@ -312,11 +254,13 @@ Run this command to compile the translation:
 
 ## Deploy steps
 
+TODO: Write a fabric script to do this.
+
 In the virtualenv:
 
-1. `git checkout master`
+1. `git checkout main`
 
-2. `git pull origin master`
+2. `git pull origin main`
 
 3. `pip3 install -r requirements.txt`
 
