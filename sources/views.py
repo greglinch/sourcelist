@@ -216,7 +216,6 @@ class JoinView(View):
     ## process the submitted form data
     def post(self, request, *args, **kwargs):
         form = SubmitForm(request.POST)
-        # import pdb; pdb.set_trace()
         ## check whether it's valid:
         if form.is_valid():
             ## extract the necessary values for sending emails
