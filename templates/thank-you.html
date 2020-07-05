@@ -7,12 +7,10 @@
         <h1 class="display-3">{% trans 'Thank you!' %}</h1>
     </div>
 
-    {% if 'report-update-mine' in request.path %}
+    {% if previous == 'report-update-mine' %}
         <p>{% trans 'Please check your email for a message that includes a link to update your profile.' %}</p>
         <p>{% trans 'If you no longer have access to that email account or have any other questions, please ' %}<a href="{% url 'contact' %}">{% trans 'contact us' %}</a>.</p>
-    {% endif %}
-
-    {% if 'report' in previous %}
+    {% elif previous == 'report-update' %}
         <p>{% trans 'We will will review your report as soon as possible and contact you if we have any follow up questions.' %}</p>
     {% elif previous == 'join' %}
         <p>{% trans 'Please check your email and confirm your profile for it to appear on the site.' %}</p>
