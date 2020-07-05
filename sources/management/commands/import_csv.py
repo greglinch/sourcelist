@@ -11,17 +11,15 @@ from sourcelist.settings import TEST_ENV
 from sources.models import Person
 
 
-def create_person(counter, failed_rows, data_dict):
+def create_person(row_num, failed_rows, data_dict):
     """
     Create a Person in the system as part of the import process. Works for
     both import file types.
     """
     email_address = data_dict['email_address']
     # check if the person already exists:
-    try:
-        exists = Person.objects.get(email_address=email_address)
-        counter -= 1
-    except:
+    person_exists = Person.objects.filter(email_address=email_address).exists()
+    if person_exists == False:
         try:
             obj, created = Person.objects.update_or_create(**data_dict)
         except Exception as e:
@@ -40,13 +38,16 @@ def create_person(counter, failed_rows, data_dict):
         call_command('set_related_user', email_address)
     except:
         message = 'Set related user: ' + str(sys.exc_info())
-    #     print(message)
-    # if not TEST_ENV:
-        # try:
-        #     call_command('email_user', email_address, status)
-        # except:
-        #     message = 'Email user:' + str(sys.exc_info())
-        #     print(message)
+        print(message)
+    if TEST_ENV:
+        send_user_email = input('Do you want to send user confirmation email? T/F ')
+        if 'T' in send_user_email:
+            try:
+                print('This is when it would send')
+                # call_command('email_user', email_address, status)
+            except:
+                message = 'Email user:' + str(sys.exc_info())
+                print(message)
 
 
 def import_csv(csv_file):
@@ -56,18 +57,17 @@ def import_csv(csv_file):
     message = start_message
     print(message)
 
-    # row_count = sum(1 for row in csv_reader)
-    # message = 'Number of rows: {}\t'.format(row_count)
+    # row_count = sum(1 for row in csv_reader) # need to assign this
+    # message = 'Total number of rows: {}\t'.format(row_count)
     # print(message)
-    counter = 0
+    successful_rows = 0
     failed_rows = 0
 
     # TODO: make this less hacky/kludgy and improve error handling + reporting
     if 'latest_export.csv' in csv_file:
         with open(csv_file, 'r') as file:
             reader = csv.DictReader(file)
-            for row in reader:
-                counter += 1
+            for row_num, row in enumerate(reader):
                 row_as_dict = dict(row)
                 now = str(timezone.now())
                 # we never want to use the old related user id bc a new one needs to be made
@@ -84,27 +84,32 @@ def import_csv(csv_file):
                 if row_as_dict['rating_avg'] == '':
                     row_as_dict.pop('rating_avg')
                 try:
-                    create_person(counter, failed_rows, row_as_dict)
+                    create_person(row_num, failed_rows, row_as_dict)
+                    successful_rows += 1
                 except:
                     email_address = row_as_dict['email_address']
                     message = f'Failed to create a person for {email_address}. \nException: {str(sys.exc_info())}'
+                    failed_rows += 1
                     print(message)
     else:
         with open(csv_file) as file:
             csv_reader = csv.DictReader(file)
             ## loops thru the rows
-            for row in csv_reader:
-                counter += 1
+            for row_num, row in enumerate(csv_reader):
                 ## special fields
                 status = 'added_by_admin'
                 email_address = row['email_address']
-                if isinstance(row['timezone'], int):
-                    timezone_value = row['timezone']
-                else:
+                try:
+                    timezone_value = int(row['timezone'])
+                except ValueError as e:
+                    message = 'Error converting timezone to integer: {}'.format(e)
+                    print(message)
                     timezone_value = None
+                import pdb; pdb.set_trace()
                 ## map fields from csv to Person model
                 csv_to_model_dict = {
                     'role': row['role'],
+                    'pronouns': row['pronouns'],
                     'first_name': row['first_name'],
                     'last_name': row['last_name'],
                     'type_of_expert': row['type_of_expert'],
@@ -114,23 +119,31 @@ def import_csv(csv_file):
                     'city': row['city'],
                     'state': row['state'],
                     'country': row['country'],
-                    'phone_number_primary': row['phone_primary'],
-                    'phone_number_secondary': row['phone_secondary'],
+                    'phone_number_primary': row['phone_number_primary'],
+                    'phone_number_secondary': row['phone_number_secondary'],
                     'twitter': row['twitter'],
                     'notes': row['notes'],
-                    # 'website': row['website'],
+                    'website': row['website'],
                     'prefix': row['prefix'],
-                    # 'middle_name': '',
-                    # 'language': 'English', ## m2mfield
-                    'approved_by_admin': True,
-                    'approved_by_user': True,
+                    'middle_name': row['middle_name'],
+                    'language': row['language'], ## m2mfield
+                    'approved_by_admin': False,
+                    'approved_by_user': False,
                     'entry_method': 'import',
                     'entry_type': 'automated',
                     'email_address': email_address,
                     'status': status,
                     'timezone': timezone_value,
+                    'skype': row['skype'],
+                    'media_audio': row['media_audio'],
+                    'media_text': row['media_text'],
+                    'media_video': row['media_video'],
                 }
-                create_person(csv_to_model_dict)
+                try:
+                    create_person(row_num, failed_rows, csv_to_model_dict)
+                    successful_rows += 1
+                except:
+                    pass
         # message = '\nThe following rows failed: \n\n {}'.format(failed_rows)
         # print(message)
 
@@ -143,7 +156,7 @@ def import_csv(csv_file):
     message = 'Import length:\t\t {} \n'.format(import_length)
     print(message)
 
-    message = 'Imported {} rows'.format(counter)
+    message = 'Imported {} rows'.format(successful_rows)
     print(message)
     message = '{} rows failed'.format(failed_rows)
     print(message)

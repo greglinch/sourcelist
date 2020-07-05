@@ -1,0 +1,76 @@
+## private settings
+
+
+SECRET_KEY = ''
+
+ALLOWED_HOSTS = [
+    '',
+]
+INTERNAL_IPS = ['127.0.0.1']
+
+## for local and test servers
+# TEST_ENV = True
+## for prod server
+TEST_ENV = False
+
+## project info
+
+PROJECT_NAME = ''
+EMAIL_SENDER = PROJECT_NAME
+SITE_URL = ''
+
+## database
+db_engine = ''
+db_name = ''
+db_user = ''
+db_password = ''
+db_host = ''
+db_port = ''
+
+## sqlite
+# db_engine = 'django.db.backends.sqlite3',
+# db_name = os.path.join(BASE_DIR, 'db.sqlite3'),
+
+## email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+## social auth
+SOCIAL_AUTH_PASSWORDLESS = True
+SOCIAL_AUTH_ALWAYS_ASSOCIATE = True
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+
+SOCIAL_AUTH_TWITTER_KEY = ''
+SOCIAL_AUTH_TWITTER_SECRET = ''
+
+# SOCIAL_AUTH_FACEBOOK_KEY = ''
+# SOCIAL_AUTH_FACEBOOK_SECRET = ''
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+## recaptcha
+GOOGLE_RECAPTCHA_SECRET_KEY = ''
+
+## if we're on <hostname>, use the <hostname> static app
+if db_user == '':
+    STATIC_ROOT_PATH = ''
+## otherwise use the static directory
+else:
+    import os
+    # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    STATIC_ROOT_PATH = os.path.join(BASE_DIR, 'static/')
+
+ADMINS = (
+    # name, email
+    ('', ''),
+)
+SERVER_EMAIL = ''
+
+DONATE_URL = ''

@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -8,7 +9,9 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+
 from sources.choices import PERSON_CHOICES, PREFIX_CHOICES, RATING_CHOICES, STATUS_CHOICES, COUNTRY_CHOICES, ENTRY_CHOICES#, MEDIA_CHOICES
+from sources.helpers import generate_image_from_text
 
 
 class BasicInfo(models.Model):
@@ -72,6 +75,7 @@ class Person(BasicInfo):
     country = models.CharField(max_length=255, choices=COUNTRY_CHOICES, null=True, blank=False, verbose_name=_('Country'))
     declined_by_admin = models.BooleanField(default=False, verbose_name=_('Declined'))
     email_address = models.EmailField(max_length=254, null=True, blank=False, verbose_name=_('Email address'))
+    email_address_image = models.CharField(null=True, blank=True, max_length=255)
     entry_method = models.CharField(max_length=15, null=True, blank=True)
     entry_type = models.CharField(max_length=15, null=True, blank=True, default='manual')
     expertise = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Expertise'))
@@ -82,14 +86,16 @@ class Person(BasicInfo):
     media_text = models.BooleanField(default=False, verbose_name=_('Text/print'))
     media_video = models.BooleanField(default=False, verbose_name=_('Video/TV'))
     middle_name = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Middle name'))
-    language = models.CharField(max_length=255, null=True, blank=True, help_text=_('Comma-separated list'), verbose_name=_('Language'))
+    language = models.CharField(max_length=255, null=True, blank=False, help_text=_('Comma-separated list'), verbose_name=_('Language'))
     # language = models.ManyToManyField(Language)
     # location = models.ForeignKey(Location, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here.'))
+    notes = models.TextField(null=True, blank=True, verbose_name=_('Public notes'), help_text=_('If you would like to share the underrepresented group(s) you identify with, please do so here. This is helpful for journalists who are searching for specific people to interview. It can also help make sure you get your unique perspective out into the world.'))
     organization = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Organization')) # , help_text=_('Comma-separated list'))
     # organization = models.ManyToManyField(Organization, blank=True)
     phone_number_primary = models.CharField(max_length=30, null=True, blank=False, verbose_name=_('Primary phone number'), help_text=_('Ideally a cell phone'))
+    phone_number_primary_image = models.CharField(null=True, blank=True, max_length=255)
     phone_number_secondary = models.CharField(max_length=30, null=True, blank=True, verbose_name=_('Secondary phone number'))
+    phone_number_secondary_image = models.CharField(null=True, blank=True, max_length=255)
     prefix = models.CharField(choices=PREFIX_CHOICES, max_length=5, null=True, blank=True, verbose_name=_('Prefix'))
     pronouns = models.CharField(null=True, blank=True, max_length=255, help_text=_('e.g. she/her, they/their, etc.'), verbose_name=_('Pronouns')) ## switch to ManyToManyField? # help_text=_('Everyone is encouraged to enter theirs so journalists know which ones to use (e.g. she/her, they/their, etc.))
     rating = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Rating')) ## switch rating to ManyToManyField?
@@ -99,12 +105,12 @@ class Person(BasicInfo):
     slug = models.CharField(null=True, blank=True, max_length=50) # .SlugField(max_length=50)
     state = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('State/province'))
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Title'))
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name=_('Job title'), help_text='Examples: Researcher, Professor, Lab Technician, Grad Student, etc.')
     timezone = models.IntegerField(null=True, blank=False, validators=[MinValueValidator(-12),MaxValueValidator(12)], verbose_name=_('Time zone offset from GMT'), help_text=_('-4, 10, etc.')) ## lookup based on city/state/county combo?
     twitter = models.CharField(null=True, blank=True, max_length=140, help_text=_('Please do not include the @ symbol. Be sure to include this so we can promote you on Twitter.'), verbose_name=_('Twitter'))
     type_of_expert = models.CharField(max_length=255, null=True, blank=False, help_text=_('e.g. Biologist, Engineer, Mathematician, Sociologist, etc.'), verbose_name=_('Type of expert'))
     # underrepresented = models.BooleanField(default=False, verbose_name=_('Do you identify as a member of an underrepresented group?'))
-    website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include http:// at the beginning."), verbose_name=_('Website'))
+    website = models.URLField(max_length=255, null=True, blank=False, help_text=_("Please include https:// or http:// at the beginning. For example, https://linkedin.com/in/yourname"), verbose_name=_('Website'))
     # woman = models.BooleanField(default=False, verbose_name=_('Do you identify as a woman?''))
     # created_by = models.ForeignKey(User, null=True, blank=True, related_name='created_by_person', on_delete=models.SET_NULL)
     related_user = models.ForeignKey(User, null=True, blank=True, related_name='related_user_person', on_delete=models.SET_NULL)
@@ -146,6 +152,12 @@ class Person(BasicInfo):
             }
         )
 
+    def __init__(self, *args, **kwargs):
+        super(Person, self).__init__(*args, **kwargs)
+        self.__original_email_address = self.email_address
+        self.__original_phone_number_primary = self.phone_number_primary
+        self.__original_phone_number_secondary = self.phone_number_secondary
+
     def save(self, *args, **kwargs):
     #     ## avg of all ratings
     #     # self.rating_avg = # Aggregate Avg of all ratings for this user
@@ -163,7 +175,37 @@ class Person(BasicInfo):
             self.twitter = self.twitter.replace('@', '')
         if not self.entry_method:
             self.entry_method = 'site-form'
-        return super(Person, self).save(*args, **kwargs) 
+        # EMAIL ADDRESS IMAGE
+        email_address_doesnt_match = self.__original_email_address != self.email_address
+        email_address_exists_without_image = self.email_address and not self.email_address_image
+        if email_address_doesnt_match or email_address_exists_without_image:
+            image_location = generate_image_from_text(
+                self.id,
+                self.email_address,
+                'email_address'
+            )
+            self.email_address_image = image_location
+        # PHONE NUMBER PRIMARY IMAGE
+        phone_number_primary_doesnt_match = self.__original_phone_number_primary != self.phone_number_primary
+        phone_number_primary_exists_without_image = self.phone_number_primary and not self.phone_number_primary_image
+        if phone_number_primary_doesnt_match or phone_number_primary_exists_without_image:
+            image_location = generate_image_from_text(
+                self.id,
+                self.phone_number_primary,
+                'phone_number_primary'
+            )
+            self.phone_number_primary_image = image_location
+        # PHONE NUMBER SECONDARY IMAGE
+        phone_number_secondary_doesnt_match = self.__original_phone_number_secondary != self.phone_number_secondary
+        phone_number_secondary_exists_without_image = self.phone_number_secondary and not self.phone_number_secondary_image
+        if phone_number_secondary_doesnt_match or phone_number_secondary_exists_without_image:
+            image_location = generate_image_from_text(
+                self.id,
+                self.phone_number_secondary,
+                'phone_number_secondary'
+            )
+            self.phone_number_secondary_image = image_location
+        return super(Person, self).save(*args, **kwargs)
 
     def __str__(self):
         if self.prefix and self.middle_name:

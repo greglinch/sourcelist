@@ -93,6 +93,8 @@ class GeneralInfoForm(forms.Form):
 
 class SubmitForm(forms.ModelForm):
     # media_field = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=MEDIA_CHOICES) #, verbose_name='Which types of media are you interested interested or experienced in being a source?', help_text='Choose all that apply.')
+    required_css_class = 'required'
+    error_css_class = 'error'
 
     class Meta:
         model = Person

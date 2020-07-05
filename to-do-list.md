@@ -23,16 +23,54 @@
 	* DONE handle when there's no REFERRER
 		* currently throws an exception, yikes!
 
+* report updated profile: allow admin to click a url w/ params in it to update the admin change form
+	* will likely need to override the default view so it grabs params from the URL, such as https://stackoverflow.com/a/49463287/217955
+* flag outdated profiles
+	* on a profile, click to report outdated
+	* that sends an email to diversesources@gmail.com with an admin link to the profile to update
+
 * fix JoinView to add elif if form errors exist
 
 * investigate why email_user no longer needs .decode() on the uid when creating confirm_url?
 	* because it's being formatted and that handles it?
 
-* report updated profile: allow admin to click a url w/ params in it to update the admin change form
-	* will likely need to override the default view so it grabs params from the URL, such as https://stackoverflow.com/a/49463287/217955
+* LOW: insert call command for set_related_user when a source is created in the admin
+
+* double click (or clip copy icon) to copy phone number / email address
+	* calls a GET request for this so it's not on the page?
+
+* Update thank you page language
+	* Currently: 
+		* Your profile already exists. If you need to change any details, search your email for the initial message and click on the link to update the profile.
+	* Future:
+		* Give them a link to click that sends a link to update their profile. 
+		(or say)
+		* We've alerted the site admin that you have updated profile information.
+
+* add prompt in import_csv asking whether you want to send confirmation email
+
+* avoid failures for longer-running tasks
+	* e.g. add task queue (Django celery), multithread or subprocess, etc.
+	* use for join submissions, sending emails to user and admin, search engine update, etc
+
+* how to handle ratings?
+	* require Journalist profile
+		* they'll need to confirm their email
+		* admin then vets them like a source
+	* added directly on the person or added in their own model and then you choose a user to attach it to?
+		* it will be an option (within 1 hour, within 6 hours, within 12 hour, within 1 day, more than 1 day)
+	* ManyToManyField? (only show ones added by that user)
+	* use a mgmt cmd to calculate?
 
 * FIX issue with duplicates and redirects; fixed bc deleted dupes on prod
 	* see work started on add-id-to-urls-with-redirect branch
+
+* FIX: Diverse Sources 500 error if contact form functionality doesn't work
+	* wrap in try/except
+	* use a backup account?
+
+* updates for security
+	* set up app-specific password for the settings_private
 
 * write migration to create necessary user groups
 	* name: change source and add related
@@ -102,6 +140,10 @@
 
 * automatically send nudge message to user after X days to remind them they need to confirm their profile
 
+* automatically message source (one year after joining?) to make any updates to their profile if needed
+
+* add multi-faceted filters for source criteria
+
 * BUG: required asterisk not appearing in `join` form for `country` although it's required
 
 * FIX BUG: hamburger menu doesn't collapse for responsive view `results.html` 
@@ -160,12 +202,6 @@
 
 * (v2?) write error module to abstract error messages for `except` statements
 	* send to G, M or both? or an admin email Google group
-
-* how to handle ratings? 
-	* require Journalist profile?
-	* added directly on the person or added in their own model and then you choose a user to attach it to?
-	* ManyToManyField? (only show ones added by that user)
-	* use a mgmt cmd to calculate?
 
 * Q: add `_raw` `CharField`s for `org`, `expertise`, `language`, etc and then have admin update the related `M2Mfield`s in admin based on that, which will be what's used for filtering?
 	* or figure out a way for submissions to choose/add instead of just only choose (`M2M` displayed) or only add (`CharField` displayed)
@@ -556,7 +592,24 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 	* DONE: old urls go to canonical
 	* DONE: /sources goes to homepage
 
-* FIX: 500 error when trying to "view on site" in any model
+* fix 500 error when trying to "view on site" in any model
 	* update get_absolute_ur? 
 		* reverse('source', args=[self.slug, self.id])
 	* solution: change it to kwargs like in the recent view updates
+
+* set up two-factor for the gmail account
+
+* make language mandatory
+
+* add text in front of the last text insert thing that tells experts why it's important to self-identify their "underrepresented-ness"
+	* This is helpful for journalists who are searching for specific people to interview.
+
+* add a prompt to check if import_csv mgmt cmd should send user confirmation email
+
+* donate link to Patreon
+	* Mollie will set up the page
+	* add link to main menu
+ 
+* fix timezone import issue
+	* it doesn't work as expected given the current logic re: isinstance()
+

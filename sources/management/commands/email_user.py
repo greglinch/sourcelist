@@ -46,6 +46,12 @@ def email_user(email_address, status):
     ## confirmation url (for both user and admin?)
     confirm_token = account_confirmation_token.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
+    # necessary for prod
+    try:
+        uid = uid.decode()
+    # this has only been observed locally
+    except AttributeError:
+        pass
     confirm_url = '{}/confirmation/{}/{}'.format(
         SITE_URL,
         uid,
