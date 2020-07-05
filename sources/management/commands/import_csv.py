@@ -99,10 +99,13 @@ def import_csv(csv_file):
                 ## special fields
                 status = 'added_by_admin'
                 email_address = row['email_address']
-                if isinstance(row['timezone'], int):
-                    timezone_value = row['timezone']
-                else:
+                try:
+                    timezone_value = int(row['timezone'])
+                except ValueError as e:
+                    message = 'Error converting timezone to integer: {}'.format(e)
+                    print(message)
                     timezone_value = None
+                import pdb; pdb.set_trace()
                 ## map fields from csv to Person model
                 csv_to_model_dict = {
                     'role': row['role'],
