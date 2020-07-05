@@ -4,8 +4,6 @@
 
 # To-do for development
 
-* send admin details of what changed when someone updates their profile
-
 * fix JoinView to add elif if form errors exist
 
 * investigate why email_user no longer needs .decode() on the uid when creating confirm_url?
@@ -617,3 +615,4 @@ https://docs.djangoproject.com/en/1.11/ref/forms/api/#checking-which-form-data-h
 
 * send admin an email whenever a user changes their profile
 
+* send admin details of what changed when someone updates their profile

@@ -82,16 +82,23 @@ class PersonAdmin(admin.ModelAdmin):
             if not obj.entry_method:
                 obj.entry_method = 'admin-form'
         # obj.status = status
-        if request.user == obj.related_user:
+        if request.user == obj.related_user and change:
             from django.core.mail import send_mail
 
             admin_url = reverse('admin:sources_sourceforadmin_change', args=(obj.id,))
             full_url = SITE_URL + admin_url
 
+            updated_fields_list = [f'<li>{item}</li>' for item in form.changed_data]
+            updated_fields = ''.join(updated_fields_list)
+
             html_message = '''
                 <p>The following profile has been updated. Please review it:</p>
                 <p><a href="{url}">{url}</a></p>
-            '''.format(url=full_url)
+                <Here's what changed:</p>
+                <ul>
+                    {updates}
+                </ul>
+            '''.format(url=full_url, updates=updated_fields)
 
             send_mail(
                 '[Updated profile notice] {} has updated their data'.format(obj),
