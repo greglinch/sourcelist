@@ -101,11 +101,12 @@
         <tr>
             <td class="detail-label">{% trans 'Email address' %}</td>
             <td class="value">
-            {% if person.email_address_image %}
+            {{ person.email_address|convert_special_characters_to_html_entities|safe }}
+            {# {% if person.email_address_image %}
                 <img src="/static/{{ person.email_address_image }}" />
             {% else %}
-                {{ person.email_address|convert_special_characters_to_html_entities|safe }}</a>
-            {% endif %}
+                {{ person.email_address|convert_special_characters_to_html_entities|safe }}
+            {% endif %} #}
             </td>
         </tr>
         {% endif %}
@@ -113,11 +114,12 @@
         <tr>
             <td class="detail-label">{% trans 'Primary phone number' %}</td>
             <td class="value">
-            {% if person.phone_number_primary_image %}
+            {{ person.phone_number_primary|convert_special_characters_to_html_entities|safe }}
+            {# {% if person.phone_number_primary_image %}
                 <img src="/static/{{ person.phone_number_primary_image }}" />
             {% else %}
                 {{ person.phone_number_primary|convert_special_characters_to_html_entities|safe }}
-            {% endif %}
+            {% endif %} #}
             </td>
         </tr>
         {% endif %}
@@ -125,11 +127,12 @@
         <tr>
             <td class="detail-label">{% trans 'Secondary phone number' %}</td>
             <td class="value">
-            {% if person.phone_number_secondary_image %}
+            {{ person.phone_number_secondary|convert_special_characters_to_html_entities|safe }}
+            {# {% if person.phone_number_secondary_image %}
                 <img src="/static/{{ person.phone_number_secondary_image }}" />
             {% else %}
                 {{ person.phone_number_secondary|convert_special_characters_to_html_entities|safe }}
-            {% endif %}
+            {% endif %} #}
             </td>
         </tr>
         {% endif %}
