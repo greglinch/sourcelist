@@ -1,11 +1,15 @@
 {% load i18n %}
 
-<div class="return-to-db">
-    <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        {% if '?' in request.META.HTTP_REFERER %}
-            <a href="{{ request.META.HTTP_REFERER }}"> {% trans 'Return to results' %}</a>
-        {% else %}
-            <a href="/"> {% trans 'Return to database' %}</a>
-        {% endif %}
-    </p>
+<div class="grouping">
+    <div class="return-to-db">
+        <p><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            {% if 'report' in request.path %}
+                <a href="{% url 'source' pk=person.id slug=person.slug %}"> {% trans 'Return to profile' %}</a>
+            {% elif '?' in request.META.HTTP_REFERER %}
+                <a href="{{ request.META.HTTP_REFERER }}"> {% trans 'Return to results' %}</a>
+            {% else %}
+                <a href="/"> {% trans 'Return to database' %}</a>
+            {% endif %}
+        </p>
+    </div>
 </div>

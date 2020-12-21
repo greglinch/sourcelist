@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 # from django.utils import timezone
 from sources.models import Person
-from sourcelist.settings import PROJECT_NAME, EMAIL_SENDER, SITE_URL
+from sourcelist.settings import PROJECT_NAME, EMAIL_HOST_USER, EMAIL_SENDER, SITE_URL
 
 
 def email_admin():
@@ -30,8 +30,8 @@ def email_admin():
 
         subject = '[{}] {} sources pending approval'.format(PROJECT_NAME, unapproved_count)
         message = ''
-        sender = 'greglinch@gmail.com' # EMAIL_SENDER
-        recipients = ['diversesources@gmail.com']
+        sender = EMAIL_SENDER
+        recipients = [EMAIL_HOST_USER]
         html_message = '<p>The following source{} need to be reviewed:</p>{}'.format(plural, source_list_items)
 
         send_mail(
