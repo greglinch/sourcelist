@@ -2,7 +2,7 @@ certifi==2017.7.27.1
 chardet==3.0.4
 defusedxml==0.5.0
 Django==2.2.20
-django-debug-toolbar==1.8
+django-debug-toolbar==1.11.1
 django-sesame==1.4
 django-watson==1.5.1
 future==0.16.0
