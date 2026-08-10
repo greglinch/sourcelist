@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="report-outdated dropdown btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle btn-primary" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    {% if 'report' in request.path %}
+      {% trans 'Choose a different report' %}
+    {% else %}
+      <span class="glyphicon glyphicon-flag"></span>
+      {% trans 'Report outdated profile' %}
+    {% endif %}
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="/report-update-mine?id={{ profile_id }}">{% trans 'Update your profile' %}</a></li>
+    <li><a class="dropdown-item" href="/report-update?id={{ profile_id }}">{% trans "Update someone else's profile" %}</a></li>
+    {% comment %}
+    <li><a class="dropdown-item" href="/report-outdated?id={{ profile_id }}">{% trans 'Report outdated information' %}</a></li>
+    {% endcomment %}
+  </ul>
+</div>
