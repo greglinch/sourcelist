@@ -1,5 +1,6 @@
 import json
 import urllib
+import re
 
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -21,8 +22,9 @@ from sourcelist.settings import (
     EMAIL_SENDER,
     EMAIL_HOST_USER,
     GOOGLE_RECAPTCHA_SECRET_KEY,
+    SITE_URL,
 )
-from sources.forms import ContactForm, SubmitForm
+from sources.forms import ContactForm, ReportUpdateForm, SubmitForm # ReportOutdatedForm
 from sources.models import Page, Person
 from sources.tokens import account_confirmation_token
 
@@ -263,6 +265,9 @@ class JoinView(View):
                 return HttpResponseRedirect('/thank-you/?previous=join')
             else:
                 return HttpResponseRedirect('/thank-you/?previous=join&existing=True')
+        # TODO fix this!!!
+        # elif:
+        #     form.errors
         else:
             return render(request, 'join.html', {'form': form})
 
@@ -336,5 +341,121 @@ class PageView(DetailView):
         # context['now'] = timezone.now()
         return context
 
+
 def RedirectSourcesURL(request):
     return redirect(reverse('index'), permanent=True)
+
+
+def email_admin_update_info(form_data, form_type):
+    submitter_name = form_data['name']
+    person_id = form_data['profile_id']
+    person = Person.objects.get(id=person_id)
+    person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
+    person_admin_full_url = SITE_URL + person_admin_edit_path
+    if form_type == 'checkboxes':
+        person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id' or value == True]
+    else:
+        person_info_dict = [f'<p><strong>{key.title()}</strong>: {value}</p>' for key, value in form_data.items() if key != 'profile_id']
+    person_info_html_string = ''.join(person_info_dict)
+    person_info_html_string += f'<p><strong>Update profile:</strong> {person_admin_full_url}</p>'
+    plain_message = None
+    send_mail(
+        'Request for update: {} from {}'.format(person, submitter_name),
+        plain_message,
+        EMAIL_SENDER,
+        [EMAIL_HOST_USER],
+        html_message=person_info_html_string,
+    )
+
+def get_context_data_update_form(self):
+    try:
+        # referral
+        url = self.request.META['HTTP_REFERER']
+        url_path = url.replace(SITE_URL, '')
+    except:
+        # direct
+        url_path = str(self.request.get_full_path)
+    profile_id = re.search(r'\d+', url_path).group()  # extract first digit
+    person = Person.objects.get(id=profile_id)
+    initial_values = {'profile_id': profile_id}
+    form = self.form_class(initial=initial_values)
+    context = {
+            'form': form,
+            'person': person,
+        }
+    return context
+
+
+# NOTE: We' re scrapping this approach for now because it's not helpful for admin
+# class ReportOutdatedView(View):
+#     """ Report outdated profile information with checkboxes """
+#     form_class = ReportOutdatedForm
+
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST)
+#         if form.is_valid():
+#             # submit an email to admin
+#             email_admin_update_info(form.cleaned_data, 'checkboxes')
+#             return HttpResponseRedirect('/thank-you/?previous=report-outdated')
+
+#     def get(self, request, *args, **kwargs):
+#         context = get_context_data_update_form(self)
+#         return render(request, 'contact.html', context)
+
+
+class ReportUpdateMineView(View):
+    """ Report and update your own profile """
+
+    def get(self, request):
+        """
+        Send via email a magic link to the user
+        """
+        from sesame import utils
+
+        try:
+            # referral
+            url = self.request.META['HTTP_REFERER']
+            url_path = url.replace(SITE_URL, '')
+        except:
+            # direct
+            url_path = str(self.request.get_full_path)
+        profile_id = re.search(r'\d+', url_path).group()  # extract first digit
+        person = Person.objects.get(id=profile_id)
+        person_admin_edit_path = reverse('admin:sources_person_change', args=(person.id,))
+        ## django-sesame bits for magic link
+        user = person.related_user
+        # login_token = utils.get_query_string(user) ## using their URL
+        login_token = utils.get_parameters(user) ## making our own URL
+        login_link = '{}{}?method=magic&url_auth_token={}'.format(
+            SITE_URL,
+            person_admin_edit_path,
+            login_token['url_auth_token']
+        )
+        # send email
+        html_message = '''
+            <p>Thank you for requesting to update your profile on {project}. Click this link to make any changes (and be sure to click "save" when you're finished):</p>
+            <p><a href="{link}">{link}<a></p>
+        '''.format(project=PROJECT_NAME, link=login_link)
+        send_mail(
+            '[{}] Link to update your profile'.format(PROJECT_NAME),
+            '', # plain message
+            EMAIL_SENDER,
+            [person.email_address],
+            html_message=html_message,
+        )
+        return HttpResponseRedirect('/thank-you/?previous=report-update-mine')
+
+
+class ReportUpdateView(View):
+    """ Report update profile information for someone else """
+    form_class = ReportUpdateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email_admin_update_info(form.cleaned_data, 'text')
+            return HttpResponseRedirect('/thank-you/?previous=report-update')
+
+    def get(self, request, *args, **kwargs):
+        context = get_context_data_update_form(self)
+        return render(request, 'contact.html', context)
